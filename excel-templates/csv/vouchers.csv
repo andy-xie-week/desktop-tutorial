@@ -1,0 +1,9 @@
+id,nameEn,nameAr,brandId,brandName,subBrandId,subBrandName,priceBefore,priceAfter,vat,priority,outOfStock,status,startTime,endTime
+4001,Netflix 1 Month,نتفليكس شهر واحد,2001,Netflix,3001,Netflix Premium,50.00,57.50,7.50,1,No,Enable,,
+4002,Netflix 3 Months,نتفليكس 3 أشهر,2001,Netflix,3001,Netflix Premium,140.00,161.00,21.00,2,No,Enable,,
+4003,Starbucks $10,ستاربكس 10 دولار,2002,Starbucks,3003,Starbucks Reserve,10.00,11.50,1.50,1,No,Enable,,
+4004,Amazon $25,أمازون 25 دولار,2003,Amazon,3004,Amazon Prime,25.00,28.75,3.75,1,Yes,Disable,,
+4005,Spotify 1 Month,سبوتيفاي شهر واحد,2004,Spotify,3005,Spotify Premium,12.00,13.80,1.80,1,No,Scheduled,2026-04-10 00:00,2026-04-30 23:59
+4006,Starbucks $25,ستاربكس 25 دولار,2002,Starbucks,3003,Starbucks Reserve,25.00,28.75,3.75,2,No,Enable,,
+4007,Amazon $50,أمازون 50 دولار,2003,Amazon,3004,Amazon Prime,50.00,57.50,7.50,2,No,Enable,,
+4008,Spotify 6 Months,سبوتيفاي 6 أشهر,2004,Spotify,3005,Spotify Premium,65.00,74.75,9.75,2,No,Enable,,

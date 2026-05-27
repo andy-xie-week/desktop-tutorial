@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Marketplace Management Portal v3.0 - Fixed</title>
+    <style>
+        /* Debug banner removed */
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: #f0f2f5; display: flex; min-height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar { width: 240px; background: #1a2332; flex-shrink: 0; display: flex; flex-direction: column; position: fixed; height: 100vh; overflow-y: auto; }
+        .sidebar-header { padding: 20px; color: #fff; font-size: 18px; font-weight: 700; border-bottom: 1px solid #243044; }
+        .sidebar-header span { color: #4fc3f7; }
+        .sidebar-menu { list-style: none; padding: 10px 0; }
+        .sidebar-menu li { margin: 2px 0; }
+        .sidebar-menu a { display: block; padding: 12px 20px; color: #8fa8c8; text-decoration: none; font-size: 14px; transition: all 0.2s; border-left: 3px solid transparent; cursor: pointer; }
+        .sidebar-menu a:hover { background: #243044; color: #fff; }
+        .sidebar-menu a.active { background: #243044; color: #fff; border-left-color: #1890ff; }
+        
+        /* Dropdown Menu */
+        .menu-parent { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; color: #8fa8c8; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+        .menu-parent:hover { background: #243044; color: #fff; }
+        .menu-parent.expanded { color: #fff; background: #243044; }
+        .menu-icon { font-size: 12px; transition: transform 0.3s; }
+        .menu-icon.rotated { transform: rotate(90deg); }
+        .submenu { list-style: none; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .submenu.expanded { max-height: 400px; }
+        .submenu a { padding-left: 40px; font-size: 13px; }
+        
+        /* Main Content */
+        .main-content { flex: 1; margin-left: 240px; display: flex; flex-direction: column; }
+        
+        /* Page Header */
+        .page-header { background: #fff; padding: 16px 24px; border-bottom: 1px solid #e8e8e8; }
+        .page-header-title { font-size: 16px; font-weight: 600; color: #1a2332; margin-bottom: 4px; }
+        .page-header-subtitle { font-size: 12px; color: #888; }
+        
+        /* Content Area */
+        .content { flex: 1; padding: 20px 24px; overflow-y: auto; }
+        .page-container { display: none; }
+        .page-container.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Search Panel */
+        .search-panel { background: #fff; border: 1px solid #e8e8e8; border-radius: 4px; padding: 20px; margin-bottom: 16px; }
+        .search-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 0; }
+        .search-grid + .search-grid { margin-top: 16px; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { font-size: 12px; color: #666; margin-bottom: 8px; font-weight: 500; }
+        .form-group input, .form-group select { padding: 0 12px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 13px; outline: none; transition: all 0.2s; height: 36px; background: #fff; }
+        .form-group input:focus, .form-group select:focus { border-color: #1890ff; box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1); }
+        .form-group input[disabled] { background: #f5f5f5; color: #999; cursor: not-allowed; }
+        
+        /* Action Bar - Search/Reset on right, Add on left */
+        .action-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .action-left { display: flex; gap: 8px; }
+        .action-right { display: flex; gap: 8px; }
+        
+        /* Buttons */
+        .btn { height: 34px; padding: 0 16px; border-radius: 4px; font-size: 13px; cursor: pointer; border: 1px solid #d9d9d9; background: #fff; color: #333; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+        .btn:hover { border-color: #1890ff; color: #1890ff; }
+        .btn-primary { background: #1890ff; border-color: #1890ff; color: #fff; }
+        .btn-primary:hover { background: #40a9ff; border-color: #40a9ff; }
+        .btn-search { background: #1890ff; border-color: #1890ff; color: #fff; min-width: 80px; justify-content: center; }
+        .btn-search:hover { background: #40a9ff; border-color: #40a9ff; }
+        .btn-reset { background: #fff; border: 1px solid #d9d9d9; color: #666; }
+        .btn-reset:hover { border-color: #1890ff; color: #1890ff; }
+        
+        /* Table Panel */
+        .table-panel { background: #fff; border: 1px solid #e8e8e8; border-radius: 4px; overflow: hidden; }
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        thead th { background: #fafafa; padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; color: #555; border-bottom: 1px solid #e8e8e8; white-space: nowrap; }
+        tbody tr { border-bottom: 1px solid #f0f0f0; transition: background 0.2s; }
+        tbody tr:hover { background: #f5f8ff; }
+        tbody td { padding: 14px 16px; font-size: 13px; color: #333; }
+        
+        /* Tags & Badges */
+        .tag { display: inline-block; padding: 3px 10px; border-radius: 3px; font-size: 11px; font-weight: 500; }
+        .tag-green { background: #f6ffed; color: #52c41a; border: 1px solid #b7eb8f; }
+        .tag-red { background: #fff1f0; color: #f5222d; border: 1px solid #ffa39e; }
+        .tag-blue { background: #e6f7ff; color: #1890ff; border: 1px solid #91d5ff; }
+        .tag-orange { background: #fff7e6; color: #fa8c16; border: 1px solid #ffd591; }
+        .tag-gray { background: #fafafa; color: #999; border: 1px solid #d9d9d9; }
+        
+        /* Icon Buttons */
+        .icon-btns { display: flex; gap: 6px; justify-content: center; }
+        .icon-btn { width: 26px; height: 26px; border-radius: 4px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #1890ff; transition: all 0.2s; }
+        .icon-btn:hover { background: #e6f7ff; }
+        .icon-btn.del { color: #f5222d; }
+        .icon-btn.del:hover { background: #fff1f0; }
+        .icon-btn.edit { color: #1890ff; }
+        .icon-btn.view { color: #52c41a; }
+        
+        /* Pagination */
+        .pagination { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid #f0f0f0; font-size: 12px; color: #666; }
+        .pg-left { display: flex; align-items: center; gap: 6px; }
+        .pg-btn { min-width: 28px; height: 28px; padding: 0 8px; border: 1px solid #d9d9d9; border-radius: 4px; background: #fff; cursor: pointer; font-size: 12px; color: #333; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .pg-btn:hover { border-color: #1890ff; color: #1890ff; }
+        .pg-btn.active { background: #1890ff; border-color: #1890ff; color: #fff; }
+        .pg-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        /* Modal */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.45); }
+        .modal.active { display: flex; align-items: center; justify-content: center; }
+        .modal-content { background-color: #fff; margin: 0; border-radius: 8px; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.3); animation: slideDown 0.3s; }
+        @keyframes slideDown { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-header { padding: 16px 20px; border-bottom: 1px solid #e8e8e8; display: flex; justify-content: space-between; align-items: center; background: #fafafa; border-radius: 8px 8px 0 0; }
+        .modal-title { font-size: 16px; font-weight: 600; color: #1a2332; }
+        .modal-close { color: #999; font-size: 22px; font-weight: bold; cursor: pointer; transition: color 0.2s; line-height: 1; background: none; border: none; }
+        .modal-close:hover { color: #333; }
+        .modal-body { padding: 20px; }
+        .modal-footer { padding: 14px 20px; border-top: 1px solid #e8e8e8; display: flex; justify-content: flex-end; gap: 10px; background: #fafafa; border-radius: 0 0 8px 8px; }
+        
+        /* Image Upload */
+        .image-upload-wrapper { display: flex; gap: 12px; align-items: flex-start; }
+        .image-upload-btn { padding: 6px 12px; background: #1890ff; color: #fff; border: none; border-radius: 4px; font-size: 12px; cursor: pointer; transition: background 0.2s; }
+        .image-upload-btn:hover { background: #40a9ff; }
+        .image-preview { max-width: 80px; max-height: 80px; border: 1px solid #e8e8e8; border-radius: 4px; object-fit: contain; }
+        .image-preview-placeholder { width: 80px; height: 80px; border: 2px dashed #d9d9d9; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 11px; text-align: center; padding: 8px; }
+        input[type="file"] { display: none; }
+        
+        /* Toggle Switch */
+        .toggle-switch { position: relative; display: inline-block; width: 40px; height: 22px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: 0.3s; border-radius: 22px; }
+        .toggle-slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%; }
+        .toggle-switch input:checked + .toggle-slider { background-color: #52c41a; }
+        .toggle-switch input:checked + .toggle-slider:before { transform: translateX(18px); }
+        
+        /* Priority Controls */
+        .priority-controls { display: flex; align-items: center; gap: 6px; }
+        .priority-btn { width: 22px; height: 22px; border: none; background: #f0f0f0; border-radius: 4px; cursor: pointer; font-size: 11px; color: #666; transition: all 0.2s; }
+        .priority-btn:hover:not(:disabled) { background: #1890ff; color: #fff; }
+        .priority-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        
+        /* No Data */
+        .no-data { text-align: center; color: #999; padding: 40px 12px; font-size: 13px; }
+        
+        /* Required Field */
+        .required { color: #ff4d4f; margin-left: 4px; }
+        
+        /* Form Row */
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .search-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; height: auto; position: relative; }
+            .main-content { margin-left: 0; }
+            .search-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .action-bar { flex-direction: column; gap: 12px; align-items: flex-start; }
+        }
+        
+        /* Status Badge */
+        .status-badge { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 4px; font-size: 11px; font-weight: 500; }
+        .status-badge.enable { background: #f6ffed; color: #52c41a; }
+        .status-badge.disable { background: #fff1f0; color: #f5222d; }
+        .status-badge.scheduled { background: #e6f7ff; color: #1890ff; }
+        
+        /* MDR Change */
+        .mdr-up { color: #52c41a; font-weight: 600; }
+        .mdr-down { color: #f5222d; font-weight: 600; }
+        
+        /* Checkbox */
+        input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header"><span>Marketplace</span> Portal</div>
+        <ul class="sidebar-menu">
+            <li>
+                <div class="menu-parent expanded" id="marketplace-parent" onclick="toggleMarketplaceMenu()">
+                    <span>Marketplace Management</span>
+                    <span class="menu-icon rotated">▶</span>
+                </div>
+                <ul class="submenu expanded" id="marketplace-submenu">
+                    <li><a class="nav-link active" data-page="category-management" onclick="showPage('category-management')">Category Management</a></li>
+                    <li><a class="nav-link" data-page="brand-configuration" onclick="showPage('brand-configuration')">Brand Management</a></li>
+                    <li><a class="nav-link" data-page="sub-brand-configuration" onclick="showPage('sub-brand-configuration')">Sub-brand Management</a></li>
+                    <li><a class="nav-link" data-page="voucher-configuration" onclick="showPage('voucher-configuration')">Voucher Management</a></li>
+                    <li><a class="nav-link" data-page="price-change-history" onclick="showPage('price-change-history')">Price Change History</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Debug Banner -->
+        <div class="debug-banner" id="debugBanner">Loading data... v3.0</div>
+        
+        <!-- Page Header -->
+        <div class="page-header" style="margin-top: 35px;">
+            <div class="page-header-title" id="page-title">Category Management</div>
+            <div class="page-header-subtitle" id="page-subtitle">Manage product categories for the marketplace</div>
+        </div>
+        
+        <div class="content">
+            <!-- Page 1: Category Management -->
+            <div id="category-management" class="page-container active">
+                <div class="search-panel">
+                    <div class="search-grid">
+                        <div class="form-group">
+                            <label>Category ID</label>
+                            <input type="text" id="searchCategoryId" placeholder="Enter Category ID">
+                        </div>
+                        <div class="form-group">
+                            <label>Category Name (EN)</label>
+                            <input type="text" id="searchCategoryNameEn" placeholder="Enter English Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Category Name (AR)</label>
+                            <input type="text" id="searchCategoryNameAr" placeholder="Enter Arabic Name">
+                        </div>
+                    </div>
+                    <div class="search-grid" style="grid-template-columns: repeat(3, 1fr);">
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="searchCategoryStatus">
+                                <option value="">All</option>
+                                <option value="Enable">Enable</option>
+                                <option value="Disable">Disable</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="action-bar">
+                        <div class="action-left">
+                            <button class="btn btn-primary" onclick="openCategoryModal('add')">+ Add</button>
+                        </div>
+                        <div class="action-right">
+                            <button class="btn btn-search" onclick="searchCategories()">Search</button>
+                            <button class="btn btn-reset" onclick="resetCategories()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-panel">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Priority</th>
+                                    <th>Category ID</th>
+                                    <th>Category Name (EN)</th>
+                                    <th>Category Name (AR)</th>
+                                    <th>Icon (Light)</th>
+                                    <th>Icon (Dark)</th>
+                                    <th>Status</th>
+                                    <th>Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody id="categoryTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <div class="pg-left">
+                            <span id="categoryPageInfo">Showing 1-10 of 6 items</span>
+                        </div>
+                        <div class="pg-right">
+                            <button class="pg-btn" id="categoryPrev" onclick="changeCategoryPage(-1)">Previous</button>
+                            <button class="pg-btn active" id="categoryPage1" onclick="goCategoryPage(1)">1</button>
+                            <button class="pg-btn" id="categoryNext" onclick="changeCategoryPage(1)">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 2: Brand Management -->
+            <div id="brand-configuration" class="page-container">
+                <div class="search-panel">
+                    <div class="search-grid">
+                        <div class="form-group">
+                            <label>Brand ID</label>
+                            <input type="text" id="searchBrandId" placeholder="Enter Brand ID">
+                        </div>
+                        <div class="form-group">
+                            <label>Brand Name (EN)</label>
+                            <input type="text" id="searchBrandNameEn" placeholder="Enter English Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Brand Name (AR)</label>
+                            <input type="text" id="searchBrandNameAr" placeholder="Enter Arabic Name">
+                        </div>
+                    </div>
+                    <div class="search-grid">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="searchBrandCategory">
+                                <option value="">All</option>
+                                <option value="Games">Games</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Shop">Shop</option>
+                                <option value="App Stores">App Stores</option>
+                                <option value="Education & Charity">Education & Charity</option>
+                                <option value="Services">Services</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="searchBrandStatus">
+                                <option value="">All</option>
+                                <option value="Enable">Enable</option>
+                                <option value="Disable">Disable</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="action-bar">
+                        <div class="action-left">
+                            <button class="btn btn-primary" onclick="openBrandModal('add')">+ Add</button>
+                        </div>
+                        <div class="action-right">
+                            <button class="btn btn-search" onclick="searchBrands()">Search</button>
+                            <button class="btn btn-reset" onclick="resetBrands()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-panel">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Priority</th>
+                                    <th>Brand ID</th>
+                                    <th>Brand Name (EN)</th>
+                                    <th>Brand Name (AR)</th>
+                                    <th>Category</th>
+                                    <th>Logo (Light)</th>
+                                    <th>Logo (Dark)</th>
+                                    <th>Status</th>
+                                    <th>Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody id="brandTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <div class="pg-left">
+                            <span id="brandPageInfo">Showing 1-10 of 5 items</span>
+                        </div>
+                        <div class="pg-right">
+                            <button class="pg-btn" id="brandPrev" onclick="changeBrandPage(-1)">Previous</button>
+                            <button class="pg-btn active" id="brandPage1" onclick="goBrandPage(1)">1</button>
+                            <button class="pg-btn" id="brandNext" onclick="changeBrandPage(1)">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 3: Sub-brand Management -->
+            <div id="sub-brand-configuration" class="page-container">
+                <div class="search-panel">
+                    <div class="search-grid">
+                        <div class="form-group">
+                            <label>Sub-brand ID</label>
+                            <input type="text" id="searchSubBrandId" placeholder="Enter Sub-brand ID">
+                        </div>
+                        <div class="form-group">
+                            <label>Sub-brand Name (EN)</label>
+                            <input type="text" id="searchSubBrandNameEn" placeholder="Enter English Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Parent Brand</label>
+                            <select id="searchSubBrandParent">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="search-grid">
+                        <div class="form-group">
+                            <label>Store / Country</label>
+                            <select id="searchSubBrandStore">
+                                <option value="">All</option>
+                                <option value="United States">United States (USA)</option>
+                                <option value="Jordan">Jordan (JOR)</option>
+                                <option value="Qatar">Qatar (QAT)</option>
+                                <option value="United Arab Emirates">United Arab Emirates (ARE)</option>
+                                <option value="Europe">Europe (EU)</option>
+                                <option value="Kuwait">Kuwait (KWT)</option>
+                                <option value="Saudi Arabia">Saudi Arabia (SAU)</option>
+                                <option value="MENA">MENA</option>
+                                <option value="GCC">GCC</option>
+                                <option value="Iraq">Iraq (IRQ)</option>
+                                <option value="Oman">Oman (OMN)</option>
+                                <option value="France">France (FRA)</option>
+                                <option value="United Kingdom">United Kingdom (GBR)</option>
+                                <option value="South Africa">South Africa (ZAF)</option>
+                                <option value="Lebanon">Lebanon (LBN)</option>
+                                <option value="Bahrain">Bahrain (BHR)</option>
+                                <option value="Tunisia">Tunisia (TUN)</option>
+                                <option value="Egypt">Egypt (EGY)</option>
+                                <option value="Canada">Canada (CAN)</option>
+                                <option value="Germany">Germany (DEU)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select id="searchSubBrandStatus">
+                                <option value="">All</option>
+                                <option value="Enable">Enable</option>
+                                <option value="Disable">Disable</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="action-bar">
+                        <div class="action-left">
+                            <button class="btn btn-primary" onclick="openSubBrandModal('add')">+ Add</button>
+                        </div>
+                        <div class="action-right">
+                            <button class="btn btn-search" onclick="searchSubBrands()">Search</button>
+                            <button class="btn btn-reset" onclick="resetSubBrands()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-panel">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Priority</th>
+                                    <th>Sub-brand ID</th>
+                                    <th>Sub-brand Name (EN)</th>
+                                    <th>Sub-brand Name (AR)</th>
+                                    <th>Parent Brand</th>
+                                    <th>Store</th>
+                                    <th>Icon (Light)</th>
+                                    <th>Icon (Dark)</th>
+                                    <th>Status</th>
+                                    <th>Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subBrandTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <div class="pg-left">
+                            <span id="subBrandPageInfo">Showing 1-10 of 5 items</span>
+                        </div>
+                        <div class="pg-right">
+                            <button class="pg-btn" id="subBrandPrev" onclick="changeSubBrandPage(-1)">Previous</button>
+                            <button class="pg-btn active" id="subBrandPage1" onclick="goSubBrandPage(1)">1</button>
+                            <button class="pg-btn" id="subBrandNext" onclick="changeSubBrandPage(1)">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Voucher Management -->
+            <div id="voucher-configuration" class="page-container">
+                <div class="search-panel">
+                    <div class="search-grid">
+                        <div class="form-group">
+                            <label>Voucher ID</label>
+                            <input type="text" id="searchVoucherId" placeholder="Enter Voucher ID">
+                        </div>
+                        <div class="form-group">
+                            <label>Voucher Name (EN)</label>
+                            <input type="text" id="searchVoucherNameEn" placeholder="Enter English Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Brand</label>
+                            <select id="searchVoucherBrand">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="search-grid">
+                        <div class="form-group">
+                            <label>Sub-brand</label>
+                            <select id="searchVoucherSubBrand">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Voucher Status</label>
+                            <select id="searchVoucherStatus">
+                                <option value="">All</option>
+                                <option value="Enable">Enable</option>
+                                <option value="Disable">Disable</option>
+                                <option value="Scheduled">Scheduled</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Stock Status</label>
+                            <select id="searchVoucherStock">
+                                <option value="">All</option>
+                                <option value="In Stock">In Stock</option>
+                                <option value="Out of Stock">Out of Stock</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="action-bar">
+                        <div class="action-left">
+                            <button class="btn btn-primary" onclick="openVoucherModal('add')">+ Add</button>
+                        </div>
+                        <div class="action-right">
+                            <button class="btn btn-search" onclick="searchVouchers()">Search</button>
+                            <button class="btn btn-reset" onclick="resetVouchers()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-panel">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Priority</th>
+                                    <th>Voucher ID</th>
+                                    <th>Voucher Name (EN)</th>
+                                    <th>Voucher Name (AR)</th>
+                                    <th>Brand</th>
+                                    <th>Sub-brand</th>
+                                    <th>Price (Before VAT)</th>
+                                    <th>VAT Amount</th>
+                                    <th>Price (After VAT)</th>
+                                    <th>Priority</th>
+                                    <th>Out of Stock</th>
+                                    <th>Status</th>
+                                    <th>Operations</th>
+                                </tr>
+                            </thead>
+                            <tbody id="voucherTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <div class="pg-left">
+                            <span id="voucherPageInfo">Showing 1-10 of 8 items</span>
+                        </div>
+                        <div class="pg-right">
+                            <button class="pg-btn" id="voucherPrev" onclick="changeVoucherPage(-1)">Previous</button>
+                            <button class="pg-btn active" id="voucherPage1" onclick="goVoucherPage(1)">1</button>
+                            <button class="pg-btn" id="voucherNext" onclick="changeVoucherPage(1)">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 5: Price Change History -->
+            <div id="price-change-history" class="page-container">
+                <div class="search-panel">
+                    <div class="search-grid">
+                        <div class="form-group">
+                            <label>Merchant ID</label>
+                            <input type="text" id="searchMerchantId" placeholder="Enter Merchant ID">
+                        </div>
+                        <div class="form-group">
+                            <label>Product ID</label>
+                            <input type="text" id="searchProductId" placeholder="Enter Product ID">
+                        </div>
+                        <div class="form-group">
+                            <label>Vendor Channel</label>
+                            <select id="searchVendorChannel">
+                                <option value="">All</option>
+                                <option value="OneCard">OneCard</option>
+                                <option value="Direct">Direct</option>
+                                <option value="Partner">Partner</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="search-grid">
+                        <div class="form-group">
+                            <label>Date From</label>
+                            <input type="text" id="searchDateFrom" class="datepicker" placeholder="YYYY-MM-DD" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Date To</label>
+                            <input type="text" id="searchDateTo" class="datepicker" placeholder="YYYY-MM-DD" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>MDR Trend</label>
+                            <select id="searchMdrTrend">
+                                <option value="">All</option>
+                                <option value="Up">Up ↑</option>
+                                <option value="Down">Down ↓</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="action-bar">
+                        <div class="action-left">
+                            <button class="btn btn-primary" onclick="resendAlerts()">Resend Alerts</button>
+                        </div>
+                        <div class="action-right">
+                            <button class="btn btn-search" onclick="searchPriceHistory()">Search</button>
+                            <button class="btn btn-reset" onclick="resetPriceHistory()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-panel">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="selectAll" onchange="toggleSelectAll()"></th>
+                                    <th>Detected At</th>
+                                    <th>Merchant ID</th>
+                                    <th>Merchant Name</th>
+                                    <th>Product ID</th>
+                                    <th>Product Name</th>
+                                    <th>Vendor Channel</th>
+                                    <th>Prev Cost (VAT)</th>
+                                    <th>Curr Cost (VAT)</th>
+                                    <th>Prev RRP (VAT)</th>
+                                    <th>Curr RRP (VAT)</th>
+                                    <th>Prev MDR</th>
+                                    <th>Curr MDR</th>
+                                    <th>MDR Change</th>
+                                    <th>Alert Sent</th>
+                                </tr>
+                            </thead>
+                            <tbody id="priceHistoryTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <div class="pg-left">
+                            <span id="priceHistoryPageInfo">Showing 1-10 of 10 items</span>
+                        </div>
+                        <div class="pg-right">
+                            <button class="pg-btn" id="priceHistoryPrev" onclick="changePriceHistoryPage(-1)">Previous</button>
+                            <button class="pg-btn active" id="priceHistoryPage1" onclick="goPriceHistoryPage(1)">1</button>
+                            <button class="pg-btn" id="priceHistoryNext" onclick="changePriceHistoryPage(1)">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Modal -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="categoryModalTitle">Add Category</div>
+                <button class="modal-close" onclick="closeCategoryModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Category ID</label>
+                    <input type="text" id="editCategoryId" disabled style="background: #f5f5f5; color: #999;">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Category Name (EN) <span class="required">*</span></label>
+                        <input type="text" id="editCategoryNameEn" placeholder="Enter English name">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Category Name (AR) <span class="required">*</span></label>
+                        <input type="text" id="editCategoryNameAr" placeholder="Enter Arabic name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Icon (Light Mode) <span class="required">*</span></label>
+                        <div class="image-upload-wrapper">
+                            <input type="file" id="categoryLightImageFile" accept="image/*" onchange="handleCategoryLightImage(event)">
+                            <button type="button" class="image-upload-btn" onclick="document.getElementById('categoryLightImageFile').click()">Choose Image</button>
+                            <div id="categoryLightPreview" class="image-preview-placeholder">No image</div>
+                        </div>
+                        <input type="hidden" id="editCategoryLightImage">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Icon (Dark Mode) <span class="required">*</span></label>
+                        <div class="image-upload-wrapper">
+                            <input type="file" id="categoryDarkImageFile" accept="image/*" onchange="handleCategoryDarkImage(event)">
+                            <button type="button" class="image-upload-btn" onclick="document.getElementById('categoryDarkImageFile').click()">Choose Image</button>
+                            <div id="categoryDarkPreview" class="image-preview-placeholder">No image</div>
+                        </div>
+                        <input type="hidden" id="editCategoryDarkImage">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeCategoryModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveCategory()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Brand Modal -->
+    <div class="modal" id="brandModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="brandModalTitle">Add Brand</div>
+                <button class="modal-close" onclick="closeBrandModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Brand ID</label>
+                    <input type="text" id="editBrandId" disabled style="background: #f5f5f5; color: #999;">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Brand Name (EN) <span class="required">*</span></label>
+                        <input type="text" id="editBrandNameEn" placeholder="Enter English name">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Brand Name (AR) <span class="required">*</span></label>
+                        <input type="text" id="editBrandNameAr" placeholder="Enter Arabic name">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Category <span class="required">*</span></label>
+                    <select id="editBrandCategory">
+                        <option value="">Select Category</option>
+                        <option value="Games">Games</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Shop">Shop</option>
+                        <option value="App Stores">App Stores</option>
+                        <option value="Education & Charity">Education & Charity</option>
+                        <option value="Services">Services</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Logo (Light Mode) <span class="required">*</span></label>
+                        <div class="image-upload-wrapper">
+                            <input type="file" id="brandLightImageFile" accept="image/*" onchange="handleBrandLightImage(event)">
+                            <button type="button" class="image-upload-btn" onclick="document.getElementById('brandLightImageFile').click()">Choose Image</button>
+                            <div id="brandLightPreview" class="image-preview-placeholder">No image</div>
+                        </div>
+                        <input type="hidden" id="editBrandLightImage">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Logo (Dark Mode) <span class="required">*</span></label>
+                        <div class="image-upload-wrapper">
+                            <input type="file" id="brandDarkImageFile" accept="image/*" onchange="handleBrandDarkImage(event)">
+                            <button type="button" class="image-upload-btn" onclick="document.getElementById('brandDarkImageFile').click()">Choose Image</button>
+                            <div id="brandDarkPreview" class="image-preview-placeholder">No image</div>
+                        </div>
+                        <input type="hidden" id="editBrandDarkImage">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeBrandModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveBrand()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub-brand Modal -->
+    <div class="modal" id="subBrandModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="subBrandModalTitle">Add Sub-brand</div>
+                <button class="modal-close" onclick="closeSubBrandModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Sub-brand ID</label>
+                    <input type="text" id="editSubBrandId" disabled style="background: #f5f5f5; color: #999;">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Sub-brand Name (EN) <span class="required">*</span></label>
+                        <input type="text" id="editSubBrandNameEn" placeholder="Enter English name">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Sub-brand Name (AR) <span class="required">*</span></label>
+                        <input type="text" id="editSubBrandNameAr" placeholder="Enter Arabic name">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Parent Brand <span class="required">*</span></label>
+                    <select id="editSubBrandParent">
+                        <option value="">Select Brand</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Store <span class="required">*</span></label>
+                    <select id="editSubBrandStore">
+                        <option value="">Select Store</option>
+                        <option value="United States">United States (USA)</option>
+                        <option value="Jordan">Jordan (JOR)</option>
+                        <option value="Qatar">Qatar (QAT)</option>
+                        <option value="United Arab Emirates">United Arab Emirates (ARE)</option>
+                        <option value="Europe">Europe (EU)</option>
+                        <option value="Kuwait">Kuwait (KWT)</option>
+                        <option value="Saudi Arabia">Saudi Arabia (SAU)</option>
+                        <option value="MENA">MENA</option>
+                        <option value="GCC">GCC</option>
+                        <option value="Iraq">Iraq (IRQ)</option>
+                        <option value="Oman">Oman (OMN)</option>
+                        <option value="France">France (FRA)</option>
+                        <option value="United Kingdom">United Kingdom (GBR)</option>
+                        <option value="South Africa">South Africa (ZAF)</option>
+                        <option value="Lebanon">Lebanon (LBN)</option>
+                        <option value="Bahrain">Bahrain (BHR)</option>
+                        <option value="Tunisia">Tunisia (TUN)</option>
+                        <option value="Egypt">Egypt (EGY)</option>
+                        <option value="Canada">Canada (CAN)</option>
+                        <option value="Germany">Germany (DEU)</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Icon (Light Mode) <span class="required">*</span></label>
+                        <div class="image-upload-wrapper">
+                            <input type="file" id="subBrandLightImageFile" accept="image/*" onchange="handleSubBrandLightImage(event)">
+                            <button type="button" class="image-upload-btn" onclick="document.getElementById('subBrandLightImageFile').click()">Choose Image</button>
+                            <div id="subBrandLightPreview" class="image-preview-placeholder">No image</div>
+                        </div>
+                        <input type="hidden" id="editSubBrandLightImage">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Icon (Dark Mode) <span class="required">*</span></label>
+                        <div class="image-upload-wrapper">
+                            <input type="file" id="subBrandDarkImageFile" accept="image/*" onchange="handleSubBrandDarkImage(event)">
+                            <button type="button" class="image-upload-btn" onclick="document.getElementById('subBrandDarkImageFile').click()">Choose Image</button>
+                            <div id="subBrandDarkPreview" class="image-preview-placeholder">No image</div>
+                        </div>
+                        <input type="hidden" id="editSubBrandDarkImage">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeSubBrandModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveSubBrand()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Voucher Modal -->
+    <div class="modal" id="voucherModal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <div class="modal-title" id="voucherModalTitle">Add Voucher</div>
+                <button class="modal-close" onclick="closeVoucherModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Voucher ID</label>
+                    <input type="text" id="editVoucherId" disabled style="background: #f5f5f5; color: #999;">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Voucher Name (EN) <span class="required">*</span></label>
+                        <input type="text" id="editVoucherNameEn" placeholder="Enter English name">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Voucher Name (AR) <span class="required">*</span></label>
+                        <input type="text" id="editVoucherNameAr" placeholder="Enter Arabic name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Brand <span class="required">*</span></label>
+                        <select id="editVoucherBrand" onchange="populateVoucherSubBrands()">
+                            <option value="">Select Brand</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Sub-brand <span class="required">*</span></label>
+                        <select id="editVoucherSubBrand">
+                            <option value="">Select Sub-brand</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Price (Before VAT) <span class="required">*</span></label>
+                        <input type="number" id="editVoucherPriceBefore" min="0" step="0.01" onchange="calculateVAT()">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Price (After VAT) <span class="required">*</span></label>
+                        <input type="number" id="editVoucherPriceAfter" min="0" step="0.01" onchange="calculateVAT()">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>VAT Amount (Auto-calculated)</label>
+                    <input type="text" id="editVoucherVatAmount" disabled style="background: #f5f5f5; color: #999;">
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                    <label>Priority <span class="required">*</span></label>
+                    <input type="number" id="editVoucherPriority" min="1" value="1">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Out of Stock</label>
+                        <select id="editVoucherOutOfStock">
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Voucher Status <span class="required">*</span></label>
+                        <select id="editVoucherStatus" onchange="toggleVoucherTimeFields()">
+                            <option value="Enable">Enable</option>
+                            <option value="Disable">Disable</option>
+                            <option value="Scheduled">Scheduled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row" id="voucherTimeFields" style="display: none;">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Start Time <span class="required">*</span></label>
+                        <input type="text" id="editVoucherStartTime" class="datepicker" placeholder="YYYY-MM-DD HH:mm" readonly>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>End Time <span class="required">*</span></label>
+                        <input type="text" id="editVoucherEndTime" class="datepicker" placeholder="YYYY-MM-DD HH:mm" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeVoucherModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveVoucher()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // ==================== Data ====================
+        // Data will be loaded from JSON files
+        let categoryData = [];
+        // brandData loaded from JSON
+        // subBrandData loaded from JSON
+        // voucherData loaded from JSON
+        // priceHistoryData loaded from JSON
+
+        // Load data from JSON files
+        async function loadData() {
+            try {
+                const [categories, brands, subBrands, vouchers, priceHistory] = await Promise.all([
+                    fetch('data/categories.json').then(r => r.json()),
+                    fetch('data/brands.json').then(r => r.json()),
+                    fetch('data/sub-brands.json').then(r => r.json()),
+                    fetch('data/vouchers.json').then(r => r.json()),
+                    fetch('data/price-history.json').then(r => r.json())
+                ]);
+                
+                categoryData = categories;
+                brandData = brands;
+                subBrandData = subBrands;
+                voucherData = vouchers;
+                priceHistoryData = priceHistory;
+                
+                console.log('✓ Data loaded:', {
+                    categories: categoryData.length,
+                    brands: brandData.length,
+                    subBrands: subBrandData.length,
+                    vouchers: voucherData.length,
+                    priceHistory: priceHistoryData.length
+                });
+                
+                return true;
+            } catch (e) {
+                console.error('✗ Failed to load data:', e);
+                const debugBanner = document.getElementById('debugBanner');
+                if (debugBanner) {
+                    debugBanner.textContent = '✗ Error loading data: ' + e.message;
+                    debugBanner.style.background = '#ff4d4f';
+                }
+                return false;
+            }
+        }
+
+        // brandData loaded from JSON
+
+        // subBrandData loaded from JSON
+
+        // voucherData loaded from JSON
+
+        // priceHistoryData loaded from JSON
+
+        // Pagination state
+        let currentPage = { category: 1, brand: 1, subBrand: 1, voucher: 1, priceHistory: 1 };
+        let pageSize = 10;
+        let filteredData = { category: [], brand: [], subBrand: [], voucher: [], priceHistory: [] };
+
+        // ==================== Initialization ====================
+        document.addEventListener('DOMContentLoaded', async function() {
+            const debugBanner = document.getElementById('debugBanner');
+            console.log('=== Marketplace Portal v3.0 (JSON Version) ===');
+            console.log('DOM loaded, loading data from JSON files...');
+            
+            // Load data from JSON files first
+            const dataLoaded = await loadData();
+            
+            if (!dataLoaded) {
+                return;
+            }
+            
+            // Update debug banner
+            if (debugBanner) {
+                debugBanner.textContent = `✓ Loaded: ${categoryData.length} Categories | ${brandData.length} Brands | ${voucherData.length} Vouchers | v4.0`;
+                debugBanner.style.background = '#52c41a';
+            }
+
+            // Initialize datepickers (with error handling)
+            try {
+                if (typeof flatpickr !== 'undefined') {
+                    flatpickr('.datepicker', {
+                        enableTime: true,
+                        dateFormat: 'Y-m-d H:i',
+                        time_24hr: true
+                    });
+                }
+            } catch (e) {
+                console.log('Flatpickr not available, skipping datepickers');
+            }
+
+            // Initialize filtered data
+            filteredData.category = [...categoryData];
+            filteredData.brand = [...brandData];
+            filteredData.subBrand = [...subBrandData];
+            filteredData.voucher = [...voucherData];
+            filteredData.priceHistory = [...priceHistoryData];
+
+            console.log('Filtered data initialized:', filteredData.category.length, 'categories');
+
+            // Render all tables
+            try {
+                renderCategories();
+                renderBrands();
+                renderSubBrands();
+                renderVouchers();
+                renderPriceHistory();
+                console.log('✓ All tables rendered successfully');
+            } catch (e) {
+                console.error('✗ Render error:', e);
+                if (debugBanner) {
+                    debugBanner.textContent = '✗ Error: ' + e.message;
+                    debugBanner.style.background = '#ff4d4f';
+                }
+            }
+
+            // Populate dropdowns
+            populateBrandDropdowns();
+            populateSubBrandDropdowns();
+        });
+
+        // ==================== Navigation ====================
+        function toggleMarketplaceMenu() {
+            const parent = document.getElementById('marketplace-parent');
+            const submenu = document.getElementById('marketplace-submenu');
+            const icon = parent.querySelector('.menu-icon');
+            parent.classList.toggle('expanded');
+            submenu.classList.toggle('expanded');
+            icon.classList.toggle('rotated');
+        }
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-container').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+
+            // Update page title
+            const titles = {
+                'category-management': ['Category Management', 'Manage product categories for the marketplace'],
+                'brand-configuration': ['Brand Management', 'Manage brand information and logos'],
+                'sub-brand-configuration': ['Sub-brand Management', 'Manage sub-brands under parent brands'],
+                'voucher-configuration': ['Voucher Management', 'Manage voucher products with pricing and visibility'],
+                'price-change-history': ['Price Change History', 'Track and monitor price changes']
+            };
+            document.getElementById('page-title').textContent = titles[pageId][0];
+            document.getElementById('page-subtitle').textContent = titles[pageId][1];
+        }
+
+        // ==================== Category Functions ====================
+        function renderCategories() {
+            const tbody = document.getElementById('categoryTableBody');
+            const start = (currentPage.category - 1) * pageSize;
+            const end = start + pageSize;
+            const pageData = filteredData.category.slice(start, end);
+
+            if (!pageData.length) {
+                tbody.innerHTML = '<tr><td colspan="8" class="no-data">No data found</td></tr>';
+                updatePagination('category', 0);
+                return;
+            }
+
+            tbody.innerHTML = pageData.map((item, idx) => {
+                const actualIdx = start + idx;
+                return `
+                <tr>
+                    <td>
+                        <div class="priority-controls">
+                            <span>${item.priority}</span>
+                            <button class="priority-btn" ${actualIdx === 0 ? 'disabled' : ''} onclick="moveCategoryUp('${item.id}')">↑</button>
+                            <button class="priority-btn" ${actualIdx === filteredData.category.length - 1 ? 'disabled' : ''} onclick="moveCategoryDown('${item.id}')">↓</button>
+                        </div>
+                    </td>
+                    <td>${item.id}</td>
+                    <td>${item.nameEn}</td>
+                    <td>${item.nameAr}</td>
+                    <td>${item.iconLight}</td>
+                    <td>${item.iconDark}</td>
+                    <td>
+                        <label class="toggle-switch">
+                            <input type="checkbox" ${item.status === 'Enable' ? 'checked' : ''} onchange="toggleCategoryStatus('${item.id}')">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <div class="icon-btns">
+                            <button class="icon-btn edit" onclick="openCategoryModal('edit', '${item.id}')" title="Edit">✏</button>
+                        </div>
+                    </td>
+                </tr>
+            `}).join('');
+
+            updatePagination('category', filteredData.category.length);
+        }
+
+        function searchCategories() {
+            const id = document.getElementById('searchCategoryId').value.toLowerCase();
+            const nameEn = document.getElementById('searchCategoryNameEn').value.toLowerCase();
+            const nameAr = document.getElementById('searchCategoryNameAr').value.toLowerCase();
+            const status = document.getElementById('searchCategoryStatus').value;
+
+            filteredData.category = categoryData.filter(item => {
+                return (!id || item.id.toLowerCase().includes(id)) &&
+                       (!nameEn || item.nameEn.toLowerCase().includes(nameEn)) &&
+                       (!nameAr || item.nameAr.includes(nameAr)) &&
+                       (!status || item.status === status);
+            });
+            currentPage.category = 1;
+            renderCategories();
+        }
+
+        function resetCategories() {
+            document.getElementById('searchCategoryId').value = '';
+            document.getElementById('searchCategoryNameEn').value = '';
+            document.getElementById('searchCategoryNameAr').value = '';
+            document.getElementById('searchCategoryStatus').value = '';
+            filteredData.category = [...categoryData];
+            currentPage.category = 1;
+            renderCategories();
+        }
+
+        function openCategoryModal(mode, id = null) {
+            const modal = document.getElementById('categoryModal');
+            const title = document.getElementById('categoryModalTitle');
+            
+            if (mode === 'edit' && id) {
+                const item = categoryData.find(c => c.id === id);
+                if (item) {
+                    title.textContent = 'Edit Category';
+                    document.getElementById('editCategoryId').value = item.id;
+                    document.getElementById('editCategoryNameEn').value = item.nameEn;
+                    document.getElementById('editCategoryNameAr').value = item.nameAr;
+                    document.getElementById('editCategoryLightImage').value = item.iconLight;
+                    document.getElementById('editCategoryDarkImage').value = item.iconDark;
+                    document.getElementById('categoryLightPreview').textContent = item.iconLight;
+                    document.getElementById('categoryDarkPreview').textContent = item.iconDark;
+                }
+            } else {
+                title.textContent = 'Add Category';
+                document.getElementById('editCategoryId').value = 'Auto-generated';
+                document.getElementById('editCategoryNameEn').value = '';
+                document.getElementById('editCategoryNameAr').value = '';
+                document.getElementById('editCategoryLightImage').value = '';
+                document.getElementById('editCategoryDarkImage').value = '';
+                document.getElementById('categoryLightPreview').textContent = 'No image';
+                document.getElementById('categoryDarkPreview').textContent = 'No image';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+        }
+
+        function handleCategoryLightImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('categoryLightPreview').innerHTML = `<img src="${e.target.result}" class="image-preview">`;
+                    document.getElementById('editCategoryLightImage').value = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleCategoryDarkImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('categoryDarkPreview').innerHTML = `<img src="${e.target.result}" class="image-preview">`;
+                    document.getElementById('editCategoryDarkImage').value = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveCategory() {
+            alert('Category saved successfully! (Demo - no backend)');
+            closeCategoryModal();
+        }
+
+        function viewCategory(id) {
+            alert('View category: ' + id);
+        }
+
+        function deleteCategory(id) {
+            if (confirm('Are you sure you want to delete category ' + id + '?')) {
+                categoryData = categoryData.filter(c => c.id !== id);
+                filteredData.category = [...categoryData];
+                renderCategories();
+            }
+        }
+
+        function toggleCategoryStatus(id) {
+            const item = categoryData.find(c => c.id === id);
+            if (item) {
+                item.status = item.status === 'Enable' ? 'Disable' : 'Enable';
+                renderCategories();
+            }
+        }
+
+        function moveCategoryUp(id) {
+            const idx = categoryData.findIndex(c => c.id === id);
+            if (idx > 0) {
+                [categoryData[idx - 1].priority, categoryData[idx].priority] = [categoryData[idx].priority, categoryData[idx - 1].priority];
+                categoryData.sort((a, b) => a.priority - b.priority);
+                filteredData.category = [...categoryData];
+                renderCategories();
+            }
+        }
+
+        function moveCategoryDown(id) {
+            const idx = categoryData.findIndex(c => c.id === id);
+            if (idx < categoryData.length - 1) {
+                [categoryData[idx + 1].priority, categoryData[idx].priority] = [categoryData[idx].priority, categoryData[idx + 1].priority];
+                categoryData.sort((a, b) => a.priority - b.priority);
+                filteredData.category = [...categoryData];
+                renderCategories();
+            }
+        }
+
+        // ==================== Brand Functions ====================
+        function renderBrands() {
+            const tbody = document.getElementById('brandTableBody');
+            const start = (currentPage.brand - 1) * pageSize;
+            const end = start + pageSize;
+            const pageData = filteredData.brand.slice(start, end);
+
+            if (!pageData.length) {
+                tbody.innerHTML = '<tr><td colspan="9" class="no-data">No data found</td></tr>';
+                updatePagination('brand', 0);
+                return;
+            }
+
+            tbody.innerHTML = pageData.map((item, idx) => {
+                const actualIdx = start + idx;
+                return `
+                <tr>
+                    <td>
+                        <div class="priority-controls">
+                            <span>${item.priority}</span>
+                            <button class="priority-btn" ${actualIdx === 0 ? 'disabled' : ''} onclick="moveBrandUp('${item.id}')">↑</button>
+                            <button class="priority-btn" ${actualIdx === filteredData.brand.length - 1 ? 'disabled' : ''} onclick="moveBrandDown('${item.id}')">↓</button>
+                        </div>
+                    </td>
+                    <td>${item.id}</td>
+                    <td>${item.nameEn}</td>
+                    <td>${item.nameAr}</td>
+                    <td>${item.category}</td>
+                    <td>${item.logoLight}</td>
+                    <td>${item.logoDark}</td>
+                    <td>
+                        <label class="toggle-switch">
+                            <input type="checkbox" ${item.status === 'Enable' ? 'checked' : ''} onchange="toggleBrandStatus('${item.id}')">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <div class="icon-btns">
+                            <button class="icon-btn edit" onclick="openBrandModal('edit', '${item.id}')" title="Edit">✏</button>
+                        </div>
+                    </td>
+                </tr>
+            `}).join('');
+
+            updatePagination('brand', filteredData.brand.length);
+        }
+
+        function searchBrands() {
+            const id = document.getElementById('searchBrandId').value.toLowerCase();
+            const nameEn = document.getElementById('searchBrandNameEn').value.toLowerCase();
+            const nameAr = document.getElementById('searchBrandNameAr').value.toLowerCase();
+            const category = document.getElementById('searchBrandCategory').value;
+            const status = document.getElementById('searchBrandStatus').value;
+
+            filteredData.brand = brandData.filter(item => {
+                return (!id || item.id.toLowerCase().includes(id)) &&
+                       (!nameEn || item.nameEn.toLowerCase().includes(nameEn)) &&
+                       (!nameAr || item.nameAr.includes(nameAr)) &&
+                       (!category || item.category === category) &&
+                       (!status || item.status === status);
+            });
+            currentPage.brand = 1;
+            renderBrands();
+        }
+
+        function resetBrands() {
+            document.getElementById('searchBrandId').value = '';
+            document.getElementById('searchBrandNameEn').value = '';
+            document.getElementById('searchBrandNameAr').value = '';
+            document.getElementById('searchBrandCategory').value = '';
+            document.getElementById('searchBrandStatus').value = '';
+            filteredData.brand = [...brandData];
+            currentPage.brand = 1;
+            renderBrands();
+        }
+
+        function openBrandModal(mode, id = null) {
+            const modal = document.getElementById('brandModal');
+            const title = document.getElementById('brandModalTitle');
+            
+            if (mode === 'edit' && id) {
+                const item = brandData.find(b => b.id === id);
+                if (item) {
+                    title.textContent = 'Edit Brand';
+                    document.getElementById('editBrandId').value = item.id;
+                    document.getElementById('editBrandNameEn').value = item.nameEn;
+                    document.getElementById('editBrandNameAr').value = item.nameAr;
+                    document.getElementById('editBrandCategory').value = item.category;
+                    document.getElementById('editBrandLightImage').value = item.logoLight;
+                    document.getElementById('editBrandDarkImage').value = item.logoDark;
+                    document.getElementById('brandLightPreview').textContent = item.logoLight;
+                    document.getElementById('brandDarkPreview').textContent = item.logoDark;
+                }
+            } else {
+                title.textContent = 'Add Brand';
+                document.getElementById('editBrandId').value = 'Auto-generated';
+                document.getElementById('editBrandNameEn').value = '';
+                document.getElementById('editBrandNameAr').value = '';
+                document.getElementById('editBrandCategory').value = '';
+                document.getElementById('editBrandLightImage').value = '';
+                document.getElementById('editBrandDarkImage').value = '';
+                document.getElementById('brandLightPreview').textContent = 'No image';
+                document.getElementById('brandDarkPreview').textContent = 'No image';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeBrandModal() {
+            document.getElementById('brandModal').classList.remove('active');
+        }
+
+        function handleBrandLightImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('brandLightPreview').innerHTML = `<img src="${e.target.result}" class="image-preview">`;
+                    document.getElementById('editBrandLightImage').value = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleBrandDarkImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('brandDarkPreview').innerHTML = `<img src="${e.target.result}" class="image-preview">`;
+                    document.getElementById('editBrandDarkImage').value = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveBrand() {
+            alert('Brand saved successfully! (Demo - no backend)');
+            closeBrandModal();
+        }
+
+        function viewBrand(id) {
+            alert('View brand: ' + id);
+        }
+
+        function deleteBrand(id) {
+            if (confirm('Are you sure you want to delete brand ' + id + '?')) {
+                brandData = brandData.filter(b => b.id !== id);
+                filteredData.brand = [...brandData];
+                renderBrands();
+            }
+        }
+
+        function toggleBrandStatus(id) {
+            const item = brandData.find(b => b.id === id);
+            if (item) {
+                item.status = item.status === 'Enable' ? 'Disable' : 'Enable';
+                renderBrands();
+            }
+        }
+
+        function moveBrandUp(id) {
+            const idx = brandData.findIndex(b => b.id === id);
+            if (idx > 0) {
+                [brandData[idx - 1].priority, brandData[idx].priority] = [brandData[idx].priority, brandData[idx - 1].priority];
+                brandData.sort((a, b) => a.priority - b.priority);
+                filteredData.brand = [...brandData];
+                renderBrands();
+            }
+        }
+
+        function moveBrandDown(id) {
+            const idx = brandData.findIndex(b => b.id === id);
+            if (idx < brandData.length - 1) {
+                [brandData[idx + 1].priority, brandData[idx].priority] = [brandData[idx].priority, brandData[idx + 1].priority];
+                brandData.sort((a, b) => a.priority - b.priority);
+                filteredData.brand = [...brandData];
+                renderBrands();
+            }
+        }
+
+        // ==================== Sub-brand Functions ====================
+        function renderSubBrands() {
+            const tbody = document.getElementById('subBrandTableBody');
+            const start = (currentPage.subBrand - 1) * pageSize;
+            const end = start + pageSize;
+            const pageData = filteredData.subBrand.slice(start, end);
+
+            if (!pageData.length) {
+                tbody.innerHTML = '<tr><td colspan="10" class="no-data">No data found</td></tr>';
+                updatePagination('subBrand', 0);
+                return;
+            }
+
+            tbody.innerHTML = pageData.map((item, idx) => {
+                const actualIdx = start + idx;
+                return `
+                <tr>
+                    <td>
+                        <div class="priority-controls">
+                            <span>${item.priority}</span>
+                            <button class="priority-btn" ${actualIdx === 0 ? 'disabled' : ''} onclick="moveSubBrandUp('${item.id}')">↑</button>
+                            <button class="priority-btn" ${actualIdx === filteredData.subBrand.length - 1 ? 'disabled' : ''} onclick="moveSubBrandDown('${item.id}')">↓</button>
+                        </div>
+                    </td>
+                    <td>${item.id}</td>
+                    <td>${item.nameEn}</td>
+                    <td>${item.nameAr}</td>
+                    <td>${item.brandName}</td>
+                    <td>${item.store}</td>
+                    <td>${item.iconLight}</td>
+                    <td>${item.iconDark}</td>
+                    <td>
+                        <label class="toggle-switch">
+                            <input type="checkbox" ${item.status === 'Enable' ? 'checked' : ''} onchange="toggleSubBrandStatus('${item.id}')">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <div class="icon-btns">
+                            <button class="icon-btn edit" onclick="openSubBrandModal('edit', '${item.id}')" title="Edit">✏</button>
+                        </div>
+                    </td>
+                </tr>
+            `}).join('');
+
+            updatePagination('subBrand', filteredData.subBrand.length);
+        }
+
+        function searchSubBrands() {
+            const id = document.getElementById('searchSubBrandId').value.toLowerCase();
+            const nameEn = document.getElementById('searchSubBrandNameEn').value.toLowerCase();
+            const parent = document.getElementById('searchSubBrandParent').value;
+            const store = document.getElementById('searchSubBrandStore').value;
+            const status = document.getElementById('searchSubBrandStatus').value;
+
+            filteredData.subBrand = subBrandData.filter(item => {
+                return (!id || item.id.toLowerCase().includes(id)) &&
+                       (!nameEn || item.nameEn.toLowerCase().includes(nameEn)) &&
+                       (!parent || item.brandId === parent) &&
+                       (!store || item.store === store) &&
+                       (!status || item.status === status);
+            });
+            currentPage.subBrand = 1;
+            renderSubBrands();
+        }
+
+        function resetSubBrands() {
+            document.getElementById('searchSubBrandId').value = '';
+            document.getElementById('searchSubBrandNameEn').value = '';
+            document.getElementById('searchSubBrandParent').value = '';
+            document.getElementById('searchSubBrandStore').value = '';
+            document.getElementById('searchSubBrandStatus').value = '';
+            filteredData.subBrand = [...subBrandData];
+            currentPage.subBrand = 1;
+            renderSubBrands();
+        }
+
+        function openSubBrandModal(mode, id = null) {
+            const modal = document.getElementById('subBrandModal');
+            const title = document.getElementById('subBrandModalTitle');
+            populateBrandDropdowns();
+            
+            if (mode === 'edit' && id) {
+                const item = subBrandData.find(s => s.id === id);
+                if (item) {
+                    title.textContent = 'Edit Sub-brand';
+                    document.getElementById('editSubBrandId').value = item.id;
+                    document.getElementById('editSubBrandNameEn').value = item.nameEn;
+                    document.getElementById('editSubBrandNameAr').value = item.nameAr;
+                    document.getElementById('editSubBrandParent').value = item.brandId;
+                    document.getElementById('editSubBrandStore').value = item.store;
+                    document.getElementById('editSubBrandLightImage').value = item.iconLight;
+                    document.getElementById('editSubBrandDarkImage').value = item.iconDark;
+                    document.getElementById('subBrandLightPreview').textContent = item.iconLight;
+                    document.getElementById('subBrandDarkPreview').textContent = item.iconDark;
+                }
+            } else {
+                title.textContent = 'Add Sub-brand';
+                document.getElementById('editSubBrandId').value = 'Auto-generated';
+                document.getElementById('editSubBrandNameEn').value = '';
+                document.getElementById('editSubBrandNameAr').value = '';
+                document.getElementById('editSubBrandParent').value = '';
+                document.getElementById('editSubBrandStore').value = '';
+                document.getElementById('editSubBrandLightImage').value = '';
+                document.getElementById('editSubBrandDarkImage').value = '';
+                document.getElementById('subBrandLightPreview').textContent = 'No image';
+                document.getElementById('subBrandDarkPreview').textContent = 'No image';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeSubBrandModal() {
+            document.getElementById('subBrandModal').classList.remove('active');
+        }
+
+        function handleSubBrandLightImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('subBrandLightPreview').innerHTML = `<img src="${e.target.result}" class="image-preview">`;
+                    document.getElementById('editSubBrandLightImage').value = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleSubBrandDarkImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('subBrandDarkPreview').innerHTML = `<img src="${e.target.result}" class="image-preview">`;
+                    document.getElementById('editSubBrandDarkImage').value = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveSubBrand() {
+            alert('Sub-brand saved successfully! (Demo - no backend)');
+            closeSubBrandModal();
+        }
+
+        function viewSubBrand(id) {
+            alert('View sub-brand: ' + id);
+        }
+
+        function deleteSubBrand(id) {
+            if (confirm('Are you sure you want to delete sub-brand ' + id + '?')) {
+                subBrandData = subBrandData.filter(s => s.id !== id);
+                filteredData.subBrand = [...subBrandData];
+                renderSubBrands();
+            }
+        }
+
+        function toggleSubBrandStatus(id) {
+            const item = subBrandData.find(s => s.id === id);
+            if (item) {
+                item.status = item.status === 'Enable' ? 'Disable' : 'Enable';
+                renderSubBrands();
+            }
+        }
+
+        function moveSubBrandUp(id) {
+            const idx = subBrandData.findIndex(s => s.id === id);
+            if (idx > 0) {
+                [subBrandData[idx - 1].priority, subBrandData[idx].priority] = [subBrandData[idx].priority, subBrandData[idx - 1].priority];
+                subBrandData.sort((a, b) => a.priority - b.priority);
+                filteredData.subBrand = [...subBrandData];
+                renderSubBrands();
+            }
+        }
+
+        function moveSubBrandDown(id) {
+            const idx = subBrandData.findIndex(s => s.id === id);
+            if (idx < subBrandData.length - 1) {
+                [subBrandData[idx + 1].priority, subBrandData[idx].priority] = [subBrandData[idx].priority, subBrandData[idx + 1].priority];
+                subBrandData.sort((a, b) => a.priority - b.priority);
+                filteredData.subBrand = [...subBrandData];
+                renderSubBrands();
+            }
+        }
+
+        // ==================== Voucher Functions ====================
+        function renderVouchers() {
+            const tbody = document.getElementById('voucherTableBody');
+            const start = (currentPage.voucher - 1) * pageSize;
+            const end = start + pageSize;
+            const pageData = filteredData.voucher.slice(start, end);
+
+            if (!pageData.length) {
+                tbody.innerHTML = '<tr><td colspan="13" class="no-data">No data found</td></tr>';
+                updatePagination('voucher', 0);
+                return;
+            }
+
+            tbody.innerHTML = pageData.map((item, idx) => {
+                const actualIdx = start + idx;
+                const statusClass = item.status === 'Enable' ? 'tag-green' : item.status === 'Disable' ? 'tag-red' : 'tag-blue';
+                return `
+                <tr>
+                    <td>
+                        <div class="priority-controls">
+                            <span>${item.priority}</span>
+                            <button class="priority-btn" ${actualIdx === 0 ? 'disabled' : ''} onclick="moveVoucherUp('${item.id}')">↑</button>
+                            <button class="priority-btn" ${actualIdx === filteredData.voucher.length - 1 ? 'disabled' : ''} onclick="moveVoucherDown('${item.id}')">↓</button>
+                        </div>
+                    </td>
+                    <td>${item.id}</td>
+                    <td>${item.nameEn}</td>
+                    <td>${item.nameAr}</td>
+                    <td>${item.brandName}</td>
+                    <td>${item.subBrandName}</td>
+                    <td>$${item.priceBefore.toFixed(2)}</td>
+                    <td>$${item.vat.toFixed(2)}</td>
+                    <td>$${item.priceAfter.toFixed(2)}</td>
+                    <td>${item.priority}</td>
+                    <td>${item.outOfStock}</td>
+                    <td><span class="tag ${statusClass}">${item.status}</span></td>
+                    <td>
+                        <div class="icon-btns">
+                            <button class="icon-btn view" onclick="viewVoucher('${item.id}')" title="View">👁</button>
+                            <button class="icon-btn edit" onclick="openVoucherModal('edit', '${item.id}')" title="Edit">✏</button>
+                            <button class="icon-btn del" onclick="deleteVoucher('${item.id}')" title="Delete">🗑</button>
+                        </div>
+                    </td>
+                </tr>
+            `}).join('');
+
+            updatePagination('voucher', filteredData.voucher.length);
+        }
+
+        function searchVouchers() {
+            const id = document.getElementById('searchVoucherId').value.toLowerCase();
+            const nameEn = document.getElementById('searchVoucherNameEn').value.toLowerCase();
+            const brand = document.getElementById('searchVoucherBrand').value;
+            const subBrand = document.getElementById('searchVoucherSubBrand').value;
+            const status = document.getElementById('searchVoucherStatus').value;
+            const stock = document.getElementById('searchVoucherStock').value;
+
+            filteredData.voucher = voucherData.filter(item => {
+                return (!id || item.id.toLowerCase().includes(id)) &&
+                       (!nameEn || item.nameEn.toLowerCase().includes(nameEn)) &&
+                       (!brand || item.brandId === brand) &&
+                       (!subBrand || item.subBrandId === subBrand) &&
+                       (!status || item.status === status) &&
+                       (!stock || (stock === 'In Stock' ? item.outOfStock === 'No' : item.outOfStock === 'Yes'));
+            });
+            currentPage.voucher = 1;
+            renderVouchers();
+        }
+
+        function resetVouchers() {
+            document.getElementById('searchVoucherId').value = '';
+            document.getElementById('searchVoucherNameEn').value = '';
+            document.getElementById('searchVoucherBrand').value = '';
+            document.getElementById('searchVoucherSubBrand').value = '';
+            document.getElementById('searchVoucherStatus').value = '';
+            document.getElementById('searchVoucherStock').value = '';
+            filteredData.voucher = [...voucherData];
+            currentPage.voucher = 1;
+            renderVouchers();
+        }
+
+        function openVoucherModal(mode, id = null) {
+            const modal = document.getElementById('voucherModal');
+            const title = document.getElementById('voucherModalTitle');
+            populateBrandDropdowns();
+            
+            if (mode === 'edit' && id) {
+                const item = voucherData.find(v => v.id === id);
+                if (item) {
+                    title.textContent = 'Edit Voucher';
+                    document.getElementById('editVoucherId').value = item.id;
+                    document.getElementById('editVoucherNameEn').value = item.nameEn;
+                    document.getElementById('editVoucherNameAr').value = item.nameAr;
+                    document.getElementById('editVoucherBrand').value = item.brandId;
+                    populateVoucherSubBrands(item.subBrandId);
+                    document.getElementById('editVoucherPriceBefore').value = item.priceBefore;
+                    document.getElementById('editVoucherPriceAfter').value = item.priceAfter;
+                    document.getElementById('editVoucherVatAmount').value = item.vat.toFixed(2);
+                    document.getElementById('editVoucherPriority').value = item.priority;
+                    document.getElementById('editVoucherOutOfStock').value = item.outOfStock;
+                    document.getElementById('editVoucherStatus').value = item.status;
+                    document.getElementById('editVoucherStartTime').value = item.startTime;
+                    document.getElementById('editVoucherEndTime').value = item.endTime;
+                    toggleVoucherTimeFields();
+                }
+            } else {
+                title.textContent = 'Add Voucher';
+                document.getElementById('editVoucherId').value = 'Auto-generated';
+                document.getElementById('editVoucherNameEn').value = '';
+                document.getElementById('editVoucherNameAr').value = '';
+                document.getElementById('editVoucherBrand').value = '';
+                document.getElementById('editVoucherSubBrand').innerHTML = '<option value="">Select Sub-brand</option>';
+                document.getElementById('editVoucherPriceBefore').value = '';
+                document.getElementById('editVoucherPriceAfter').value = '';
+                document.getElementById('editVoucherVatAmount').value = '';
+                document.getElementById('editVoucherPriority').value = '1';
+                document.getElementById('editVoucherOutOfStock').value = 'No';
+                document.getElementById('editVoucherStatus').value = 'Enable';
+                document.getElementById('editVoucherStartTime').value = '';
+                document.getElementById('editVoucherEndTime').value = '';
+                toggleVoucherTimeFields();
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeVoucherModal() {
+            document.getElementById('voucherModal').classList.remove('active');
+        }
+
+        function populateVoucherSubBrands(selectedId = '') {
+            const brandId = document.getElementById('editVoucherBrand').value;
+            const subBrandSelect = document.getElementById('editVoucherSubBrand');
+            
+            if (!brandId) {
+                subBrandSelect.innerHTML = '<option value="">Select Sub-brand</option>';
+                return;
+            }
+            
+            const subBrands = subBrandData.filter(s => s.brandId === brandId);
+            subBrandSelect.innerHTML = '<option value="">Select Sub-brand</option>' + 
+                subBrands.map(s => `<option value="${s.id}" ${s.id === selectedId ? 'selected' : ''}>${s.nameEn}</option>`).join('');
+        }
+
+        function calculateVAT() {
+            const before = parseFloat(document.getElementById('editVoucherPriceBefore').value) || 0;
+            const after = parseFloat(document.getElementById('editVoucherPriceAfter').value) || 0;
+            document.getElementById('editVoucherVatAmount').value = (after - before).toFixed(2);
+        }
+
+        function toggleVoucherTimeFields() {
+            const status = document.getElementById('editVoucherStatus').value;
+            const timeFields = document.getElementById('voucherTimeFields');
+            timeFields.style.display = status === 'Scheduled' ? 'grid' : 'none';
+        }
+
+        function saveVoucher() {
+            alert('Voucher saved successfully! (Demo - no backend)');
+            closeVoucherModal();
+        }
+
+        function viewVoucher(id) {
+            alert('View voucher: ' + id);
+        }
+
+        function deleteVoucher(id) {
+            if (confirm('Are you sure you want to delete voucher ' + id + '?')) {
+                voucherData = voucherData.filter(v => v.id !== id);
+                filteredData.voucher = [...voucherData];
+                renderVouchers();
+            }
+        }
+
+        function moveVoucherUp(id) {
+            const idx = voucherData.findIndex(v => v.id === id);
+            if (idx > 0) {
+                [voucherData[idx - 1].priority, voucherData[idx].priority] = [voucherData[idx].priority, voucherData[idx - 1].priority];
+                voucherData.sort((a, b) => a.priority - b.priority);
+                filteredData.voucher = [...voucherData];
+                renderVouchers();
+            }
+        }
+
+        function moveVoucherDown(id) {
+            const idx = voucherData.findIndex(v => v.id === id);
+            if (idx < voucherData.length - 1) {
+                [voucherData[idx + 1].priority, voucherData[idx].priority] = [voucherData[idx].priority, voucherData[idx + 1].priority];
+                voucherData.sort((a, b) => a.priority - b.priority);
+                filteredData.voucher = [...voucherData];
+                renderVouchers();
+            }
+        }
+
+        // ==================== Price History Functions ====================
+        function renderPriceHistory() {
+            const tbody = document.getElementById('priceHistoryTableBody');
+            const start = (currentPage.priceHistory - 1) * pageSize;
+            const end = start + pageSize;
+            const pageData = filteredData.priceHistory.slice(start, end);
+
+            if (!pageData.length) {
+                tbody.innerHTML = '<tr><td colspan="15" class="no-data">No data found</td></tr>';
+                updatePagination('priceHistory', 0);
+                return;
+            }
+
+            tbody.innerHTML = pageData.map(item => {
+                const mdrChangeClass = item.mdrChange >= 0 ? 'mdr-up' : 'mdr-down';
+                const mdrChangeSign = item.mdrChange >= 0 ? '+' : '';
+                const alertBadge = item.alertSent === 'Yes' ? '<span class="tag tag-green">Yes</span>' : '<span class="tag tag-gray">No</span>';
+                return `
+                <tr>
+                    <td><input type="checkbox" class="price-history-checkbox" value="${item.id}"></td>
+                    <td>${item.detectedAt}</td>
+                    <td>${item.merchantId}</td>
+                    <td>${item.merchantName}</td>
+                    <td>${item.productId}</td>
+                    <td>${item.productName}</td>
+                    <td>${item.vendorChannel}</td>
+                    <td>$${item.prevCost.toFixed(2)}</td>
+                    <td>$${item.currCost.toFixed(2)}</td>
+                    <td>$${item.prevRrp.toFixed(2)}</td>
+                    <td>$${item.currRrp.toFixed(2)}</td>
+                    <td>${item.prevMdr.toFixed(2)}%</td>
+                    <td>${item.currMdr.toFixed(2)}%</td>
+                    <td class="${mdrChangeClass}">${mdrChangeSign}${item.mdrChange.toFixed(2)}%</td>
+                    <td>${alertBadge}</td>
+                </tr>
+            `}).join('');
+
+            updatePagination('priceHistory', filteredData.priceHistory.length);
+        }
+
+        function searchPriceHistory() {
+            const merchantId = document.getElementById('searchMerchantId').value.toLowerCase();
+            const productId = document.getElementById('searchProductId').value.toLowerCase();
+            const vendorChannel = document.getElementById('searchVendorChannel').value;
+            const dateFrom = document.getElementById('searchDateFrom').value;
+            const dateTo = document.getElementById('searchDateTo').value;
+            const mdrTrend = document.getElementById('searchMdrTrend').value;
+
+            filteredData.priceHistory = priceHistoryData.filter(item => {
+                return (!merchantId || item.merchantId.toLowerCase().includes(merchantId)) &&
+                       (!productId || item.productId.toLowerCase().includes(productId)) &&
+                       (!vendorChannel || item.vendorChannel === vendorChannel) &&
+                       (!dateFrom || item.detectedAt >= dateFrom) &&
+                       (!dateTo || item.detectedAt <= dateTo + ' 23:59') &&
+                       (!mdrTrend || (mdrTrend === 'Up' ? item.mdrChange >= 0 : item.mdrChange < 0));
+            });
+            currentPage.priceHistory = 1;
+            renderPriceHistory();
+        }
+
+        function resetPriceHistory() {
+            document.getElementById('searchMerchantId').value = '';
+            document.getElementById('searchProductId').value = '';
+            document.getElementById('searchVendorChannel').value = '';
+            document.getElementById('searchDateFrom').value = '';
+            document.getElementById('searchDateTo').value = '';
+            document.getElementById('searchMdrTrend').value = '';
+            filteredData.priceHistory = [...priceHistoryData];
+            currentPage.priceHistory = 1;
+            renderPriceHistory();
+        }
+
+        function toggleSelectAll() {
+            const selectAll = document.getElementById('selectAll');
+            document.querySelectorAll('.price-history-checkbox').forEach(cb => {
+                cb.checked = selectAll.checked;
+            });
+        }
+
+        function resendAlerts() {
+            const selected = Array.from(document.querySelectorAll('.price-history-checkbox:checked')).map(cb => cb.value);
+            if (selected.length === 0) {
+                alert('Please select at least one record to resend alerts.');
+                return;
+            }
+            alert(`Alerts resent for ${selected.length} record(s). (Demo - no backend)`);
+        }
+
+        // ==================== Helper Functions ====================
+        function populateBrandDropdowns() {
+            const selects = ['searchSubBrandParent', 'editSubBrandParent', 'searchVoucherBrand', 'editVoucherBrand'];
+            selects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                if (select && selectId.includes('edit')) {
+                    const enabledBrands = brandData.filter(b => b.status === 'Enable');
+                    select.innerHTML = '<option value="">Select Brand</option>' + 
+                        enabledBrands.map(b => `<option value="${b.id}">${b.nameEn}</option>`).join('');
+                } else if (select) {
+                    select.innerHTML = '<option value="">All</option>' + 
+                        brandData.map(b => `<option value="${b.id}">${b.nameEn}</option>`).join('');
+                }
+            });
+        }
+
+        function populateSubBrandDropdowns() {
+            const selects = ['searchVoucherSubBrand', 'editVoucherSubBrand'];
+            selects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                if (select && selectId.includes('search')) {
+                    select.innerHTML = '<option value="">All</option>' + 
+                        subBrandData.map(s => `<option value="${s.id}">${s.nameEn}</option>`).join('');
+                }
+            });
+        }
+
+        function updatePagination(type, total) {
+            const totalPages = Math.ceil(total / pageSize);
+            const current = currentPage[type];
+            const info = document.getElementById(`${type}PageInfo`);
+            const prev = document.getElementById(`${type}Prev`);
+            const next = document.getElementById(`${type}Next`);
+            
+            if (total === 0) {
+                info.textContent = 'No items';
+                prev.disabled = true;
+                next.disabled = true;
+            } else {
+                const start = (current - 1) * pageSize + 1;
+                const end = Math.min(current * pageSize, total);
+                info.textContent = `Showing ${start}-${end} of ${total} items`;
+                prev.disabled = current === 1;
+                next.disabled = current === totalPages;
+            }
+        }
+
+        function changeCategoryPage(delta) {
+            const totalPages = Math.ceil(filteredData.category.length / pageSize);
+            const newPage = currentPage.category + delta;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage.category = newPage;
+                renderCategories();
+            }
+        }
+
+        function goCategoryPage(page) {
+            currentPage.category = page;
+            renderCategories();
+        }
+
+        function changeBrandPage(delta) {
+            const totalPages = Math.ceil(filteredData.brand.length / pageSize);
+            const newPage = currentPage.brand + delta;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage.brand = newPage;
+                renderBrands();
+            }
+        }
+
+        function goBrandPage(page) {
+            currentPage.brand = page;
+            renderBrands();
+        }
+
+        function changeSubBrandPage(delta) {
+            const totalPages = Math.ceil(filteredData.subBrand.length / pageSize);
+            const newPage = currentPage.subBrand + delta;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage.subBrand = newPage;
+                renderSubBrands();
+            }
+        }
+
+        function goSubBrandPage(page) {
+            currentPage.subBrand = page;
+            renderSubBrands();
+        }
+
+        function changeVoucherPage(delta) {
+            const totalPages = Math.ceil(filteredData.voucher.length / pageSize);
+            const newPage = currentPage.voucher + delta;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage.voucher = newPage;
+                renderVouchers();
+            }
+        }
+
+        function goVoucherPage(page) {
+            currentPage.voucher = page;
+            renderVouchers();
+        }
+
+        function changePriceHistoryPage(delta) {
+            const totalPages = Math.ceil(filteredData.priceHistory.length / pageSize);
+            const newPage = currentPage.priceHistory + delta;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage.priceHistory = newPage;
+                renderPriceHistory();
+            }
+        }
+
+        function goPriceHistoryPage(page) {
+            currentPage.priceHistory = page;
+            renderPriceHistory();
+        }
+    </script>
+</body>
+</html>

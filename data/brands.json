@@ -1,0 +1,2002 @@
+[
+  {
+    "id": "2001",
+    "nameEn": "Amazon Gift Cards US Store",
+    "nameAr": "أمازون بطاقات هدايا متجر الولايات المتحدة",
+    "category": "Shop",
+    "priority": 1,
+    "logoLight": "📦",
+    "logoDark": "📦",
+    "status": "Enable"
+  },
+  {
+    "id": "2002",
+    "nameEn": "Umniah - Jordan",
+    "nameAr": "أمنية - الأردن",
+    "category": "Services",
+    "priority": 2,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2003",
+    "nameEn": "Tory Burch",
+    "nameAr": "توري بيرش",
+    "category": "Shop",
+    "priority": 3,
+    "logoLight": "👜",
+    "logoDark": "👜",
+    "status": "Enable"
+  },
+  {
+    "id": "2004",
+    "nameEn": "Carrefour",
+    "nameAr": "كارفور",
+    "category": "Shop",
+    "priority": 4,
+    "logoLight": "🛒",
+    "logoDark": "🛒",
+    "status": "Enable"
+  },
+  {
+    "id": "2005",
+    "nameEn": "Blue Gift eCard",
+    "nameAr": "بطاقة هدية زرقاء إلكترونية",
+    "category": "Shop",
+    "priority": 5,
+    "logoLight": "🎁",
+    "logoDark": "🎁",
+    "status": "Enable"
+  },
+  {
+    "id": "2006",
+    "nameEn": "Tamimi Markets",
+    "nameAr": "أسواق التميمي",
+    "category": "Shop",
+    "priority": 6,
+    "logoLight": "🏪",
+    "logoDark": "🏪",
+    "status": "Enable"
+  },
+  {
+    "id": "2007",
+    "nameEn": "Uber Drivers Vouchers - Qatar",
+    "nameAr": "قسائم سائقي أوبر - قطر",
+    "category": "Services",
+    "priority": 7,
+    "logoLight": "🚗",
+    "logoDark": "🚗",
+    "status": "Enable"
+  },
+  {
+    "id": "2008",
+    "nameEn": "REDTAG",
+    "nameAr": "ريد تاج",
+    "category": "Shop",
+    "priority": 8,
+    "logoLight": "🏷️",
+    "logoDark": "🏷️",
+    "status": "Enable"
+  },
+  {
+    "id": "2009",
+    "nameEn": "PlayStation Store UAE",
+    "nameAr": "متجر بلايستيشن - الإمارات",
+    "category": "Games",
+    "priority": 9,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2010",
+    "nameEn": "Sweater Florina",
+    "nameAr": "سترة فلورينا",
+    "category": "Shop",
+    "priority": 10,
+    "logoLight": "👕",
+    "logoDark": "👕",
+    "status": "Enable"
+  },
+  {
+    "id": "2011",
+    "nameEn": "Nexon EU NCoin",
+    "nameAr": "نيكسون يورو إن كوين",
+    "category": "Games",
+    "priority": 11,
+    "logoLight": "🪙",
+    "logoDark": "🪙",
+    "status": "Enable"
+  },
+  {
+    "id": "2012",
+    "nameEn": "PlayStation Store Qatar",
+    "nameAr": "متجر بلايستيشن - قطر",
+    "category": "Games",
+    "priority": 12,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2013",
+    "nameEn": "Careem Captains Cards",
+    "nameAr": "بطاقات قباطن كريم",
+    "category": "Services",
+    "priority": 13,
+    "logoLight": "🚖",
+    "logoDark": "🚖",
+    "status": "Enable"
+  },
+  {
+    "id": "2014",
+    "nameEn": "Ludo Club",
+    "nameAr": "نادي لودو",
+    "category": "Games",
+    "priority": 14,
+    "logoLight": "🎲",
+    "logoDark": "🎲",
+    "status": "Enable"
+  },
+  {
+    "id": "2015",
+    "nameEn": "iZone Cloud",
+    "nameAr": "آي زون كلاود",
+    "category": "Services",
+    "priority": 15,
+    "logoLight": "☁️",
+    "logoDark": "☁️",
+    "status": "Enable"
+  },
+  {
+    "id": "2016",
+    "nameEn": "Dailymealz",
+    "nameAr": "ديل ميلييز",
+    "category": "Services",
+    "priority": 16,
+    "logoLight": "🍽️",
+    "logoDark": "🍽️",
+    "status": "Enable"
+  },
+  {
+    "id": "2017",
+    "nameEn": "Al Badr Optical",
+    "nameAr": "البدر للبصريات",
+    "category": "Shop",
+    "priority": 17,
+    "logoLight": "👓",
+    "logoDark": "👓",
+    "status": "Enable"
+  },
+  {
+    "id": "2018",
+    "nameEn": "karma koin",
+    "nameAr": "كارما كوين",
+    "category": "Games",
+    "priority": 18,
+    "logoLight": "🪙",
+    "logoDark": "🪙",
+    "status": "Enable"
+  },
+  {
+    "id": "2019",
+    "nameEn": "SACO",
+    "nameAr": "ساكو",
+    "category": "Shop",
+    "priority": 19,
+    "logoLight": "🏠",
+    "logoDark": "🏠",
+    "status": "Enable"
+  },
+  {
+    "id": "2020",
+    "nameEn": "Mobile Legends",
+    "nameAr": "أساطير الهاتف المحمول",
+    "category": "Games",
+    "priority": 20,
+    "logoLight": "⚔️",
+    "logoDark": "⚔️",
+    "status": "Enable"
+  },
+  {
+    "id": "2021",
+    "nameEn": "MBC Shahid - Kuwait Store",
+    "nameAr": "إم بي سي شاهد - متجر الكويت",
+    "category": "Entertainment",
+    "priority": 21,
+    "logoLight": "📺",
+    "logoDark": "📺",
+    "status": "Enable"
+  },
+  {
+    "id": "2022",
+    "nameEn": "Salam Mobile",
+    "nameAr": "سلام موبايل",
+    "category": "Services",
+    "priority": 22,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2023",
+    "nameEn": "XBox Europe Store",
+    "nameAr": "متجر إكس بوكس أوروبا",
+    "category": "Games",
+    "priority": 23,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2024",
+    "nameEn": "EA Play",
+    "nameAr": "إيه أي بلاي",
+    "category": "Games",
+    "priority": 24,
+    "logoLight": "🎯",
+    "logoDark": "🎯",
+    "status": "Enable"
+  },
+  {
+    "id": "2025",
+    "nameEn": "Splash GiftCards - KSA Store",
+    "nameAr": "بطاقات هدية سبلاش - متجر السعودية",
+    "category": "Shop",
+    "priority": 25,
+    "logoLight": "🎁",
+    "logoDark": "🎁",
+    "status": "Enable"
+  },
+  {
+    "id": "2026",
+    "nameEn": "Ladypopular",
+    "nameAr": "ليدي بوبيولار",
+    "category": "Shop",
+    "priority": 26,
+    "logoLight": "👗",
+    "logoDark": "👗",
+    "status": "Enable"
+  },
+  {
+    "id": "2027",
+    "nameEn": "EA Sports FC Mobile - Kuwait Store",
+    "nameAr": "إيه أي سبورتس إف سي موبايل - متجر الكويت",
+    "category": "Games",
+    "priority": 27,
+    "logoLight": "⚽",
+    "logoDark": "⚽",
+    "status": "Enable"
+  },
+  {
+    "id": "2028",
+    "nameEn": "Spotify",
+    "nameAr": "سبوتيفاي",
+    "category": "Entertainment",
+    "priority": 28,
+    "logoLight": "🎵",
+    "logoDark": "🎵",
+    "status": "Enable"
+  },
+  {
+    "id": "2029",
+    "nameEn": "Microsoft Windows",
+    "nameAr": "مايكروسوفت ويندوز",
+    "category": "App Stores",
+    "priority": 29,
+    "logoLight": "🪟",
+    "logoDark": "🪟",
+    "status": "Enable"
+  },
+  {
+    "id": "2030",
+    "nameEn": "Shoemart GiftCards - KSA Store",
+    "nameAr": "بطاقات هدية شومارت - متجر السعودية",
+    "category": "Shop",
+    "priority": 30,
+    "logoLight": "👟",
+    "logoDark": "👟",
+    "status": "Enable"
+  },
+  {
+    "id": "2031",
+    "nameEn": "Rituals",
+    "nameAr": "ريتشوالز",
+    "category": "Shop",
+    "priority": 31,
+    "logoLight": "🧴",
+    "logoDark": "🧴",
+    "status": "Enable"
+  },
+  {
+    "id": "2032",
+    "nameEn": "XBox GCC Store",
+    "nameAr": "متجر إكس بوكس دول الخليج",
+    "category": "Games",
+    "priority": 32,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2033",
+    "nameEn": "VogaCloset",
+    "nameAr": "فوجا كلوزيت",
+    "category": "Shop",
+    "priority": 33,
+    "logoLight": "👠",
+    "logoDark": "👠",
+    "status": "Enable"
+  },
+  {
+    "id": "2034",
+    "nameEn": "Steam Wallet UAE Store",
+    "nameAr": "محفظة ستيم - متجر الإمارات",
+    "category": "Games",
+    "priority": 34,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2035",
+    "nameEn": "Heroes Evolved",
+    "nameAr": "الأبطال المتطورون",
+    "category": "Games",
+    "priority": 35,
+    "logoLight": "⚔️",
+    "logoDark": "⚔️",
+    "status": "Enable"
+  },
+  {
+    "id": "2036",
+    "nameEn": "CBS All Access",
+    "nameAr": "سي بي إس جميع الوصول",
+    "category": "Entertainment",
+    "priority": 36,
+    "logoLight": "📺",
+    "logoDark": "📺",
+    "status": "Enable"
+  },
+  {
+    "id": "2037",
+    "nameEn": "FACES",
+    "nameAr": "فيسيز",
+    "category": "Shop",
+    "priority": 37,
+    "logoLight": "💄",
+    "logoDark": "💄",
+    "status": "Enable"
+  },
+  {
+    "id": "2038",
+    "nameEn": "Trip Gift",
+    "nameAr": "هدية الرحلة",
+    "category": "Services",
+    "priority": 38,
+    "logoLight": "✈️",
+    "logoDark": "✈️",
+    "status": "Enable"
+  },
+  {
+    "id": "2039",
+    "nameEn": "PlayStation Store USA",
+    "nameAr": "متجر بلايستيشن - الولايات المتحدة",
+    "category": "Games",
+    "priority": 39,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2040",
+    "nameEn": "Al Nahdi",
+    "nameAr": "النهدي",
+    "category": "Shop",
+    "priority": 40,
+    "logoLight": "💊",
+    "logoDark": "💊",
+    "status": "Enable"
+  },
+  {
+    "id": "2041",
+    "nameEn": "AYWA Cards - KSA Store",
+    "nameAr": "بطاقات أيوة - متجر السعودية",
+    "category": "Services",
+    "priority": 41,
+    "logoLight": "📞",
+    "logoDark": "📞",
+    "status": "Enable"
+  },
+  {
+    "id": "2042",
+    "nameEn": "Babyshop GiftCards - KSA Store",
+    "nameAr": "بطاقات هدية بيبي شوب - متجر السعودية",
+    "category": "Shop",
+    "priority": 42,
+    "logoLight": "👶",
+    "logoDark": "👶",
+    "status": "Enable"
+  },
+  {
+    "id": "2043",
+    "nameEn": "Wolfteam MENA",
+    "nameAr": "فريق الذئاب - الشرق الأوسط",
+    "category": "Games",
+    "priority": 43,
+    "logoLight": "🐺",
+    "logoDark": "🐺",
+    "status": "Enable"
+  },
+  {
+    "id": "2044",
+    "nameEn": "Nintendo eShop Cards - US Store",
+    "nameAr": "بطاقات نينتندو إي شوب - متجر الولايات المتحدة",
+    "category": "Games",
+    "priority": 44,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2045",
+    "nameEn": "MyGames Bundle",
+    "nameAr": "حزمة ألعابي",
+    "category": "Games",
+    "priority": 45,
+    "logoLight": "🎯",
+    "logoDark": "🎯",
+    "status": "Enable"
+  },
+  {
+    "id": "2046",
+    "nameEn": "IMO",
+    "nameAr": "ايمو",
+    "category": "Services",
+    "priority": 46,
+    "logoLight": "📹",
+    "logoDark": "📹",
+    "status": "Enable"
+  },
+  {
+    "id": "2047",
+    "nameEn": "Adrenaline",
+    "nameAr": "أدرينالين",
+    "category": "Entertainment",
+    "priority": 47,
+    "logoLight": "🎢",
+    "logoDark": "🎢",
+    "status": "Enable"
+  },
+  {
+    "id": "2048",
+    "nameEn": "Jawwy TV - Iraq",
+    "nameAr": "جوي تي في - العراق",
+    "category": "Entertainment",
+    "priority": 48,
+    "logoLight": "📺",
+    "logoDark": "📺",
+    "status": "Enable"
+  },
+  {
+    "id": "2049",
+    "nameEn": "ZP CrossFire",
+    "nameAr": "زي بي كروس فاير",
+    "category": "Games",
+    "priority": 49,
+    "logoLight": "🔫",
+    "logoDark": "🔫",
+    "status": "Enable"
+  },
+  {
+    "id": "2050",
+    "nameEn": "PUBG",
+    "nameAr": "ببجي",
+    "category": "Games",
+    "priority": 50,
+    "logoLight": "🔫",
+    "logoDark": "🔫",
+    "status": "Enable"
+  },
+  {
+    "id": "2051",
+    "nameEn": "Merge Kingdom Warlords",
+    "nameAr": "دمج مملكة أمراء الحرب",
+    "category": "Games",
+    "priority": 51,
+    "logoLight": "🏰",
+    "logoDark": "🏰",
+    "status": "Enable"
+  },
+  {
+    "id": "2052",
+    "nameEn": "Skechers",
+    "nameAr": "سكيتشرز",
+    "category": "Shop",
+    "priority": 52,
+    "logoLight": "👟",
+    "logoDark": "👟",
+    "status": "Enable"
+  },
+  {
+    "id": "2053",
+    "nameEn": "Loops Conquerors: Golden Age",
+    "nameAr": "لوبس الفاتحون: العصر الذهبي",
+    "category": "Games",
+    "priority": 53,
+    "logoLight": "⚔️",
+    "logoDark": "⚔️",
+    "status": "Enable"
+  },
+  {
+    "id": "2054",
+    "nameEn": "Babies R Us",
+    "nameAr": "بيبيز آر أس",
+    "category": "Shop",
+    "priority": 54,
+    "logoLight": "👶",
+    "logoDark": "👶",
+    "status": "Enable"
+  },
+  {
+    "id": "2055",
+    "nameEn": "Jawwy TV - UAE",
+    "nameAr": "جوي تي في - الإمارات",
+    "category": "Entertainment",
+    "priority": 55,
+    "logoLight": "📺",
+    "logoDark": "📺",
+    "status": "Enable"
+  },
+  {
+    "id": "2056",
+    "nameEn": "PlayStation Store Oman",
+    "nameAr": "متجر بلايستيشن - عمان",
+    "category": "Games",
+    "priority": 56,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2057",
+    "nameEn": "PUBG New State",
+    "nameAr": "ببجي حالة جديدة",
+    "category": "Games",
+    "priority": 57,
+    "logoLight": "🔫",
+    "logoDark": "🔫",
+    "status": "Enable"
+  },
+  {
+    "id": "2058",
+    "nameEn": "Sparkys - Saudi Store",
+    "nameAr": "سباركيز - متجر السعودية",
+    "category": "Shop",
+    "priority": 58,
+    "logoLight": "🔧",
+    "logoDark": "🔧",
+    "status": "Enable"
+  },
+  {
+    "id": "2059",
+    "nameEn": "Steam Wallet KSA Store",
+    "nameAr": "محفظة ستيم - متجر السعودية",
+    "category": "Games",
+    "priority": 59,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2060",
+    "nameEn": "Teamfight Tactics",
+    "nameAr": "تكتيكات القتال الجماعي",
+    "category": "Games",
+    "priority": 60,
+    "logoLight": "⚔️",
+    "logoDark": "⚔️",
+    "status": "Enable"
+  },
+  {
+    "id": "2061",
+    "nameEn": "Nintendo Full Game - US Store",
+    "nameAr": "نينتندو لعبة كاملة - متجر الولايات المتحدة",
+    "category": "Games",
+    "priority": 61,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2062",
+    "nameEn": "Netflix UAE Store",
+    "nameAr": "نتفليكس - متجر الإمارات",
+    "category": "Entertainment",
+    "priority": 62,
+    "logoLight": "🎬",
+    "logoDark": "🎬",
+    "status": "Enable"
+  },
+  {
+    "id": "2063",
+    "nameEn": "EA Sports FC Mobile - Iraq Store",
+    "nameAr": "إيه أي سبورتس إف سي موبايل - متجر العراق",
+    "category": "Games",
+    "priority": 63,
+    "logoLight": "⚽",
+    "logoDark": "⚽",
+    "status": "Enable"
+  },
+  {
+    "id": "2064",
+    "nameEn": "Spacetoon Go",
+    "nameAr": "سبيستون جو",
+    "category": "Entertainment",
+    "priority": 64,
+    "logoLight": "📺",
+    "logoDark": "📺",
+    "status": "Enable"
+  },
+  {
+    "id": "2065",
+    "nameEn": "TOD",
+    "nameAr": "تود",
+    "category": "Entertainment",
+    "priority": 65,
+    "logoLight": "🎬",
+    "logoDark": "🎬",
+    "status": "Enable"
+  },
+  {
+    "id": "2066",
+    "nameEn": "Roblox UAE",
+    "nameAr": "روبلوكس الإمارات",
+    "category": "Games",
+    "priority": 66,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2067",
+    "nameEn": "Home Centre GiftCards - KSA Store",
+    "nameAr": "بطاقات هدية هوم سنتر - متجر السعودية",
+    "category": "Shop",
+    "priority": 67,
+    "logoLight": "🏠",
+    "logoDark": "🏠",
+    "status": "Enable"
+  },
+  {
+    "id": "2068",
+    "nameEn": "Free Fire - (MENA Region)",
+    "nameAr": "فري فاير - منطقة الشرق الأوسط",
+    "category": "Games",
+    "priority": 68,
+    "logoLight": "🔥",
+    "logoDark": "🔥",
+    "status": "Enable"
+  },
+  {
+    "id": "2069",
+    "nameEn": "HungerStation",
+    "nameAr": "هنجر ستيشن",
+    "category": "Services",
+    "priority": 69,
+    "logoLight": "🍔",
+    "logoDark": "🍔",
+    "status": "Enable"
+  },
+  {
+    "id": "2070",
+    "nameEn": "Customers GiftCards",
+    "nameAr": "بطاقات هدية العملاء",
+    "category": "Shop",
+    "priority": 70,
+    "logoLight": "🎁",
+    "logoDark": "🎁",
+    "status": "Enable"
+  },
+  {
+    "id": "2071",
+    "nameEn": "Netflix KSA Store",
+    "nameAr": "نتفليكس - متجر السعودية",
+    "category": "Entertainment",
+    "priority": 71,
+    "logoLight": "🎬",
+    "logoDark": "🎬",
+    "status": "Enable"
+  },
+  {
+    "id": "2072",
+    "nameEn": "Lifestyle GiftCards - KSA Store",
+    "nameAr": "بطاقات هدية لايف ستايل - متجر السعودية",
+    "category": "Shop",
+    "priority": 72,
+    "logoLight": "🎁",
+    "logoDark": "🎁",
+    "status": "Enable"
+  },
+  {
+    "id": "2073",
+    "nameEn": "Steam Wallet Kuwait Store",
+    "nameAr": "محفظة ستيم - متجر الكويت",
+    "category": "Games",
+    "priority": 73,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2074",
+    "nameEn": "SHEIN",
+    "nameAr": "شين",
+    "category": "Shop",
+    "priority": 74,
+    "logoLight": "👗",
+    "logoDark": "👗",
+    "status": "Enable"
+  },
+  {
+    "id": "2075",
+    "nameEn": "EA Sports FC Mobile - UAE Store",
+    "nameAr": "إيه أي سبورتس إف سي موبايل - متجر الإمارات",
+    "category": "Games",
+    "priority": 75,
+    "logoLight": "⚽",
+    "logoDark": "⚽",
+    "status": "Enable"
+  },
+  {
+    "id": "2076",
+    "nameEn": "eXtra",
+    "nameAr": "إكسترا",
+    "category": "Shop",
+    "priority": 76,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2077",
+    "nameEn": "LuLu Hypermarket",
+    "nameAr": "لولو هايبر ماركت",
+    "category": "Shop",
+    "priority": 77,
+    "logoLight": "🛒",
+    "logoDark": "🛒",
+    "status": "Enable"
+  },
+  {
+    "id": "2078",
+    "nameEn": "Legends of Runeterra",
+    "nameAr": "أساطير رونيتيرا",
+    "category": "Games",
+    "priority": 78,
+    "logoLight": "🃏",
+    "logoDark": "🃏",
+    "status": "Enable"
+  },
+  {
+    "id": "2079",
+    "nameEn": "PlayStation Store UK",
+    "nameAr": "متجر بلايستيشن - المملكة المتحدة",
+    "category": "Games",
+    "priority": 79,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2080",
+    "nameEn": "iTunes Gift Cards France Store",
+    "nameAr": "بطاقات هدية آيتونز - متجر فرنسا",
+    "category": "App Stores",
+    "priority": 80,
+    "logoLight": "🎵",
+    "logoDark": "🎵",
+    "status": "Enable"
+  },
+  {
+    "id": "2081",
+    "nameEn": "6thStreet",
+    "nameAr": "6ث ستريت",
+    "category": "Shop",
+    "priority": 81,
+    "logoLight": "👟",
+    "logoDark": "👟",
+    "status": "Enable"
+  },
+  {
+    "id": "2082",
+    "nameEn": "GamePower 7 Cards",
+    "nameAr": "بطاقات جيم باور 7",
+    "category": "Games",
+    "priority": 82,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2083",
+    "nameEn": "Noon GiftCards KSA",
+    "nameAr": "بطاقات هدية نون السعودية",
+    "category": "Shop",
+    "priority": 83,
+    "logoLight": "🎁",
+    "logoDark": "🎁",
+    "status": "Enable"
+  },
+  {
+    "id": "2084",
+    "nameEn": "Shukran GiftCards KSA",
+    "nameAr": "بطاقات هدية شكران السعودية",
+    "category": "Shop",
+    "priority": 84,
+    "logoLight": "🎁",
+    "logoDark": "🎁",
+    "status": "Enable"
+  },
+  {
+    "id": "2085",
+    "nameEn": "Google Play French Store",
+    "nameAr": "متجر جوجل بلاي الفرنسي",
+    "category": "App Stores",
+    "priority": 85,
+    "logoLight": "▶️",
+    "logoDark": "▶️",
+    "status": "Enable"
+  },
+  {
+    "id": "2086",
+    "nameEn": "Body Masters",
+    "nameAr": "سيد الأجساد",
+    "category": "Games",
+    "priority": 86,
+    "logoLight": "💪",
+    "logoDark": "💪",
+    "status": "Enable"
+  },
+  {
+    "id": "2087",
+    "nameEn": "League of Legends - Riot",
+    "nameAr": "ليج أوف ليجيندز - رايوت",
+    "category": "Games",
+    "priority": 87,
+    "logoLight": "⚔️",
+    "logoDark": "⚔️",
+    "status": "Enable"
+  },
+  {
+    "id": "2088",
+    "nameEn": "PlayStation Store France",
+    "nameAr": "متجر بلايستيشن - فرنسا",
+    "category": "Games",
+    "priority": 88,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2089",
+    "nameEn": "Anoosh",
+    "nameAr": "أنوش",
+    "category": "Shop",
+    "priority": 89,
+    "logoLight": "🧸",
+    "logoDark": "🧸",
+    "status": "Enable"
+  },
+  {
+    "id": "2090",
+    "nameEn": "Under Armour",
+    "nameAr": "أندر أرمور",
+    "category": "Shop",
+    "priority": 90,
+    "logoLight": "👕",
+    "logoDark": "👕",
+    "status": "Enable"
+  },
+  {
+    "id": "2091",
+    "nameEn": "Viber",
+    "nameAr": "فايبر",
+    "category": "Services",
+    "priority": 91,
+    "logoLight": "📞",
+    "logoDark": "📞",
+    "status": "Enable"
+  },
+  {
+    "id": "2092",
+    "nameEn": "Renna Oman",
+    "nameAr": "رينا عمان",
+    "category": "Shop",
+    "priority": 92,
+    "logoLight": "🛒",
+    "logoDark": "🛒",
+    "status": "Enable"
+  },
+  {
+    "id": "2093",
+    "nameEn": "Haseel",
+    "nameAr": "حاصل",
+    "category": "Services",
+    "priority": 93,
+    "logoLight": "🎫",
+    "logoDark": "🎫",
+    "status": "Enable"
+  },
+  {
+    "id": "2094",
+    "nameEn": "Eudemons Online",
+    "nameAr": "يوديمونز أونلاين",
+    "category": "Games",
+    "priority": 94,
+    "logoLight": "🐉",
+    "logoDark": "🐉",
+    "status": "Enable"
+  },
+  {
+    "id": "2095",
+    "nameEn": "Candy Crush Saga",
+    "nameAr": "كاندي كراش ساغا",
+    "category": "Games",
+    "priority": 95,
+    "logoLight": "🍬",
+    "logoDark": "🍬",
+    "status": "Enable"
+  },
+  {
+    "id": "2096",
+    "nameEn": "PlayStation Store South Africa",
+    "nameAr": "متجر بلايستيشن - جنوب أفريقيا",
+    "category": "Games",
+    "priority": 96,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2097",
+    "nameEn": "VOX Cinemas KSA",
+    "nameAr": "فوكس سينما السعودية",
+    "category": "Entertainment",
+    "priority": 97,
+    "logoLight": "🎬",
+    "logoDark": "🎬",
+    "status": "Enable"
+  },
+  {
+    "id": "2098",
+    "nameEn": "HADDAD",
+    "nameAr": "حداد",
+    "category": "Shop",
+    "priority": 98,
+    "logoLight": "👕",
+    "logoDark": "👕",
+    "status": "Enable"
+  },
+  {
+    "id": "2099",
+    "nameEn": "PlayStation Store Lebanon",
+    "nameAr": "متجر بلايستيشن - لبنان",
+    "category": "Games",
+    "priority": 99,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2100",
+    "nameEn": "iZone Protect",
+    "nameAr": "آي زون بروتكت",
+    "category": "Services",
+    "priority": 100,
+    "logoLight": "🛡️",
+    "logoDark": "🛡️",
+    "status": "Enable"
+  },
+  {
+    "id": "2101",
+    "nameEn": "Atlobha GiftCards",
+    "nameAr": "بطاقات هدية أطلبها",
+    "category": "Services",
+    "priority": 101,
+    "logoLight": "🎁",
+    "logoDark": "🎁",
+    "status": "Enable"
+  },
+  {
+    "id": "2102",
+    "nameEn": "Petromin",
+    "nameAr": "بترومين",
+    "category": "Services",
+    "priority": 102,
+    "logoLight": "⛽",
+    "logoDark": "⛽",
+    "status": "Enable"
+  },
+  {
+    "id": "2103",
+    "nameEn": "EA Sports FC Mobile - KSA Store",
+    "nameAr": "إيه أي سبورتس إف سي موبايل - متجر السعودية",
+    "category": "Games",
+    "priority": 103,
+    "logoLight": "⚽",
+    "logoDark": "⚽",
+    "status": "Enable"
+  },
+  {
+    "id": "2104",
+    "nameEn": "Golden Scent",
+    "nameAr": "جولدن سنت",
+    "category": "Shop",
+    "priority": 104,
+    "logoLight": "🌸",
+    "logoDark": "🌸",
+    "status": "Enable"
+  },
+  {
+    "id": "2105",
+    "nameEn": "Airline Gift",
+    "nameAr": "هدية الطيران",
+    "category": "Services",
+    "priority": 105,
+    "logoLight": "✈️",
+    "logoDark": "✈️",
+    "status": "Enable"
+  },
+  {
+    "id": "2106",
+    "nameEn": "Teen Patti Gold",
+    "nameAr": "تين باتي جولد",
+    "category": "Games",
+    "priority": 106,
+    "logoLight": "🃏",
+    "logoDark": "🃏",
+    "status": "Enable"
+  },
+  {
+    "id": "2107",
+    "nameEn": "Riot Points",
+    "nameAr": "نقاط رايوت",
+    "category": "Games",
+    "priority": 107,
+    "logoLight": "💎",
+    "logoDark": "💎",
+    "status": "Enable"
+  },
+  {
+    "id": "2108",
+    "nameEn": "Virgin Mobile",
+    "nameAr": "فيرجن موبايل",
+    "category": "Services",
+    "priority": 108,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2109",
+    "nameEn": "Tibia",
+    "nameAr": "تيبيا",
+    "category": "Games",
+    "priority": 109,
+    "logoLight": "⚔️",
+    "logoDark": "⚔️",
+    "status": "Enable"
+  },
+  {
+    "id": "2110",
+    "nameEn": "Noon GiftCards UAE",
+    "nameAr": "بطاقات هدية نون الإمارات",
+    "category": "Shop",
+    "priority": 110,
+    "logoLight": "🎁",
+    "logoDark": "🎁",
+    "status": "Enable"
+  },
+  {
+    "id": "2111",
+    "nameEn": "Parchis Club",
+    "nameAr": "نادي بارشيس",
+    "category": "Games",
+    "priority": 111,
+    "logoLight": "🎲",
+    "logoDark": "🎲",
+    "status": "Enable"
+  },
+  {
+    "id": "2112",
+    "nameEn": "Segadty Store",
+    "nameAr": "متجر سعادتي",
+    "category": "Shop",
+    "priority": 112,
+    "logoLight": "🎁",
+    "logoDark": "🎁",
+    "status": "Enable"
+  },
+  {
+    "id": "2113",
+    "nameEn": "Google Play UK Store",
+    "nameAr": "متجر جوجل بلاي المملكة المتحدة",
+    "category": "App Stores",
+    "priority": 113,
+    "logoLight": "▶️",
+    "logoDark": "▶️",
+    "status": "Enable"
+  },
+  {
+    "id": "2114",
+    "nameEn": "Valorant",
+    "nameAr": "فالورانت",
+    "category": "Games",
+    "priority": 114,
+    "logoLight": "🔫",
+    "logoDark": "🔫",
+    "status": "Enable"
+  },
+  {
+    "id": "2115",
+    "nameEn": "Abdul Samad Al Qurashi",
+    "nameAr": "عبد الصمد القرشي",
+    "category": "Shop",
+    "priority": 115,
+    "logoLight": "🌸",
+    "logoDark": "🌸",
+    "status": "Enable"
+  },
+  {
+    "id": "2116",
+    "nameEn": "Stell",
+    "nameAr": "ستيل",
+    "category": "Services",
+    "priority": 116,
+    "logoLight": "⭐",
+    "logoDark": "⭐",
+    "status": "Enable"
+  },
+  {
+    "id": "2117",
+    "nameEn": "EA Sports FC Mobile - Bahrain Store",
+    "nameAr": "إيه أي سبورتس إف سي موبايل - متجر البحرين",
+    "category": "Games",
+    "priority": 117,
+    "logoLight": "⚽",
+    "logoDark": "⚽",
+    "status": "Enable"
+  },
+  {
+    "id": "2118",
+    "nameEn": "Uber Drivers Vouchers - Jordan",
+    "nameAr": "قسائم سائقي أوبر - الأردن",
+    "category": "Services",
+    "priority": 118,
+    "logoLight": "🚗",
+    "logoDark": "🚗",
+    "status": "Enable"
+  },
+  {
+    "id": "2119",
+    "nameEn": "PlayStation Store Kuwait",
+    "nameAr": "متجر بلايستيشن - الكويت",
+    "category": "Games",
+    "priority": 119,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2120",
+    "nameEn": "Shoe Express GiftCards - KSA Store",
+    "nameAr": "بطاقات هدية شو إكسبرس - متجر السعودية",
+    "category": "Shop",
+    "priority": 120,
+    "logoLight": "👟",
+    "logoDark": "👟",
+    "status": "Enable"
+  },
+  {
+    "id": "2121",
+    "nameEn": "Joyalukkas",
+    "nameAr": "جويالوكاس",
+    "category": "Shop",
+    "priority": 121,
+    "logoLight": "💍",
+    "logoDark": "💍",
+    "status": "Enable"
+  },
+  {
+    "id": "2122",
+    "nameEn": "Ashjar",
+    "nameAr": "أشجار",
+    "category": "Shop",
+    "priority": 122,
+    "logoLight": "🌳",
+    "logoDark": "🌳",
+    "status": "Enable"
+  },
+  {
+    "id": "2123",
+    "nameEn": "H&M",
+    "nameAr": "إتش آند إم",
+    "category": "Shop",
+    "priority": 123,
+    "logoLight": "👕",
+    "logoDark": "👕",
+    "status": "Enable"
+  },
+  {
+    "id": "2124",
+    "nameEn": "Airbnb (USA Store)",
+    "nameAr": "إير بي إن بي - متجر الولايات المتحدة",
+    "category": "Services",
+    "priority": 124,
+    "logoLight": "🏠",
+    "logoDark": "🏠",
+    "status": "Enable"
+  },
+  {
+    "id": "2125",
+    "nameEn": "Sawa Cards",
+    "nameAr": "بطاقات سوى",
+    "category": "Services",
+    "priority": 125,
+    "logoLight": "📞",
+    "logoDark": "📞",
+    "status": "Enable"
+  },
+  {
+    "id": "2126",
+    "nameEn": "Amazon Gift Cards UAE Store",
+    "nameAr": "بطاقات هدية أمازون - متجر الإمارات",
+    "category": "Shop",
+    "priority": 126,
+    "logoLight": "📦",
+    "logoDark": "📦",
+    "status": "Enable"
+  },
+  {
+    "id": "2127",
+    "nameEn": "Saadeddin Pastry",
+    "nameAr": "معجنات سعد الدين",
+    "category": "Shop",
+    "priority": 127,
+    "logoLight": "🥐",
+    "logoDark": "🥐",
+    "status": "Enable"
+  },
+  {
+    "id": "2128",
+    "nameEn": "Majid Al Futtaim Entertainment GiftCards - UAE Store",
+    "nameAr": "بطاقات هدية ماجد الفطيم للترفيه - متجر الإمارات",
+    "category": "Entertainment",
+    "priority": 128,
+    "logoLight": "🎢",
+    "logoDark": "🎢",
+    "status": "Enable"
+  },
+  {
+    "id": "2129",
+    "nameEn": "Jahez",
+    "nameAr": "جاهز",
+    "category": "Services",
+    "priority": 129,
+    "logoLight": "🍔",
+    "logoDark": "🍔",
+    "status": "Enable"
+  },
+  {
+    "id": "2130",
+    "nameEn": "Prime",
+    "nameAr": "برايم",
+    "category": "Services",
+    "priority": 130,
+    "logoLight": "📦",
+    "logoDark": "📦",
+    "status": "Enable"
+  },
+  {
+    "id": "2131",
+    "nameEn": "Amazon Gift Cards KSA Store",
+    "nameAr": "بطاقات هدية أمازون - متجر السعودية",
+    "category": "Shop",
+    "priority": 131,
+    "logoLight": "📦",
+    "logoDark": "📦",
+    "status": "Enable"
+  },
+  {
+    "id": "2132",
+    "nameEn": "XBox US Store",
+    "nameAr": "متجر إكس بوكس الولايات المتحدة",
+    "category": "Games",
+    "priority": 132,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2133",
+    "nameEn": "Mall of the Emirates & City Centre GiftCards - UAE Store",
+    "nameAr": "بطاقات هدية مول الإمارات وسيتي سنتر - متجر الإمارات",
+    "category": "Shop",
+    "priority": 133,
+    "logoLight": "🛍️",
+    "logoDark": "🛍️",
+    "status": "Enable"
+  },
+  {
+    "id": "2134",
+    "nameEn": "Orange - Jordan",
+    "nameAr": "أورانج - الأردن",
+    "category": "Services",
+    "priority": 134,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2135",
+    "nameEn": "Conquer Online",
+    "nameAr": "كونكر أونلاين",
+    "category": "Games",
+    "priority": 135,
+    "logoLight": "⚔️",
+    "logoDark": "⚔️",
+    "status": "Enable"
+  },
+  {
+    "id": "2136",
+    "nameEn": "Nida Al Harb",
+    "nameAr": "نداء الحرب",
+    "category": "Games",
+    "priority": 136,
+    "logoLight": "🔫",
+    "logoDark": "🔫",
+    "status": "Enable"
+  },
+  {
+    "id": "2137",
+    "nameEn": "Omantel",
+    "nameAr": "عمانتل",
+    "category": "Services",
+    "priority": 137,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2138",
+    "nameEn": "Jawwy TV - Tunisia",
+    "nameAr": "جوي تي في - تونس",
+    "category": "Entertainment",
+    "priority": 138,
+    "logoLight": "📺",
+    "logoDark": "📺",
+    "status": "Enable"
+  },
+  {
+    "id": "2139",
+    "nameEn": "Kalyan",
+    "nameAr": "كاليان",
+    "category": "Shop",
+    "priority": 139,
+    "logoLight": "💍",
+    "logoDark": "💍",
+    "status": "Enable"
+  },
+  {
+    "id": "2140",
+    "nameEn": "Zain - Jordan",
+    "nameAr": "زين - الأردن",
+    "category": "Services",
+    "priority": 140,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2141",
+    "nameEn": "QUICK net cards - STC",
+    "nameAr": "بطاقات كويك نت - إس تي سي",
+    "category": "Services",
+    "priority": 141,
+    "logoLight": "📶",
+    "logoDark": "📶",
+    "status": "Enable"
+  },
+  {
+    "id": "2142",
+    "nameEn": "Polo Ralph Lauren",
+    "nameAr": "بولو رالف لورين",
+    "category": "Shop",
+    "priority": 142,
+    "logoLight": "👕",
+    "logoDark": "👕",
+    "status": "Enable"
+  },
+  {
+    "id": "2143",
+    "nameEn": "iTunes Gift Cards US Store",
+    "nameAr": "بطاقات هدية آيتونز - متجر الولايات المتحدة",
+    "category": "App Stores",
+    "priority": 143,
+    "logoLight": "🎵",
+    "logoDark": "🎵",
+    "status": "Enable"
+  },
+  {
+    "id": "2144",
+    "nameEn": "Diplomat Patisserie",
+    "nameAr": "دبلوماسي الحلويات",
+    "category": "Shop",
+    "priority": 144,
+    "logoLight": "🍰",
+    "logoDark": "🍰",
+    "status": "Enable"
+  },
+  {
+    "id": "2145",
+    "nameEn": "Steam Wallet South Africa Store",
+    "nameAr": "محفظة ستيم - متجر جنوب أفريقيا",
+    "category": "Games",
+    "priority": 145,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2146",
+    "nameEn": "Kaafmeem",
+    "nameAr": "كاف ميم",
+    "category": "Shop",
+    "priority": 146,
+    "logoLight": "☕",
+    "logoDark": "☕",
+    "status": "Enable"
+  },
+  {
+    "id": "2147",
+    "nameEn": "Apple Gift Cards KSA Store",
+    "nameAr": "بطاقات هدية أبل - متجر السعودية",
+    "category": "App Stores",
+    "priority": 147,
+    "logoLight": "🍎",
+    "logoDark": "🍎",
+    "status": "Enable"
+  },
+  {
+    "id": "2148",
+    "nameEn": "AANI & DANI",
+    "nameAr": "آني وداني",
+    "category": "Entertainment",
+    "priority": 148,
+    "logoLight": "📺",
+    "logoDark": "📺",
+    "status": "Enable"
+  },
+  {
+    "id": "2149",
+    "nameEn": "Uber Drivers Vouchers - Lebanon",
+    "nameAr": "قسائم سائقي أوبر - لبنان",
+    "category": "Services",
+    "priority": 149,
+    "logoLight": "🚗",
+    "logoDark": "🚗",
+    "status": "Enable"
+  },
+  {
+    "id": "2150",
+    "nameEn": "Neon Games",
+    "nameAr": "ألعاب نيون",
+    "category": "Games",
+    "priority": 150,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2151",
+    "nameEn": "STC TV -Bahrain Store",
+    "nameAr": "إس تي سي تي في - متجر البحرين",
+    "category": "Entertainment",
+    "priority": 151,
+    "logoLight": "📺",
+    "logoDark": "📺",
+    "status": "Enable"
+  },
+  {
+    "id": "2152",
+    "nameEn": "Google Play US Store",
+    "nameAr": "متجر جوجل بلاي الولايات المتحدة",
+    "category": "App Stores",
+    "priority": 152,
+    "logoLight": "▶️",
+    "logoDark": "▶️",
+    "status": "Enable"
+  },
+  {
+    "id": "2153",
+    "nameEn": "SmartVoip",
+    "nameAr": "سمارت فويب",
+    "category": "Services",
+    "priority": 153,
+    "logoLight": "📞",
+    "logoDark": "📞",
+    "status": "Enable"
+  },
+  {
+    "id": "2154",
+    "nameEn": "SASCO",
+    "nameAr": "ساسكو",
+    "category": "Services",
+    "priority": 154,
+    "logoLight": "⛽",
+    "logoDark": "⛽",
+    "status": "Enable"
+  },
+  {
+    "id": "2155",
+    "nameEn": "Uber Drivers Vouchers - KSA",
+    "nameAr": "قسائم سائقي أوبر - السعودية",
+    "category": "Services",
+    "priority": 155,
+    "logoLight": "🚗",
+    "logoDark": "🚗",
+    "status": "Enable"
+  },
+  {
+    "id": "2156",
+    "nameEn": "Zain - Saudi Arabia",
+    "nameAr": "زين - السعودية",
+    "category": "Services",
+    "priority": 156,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2157",
+    "nameEn": "Red Bull Mobile",
+    "nameAr": "ريد بول موبايل",
+    "category": "Services",
+    "priority": 157,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2158",
+    "nameEn": "MBC Shahid - KSA Store",
+    "nameAr": "إم بي سي شاهد - متجر السعودية",
+    "category": "Entertainment",
+    "priority": 158,
+    "logoLight": "📺",
+    "logoDark": "📺",
+    "status": "Enable"
+  },
+  {
+    "id": "2159",
+    "nameEn": "Lebara",
+    "nameAr": "ليبارا",
+    "category": "Services",
+    "priority": 159,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2160",
+    "nameEn": "BRAND BAZAAR",
+    "nameAr": "براند بازار",
+    "category": "Shop",
+    "priority": 160,
+    "logoLight": "🛍️",
+    "logoDark": "🛍️",
+    "status": "Enable"
+  },
+  {
+    "id": "2161",
+    "nameEn": "Carrom Gold",
+    "nameAr": "كاروم جولد",
+    "category": "Games",
+    "priority": 161,
+    "logoLight": "🎯",
+    "logoDark": "🎯",
+    "status": "Enable"
+  },
+  {
+    "id": "2162",
+    "nameEn": "Black Clover Mobile",
+    "nameAr": "كلوفر الأسود موبايل",
+    "category": "Games",
+    "priority": 162,
+    "logoLight": "🃏",
+    "logoDark": "🃏",
+    "status": "Enable"
+  },
+  {
+    "id": "2163",
+    "nameEn": "Jumblo",
+    "nameAr": "جامبلو",
+    "category": "Games",
+    "priority": 163,
+    "logoLight": "🎲",
+    "logoDark": "🎲",
+    "status": "Enable"
+  },
+  {
+    "id": "2164",
+    "nameEn": "Mobily - Saudi Arabia",
+    "nameAr": "موبايلي - السعودية",
+    "category": "Services",
+    "priority": 164,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2165",
+    "nameEn": "Whites",
+    "nameAr": "وايتس",
+    "category": "Shop",
+    "priority": 165,
+    "logoLight": "🦷",
+    "logoDark": "🦷",
+    "status": "Enable"
+  },
+  {
+    "id": "2166",
+    "nameEn": "Twitch",
+    "nameAr": "تويتش",
+    "category": "Entertainment",
+    "priority": 166,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2167",
+    "nameEn": "Jawaker",
+    "nameAr": "جواكر",
+    "category": "Games",
+    "priority": 167,
+    "logoLight": "🃏",
+    "logoDark": "🃏",
+    "status": "Enable"
+  },
+  {
+    "id": "2168",
+    "nameEn": "Jawwy TV - Egypt",
+    "nameAr": "جوي تي في - مصر",
+    "category": "Entertainment",
+    "priority": 168,
+    "logoLight": "📺",
+    "logoDark": "📺",
+    "status": "Enable"
+  },
+  {
+    "id": "2169",
+    "nameEn": "PlayStation Store Canada",
+    "nameAr": "متجر بلايستيشن - كندا",
+    "category": "Games",
+    "priority": 169,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2170",
+    "nameEn": "Mashkoor",
+    "nameAr": "مشكور",
+    "category": "Services",
+    "priority": 170,
+    "logoLight": "🍽️",
+    "logoDark": "🍽️",
+    "status": "Enable"
+  },
+  {
+    "id": "2171",
+    "nameEn": "Home Box GiftCards - KSA Store",
+    "nameAr": "بطاقات هدية هوم بوكس - متجر السعودية",
+    "category": "Shop",
+    "priority": 171,
+    "logoLight": "🏠",
+    "logoDark": "🏠",
+    "status": "Enable"
+  },
+  {
+    "id": "2172",
+    "nameEn": "Hulu",
+    "nameAr": "هولو",
+    "category": "Entertainment",
+    "priority": 172,
+    "logoLight": "📺",
+    "logoDark": "📺",
+    "status": "Enable"
+  },
+  {
+    "id": "2173",
+    "nameEn": "mCoinz",
+    "nameAr": "إم كوينز",
+    "category": "Games",
+    "priority": 173,
+    "logoLight": "🪙",
+    "logoDark": "🪙",
+    "status": "Enable"
+  },
+  {
+    "id": "2174",
+    "nameEn": "RedBull Oman",
+    "nameAr": "ريد بول عمان",
+    "category": "Services",
+    "priority": 174,
+    "logoLight": "🐂",
+    "logoDark": "🐂",
+    "status": "Enable"
+  },
+  {
+    "id": "2175",
+    "nameEn": "Zaman AlMoharbeen",
+    "nameAr": "زمان المحاربين",
+    "category": "Games",
+    "priority": 175,
+    "logoLight": "⚔️",
+    "logoDark": "⚔️",
+    "status": "Enable"
+  },
+  {
+    "id": "2176",
+    "nameEn": "R.O.H.A.N.: Blood Feud",
+    "nameAr": "روهان: ثأر الدم",
+    "category": "Games",
+    "priority": 176,
+    "logoLight": "🗡️",
+    "logoDark": "🗡️",
+    "status": "Enable"
+  },
+  {
+    "id": "2177",
+    "nameEn": "Roblox KSA",
+    "nameAr": "روبلوكس السعودية",
+    "category": "Games",
+    "priority": 177,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2178",
+    "nameEn": "Jawwy TV - Oman",
+    "nameAr": "جوي تي في - عمان",
+    "category": "Entertainment",
+    "priority": 178,
+    "logoLight": "📺",
+    "logoDark": "📺",
+    "status": "Enable"
+  },
+  {
+    "id": "2179",
+    "nameEn": "Patchi",
+    "nameAr": "باتشي",
+    "category": "Shop",
+    "priority": 179,
+    "logoLight": "🍫",
+    "logoDark": "🍫",
+    "status": "Enable"
+  },
+  {
+    "id": "2180",
+    "nameEn": "Almosafer",
+    "nameAr": "المسافر",
+    "category": "Services",
+    "priority": 180,
+    "logoLight": "✈️",
+    "logoDark": "✈️",
+    "status": "Enable"
+  },
+  {
+    "id": "2181",
+    "nameEn": "Nana Vouchers for Drivers",
+    "nameAr": "قسائم نانا للسائقين",
+    "category": "Services",
+    "priority": 181,
+    "logoLight": "🚗",
+    "logoDark": "🚗",
+    "status": "Enable"
+  },
+  {
+    "id": "2182",
+    "nameEn": "Webzen Coin",
+    "nameAr": "ويبزن كوين",
+    "category": "Games",
+    "priority": 182,
+    "logoLight": "🪙",
+    "logoDark": "🪙",
+    "status": "Enable"
+  },
+  {
+    "id": "2183",
+    "nameEn": "GameStop",
+    "nameAr": "جيم ستوب",
+    "category": "Games",
+    "priority": 183,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2184",
+    "nameEn": "Steam Wallet Qatar Store",
+    "nameAr": "محفظة ستيم - متجر قطر",
+    "category": "Games",
+    "priority": 184,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2185",
+    "nameEn": "ToursGift",
+    "nameAr": "تورز جيفت",
+    "category": "Services",
+    "priority": 185,
+    "logoLight": "🎁",
+    "logoDark": "🎁",
+    "status": "Enable"
+  },
+  {
+    "id": "2186",
+    "nameEn": "Yalla Ludo",
+    "nameAr": "يلا لودو",
+    "category": "Games",
+    "priority": 186,
+    "logoLight": "🎲",
+    "logoDark": "🎲",
+    "status": "Enable"
+  },
+  {
+    "id": "2187",
+    "nameEn": "Arafiesta",
+    "nameAr": "أرافييستا",
+    "category": "Shop",
+    "priority": 187,
+    "logoLight": "🎉",
+    "logoDark": "🎉",
+    "status": "Enable"
+  },
+  {
+    "id": "2188",
+    "nameEn": "EA Sports FC Mobile - Qatar Store",
+    "nameAr": "إيه أي سبورتس إف سي موبايل - متجر قطر",
+    "category": "Games",
+    "priority": 188,
+    "logoLight": "⚽",
+    "logoDark": "⚽",
+    "status": "Enable"
+  },
+  {
+    "id": "2189",
+    "nameEn": "Microsoft Office",
+    "nameAr": "مايكروسوفت أوفيس",
+    "category": "App Stores",
+    "priority": 189,
+    "logoLight": "📄",
+    "logoDark": "📄",
+    "status": "Enable"
+  },
+  {
+    "id": "2190",
+    "nameEn": "Rynga",
+    "nameAr": "رينجا",
+    "category": "Games",
+    "priority": 190,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2191",
+    "nameEn": "Roblox US",
+    "nameAr": "روبلوكس الولايات المتحدة",
+    "category": "Games",
+    "priority": 191,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2192",
+    "nameEn": "Xbox KSA Store",
+    "nameAr": "متجر إكس بوكس السعودية",
+    "category": "Games",
+    "priority": 192,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "2193",
+    "nameEn": "Max GiftCards - KSA Store",
+    "nameAr": "بطاقات هدية ماكس - متجر السعودية",
+    "category": "Shop",
+    "priority": 193,
+    "logoLight": "🎁",
+    "logoDark": "🎁",
+    "status": "Enable"
+  },
+  {
+    "id": "2194",
+    "nameEn": "FRiENDi mobile",
+    "nameAr": "فريندي موبايل",
+    "category": "Services",
+    "priority": 194,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2195",
+    "nameEn": "Centrepoint GiftCards - KSA Store",
+    "nameAr": "بطاقات هدية سنتر بوينت - متجر السعودية",
+    "category": "Shop",
+    "priority": 195,
+    "logoLight": "🎁",
+    "logoDark": "🎁",
+    "status": "Enable"
+  },
+  {
+    "id": "2196",
+    "nameEn": "TikTok KSA",
+    "nameAr": "تيك توك السعودية",
+    "category": "Entertainment",
+    "priority": 196,
+    "logoLight": "📱",
+    "logoDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "2197",
+    "nameEn": "Jarir Giftcards",
+    "nameAr": "بطاقات هدية جرير",
+    "category": "Shop",
+    "priority": 197,
+    "logoLight": "📚",
+    "logoDark": "📚",
+    "status": "Enable"
+  },
+  {
+    "id": "2198",
+    "nameEn": "Muse",
+    "nameAr": "ميوز",
+    "category": "Shop",
+    "priority": 198,
+    "logoLight": "👗",
+    "logoDark": "👗",
+    "status": "Enable"
+  },
+  {
+    "id": "2199",
+    "nameEn": "iTunes Gift Cards UAE Store",
+    "nameAr": "بطاقات هدية آيتونز - متجر الإمارات",
+    "category": "App Stores",
+    "priority": 199,
+    "logoLight": "🎵",
+    "logoDark": "🎵",
+    "status": "Enable"
+  },
+  {
+    "id": "2200",
+    "nameEn": "PlayStation Store Bahrain",
+    "nameAr": "متجر بلايستيشن - البحرين",
+    "category": "Games",
+    "priority": 200,
+    "logoLight": "🎮",
+    "logoDark": "🎮",
+    "status": "Enable"
+  }
+]

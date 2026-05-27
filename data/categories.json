@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1001",
+    "nameEn": "Games",
+    "nameAr": "ألعاب",
+    "priority": 1,
+    "iconLight": "🎮",
+    "iconDark": "🎮",
+    "status": "Enable"
+  },
+  {
+    "id": "1002",
+    "nameEn": "Entertainment",
+    "nameAr": "ترفيه",
+    "priority": 2,
+    "iconLight": "🎬",
+    "iconDark": "🎬",
+    "status": "Enable"
+  },
+  {
+    "id": "1003",
+    "nameEn": "Shop",
+    "nameAr": "تسوق",
+    "priority": 3,
+    "iconLight": "🛍️",
+    "iconDark": "🛍️",
+    "status": "Enable"
+  },
+  {
+    "id": "1004",
+    "nameEn": "App Stores",
+    "nameAr": "متاجر التطبيقات",
+    "priority": 4,
+    "iconLight": "📱",
+    "iconDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "1005",
+    "nameEn": "Education & Charity",
+    "nameAr": "التعليم والخيرية",
+    "priority": 5,
+    "iconLight": "📚",
+    "iconDark": "📚",
+    "status": "Enable"
+  },
+  {
+    "id": "1006",
+    "nameEn": "Services",
+    "nameAr": "خدمات",
+    "priority": 6,
+    "iconLight": "🔧",
+    "iconDark": "🔧",
+    "status": "Enable"
+  }
+]

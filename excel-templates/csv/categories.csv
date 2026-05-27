@@ -1,0 +1,7 @@
+id,nameEn,nameAr,priority,iconLight,iconDark,status
+1001,Games,ألعاب,1,🎮,,Enable
+1002,Entertainment,ترفيه,2,🎬,🎬,Enable
+1003,Shop,تسوق,3,🛍️,🛍️,Enable
+1004,App Stores,متاجر التطبيقات,4,📱,,Enable
+1005,Education & Charity,التعليم والخيرية,5,📚,,Enable
+1006,Services,خدمات,6,🔧,🔧,Enable

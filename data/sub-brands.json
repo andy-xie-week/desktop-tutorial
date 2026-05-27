@@ -1,0 +1,98 @@
+[
+  {
+    "id": "3001",
+    "nameEn": "Amazon US - Standard",
+    "nameAr": "أمازون الولايات المتحدة - قياسي",
+    "brandId": "2001",
+    "brandName": "Amazon Gift Cards US Store",
+    "store": "US",
+    "priority": 1,
+    "iconLight": "📦",
+    "iconDark": "📦",
+    "status": "Enable"
+  },
+  {
+    "id": "3002",
+    "nameEn": "Amazon US - Premium",
+    "nameAr": "أمازون الولايات المتحدة - بريميوم",
+    "brandId": "2001",
+    "brandName": "Amazon Gift Cards US Store",
+    "store": "US",
+    "priority": 2,
+    "iconLight": "📦",
+    "iconDark": "📦",
+    "status": "Enable"
+  },
+  {
+    "id": "3003",
+    "nameEn": "Umniah Voice",
+    "nameAr": "أمنية صوت",
+    "brandId": "2002",
+    "brandName": "Umniah - Jordan",
+    "store": "Jordan",
+    "priority": 1,
+    "iconLight": "📱",
+    "iconDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "3004",
+    "nameEn": "Umniah Data",
+    "nameAr": "أمنية بيانات",
+    "brandId": "2002",
+    "brandName": "Umniah - Jordan",
+    "store": "Jordan",
+    "priority": 2,
+    "iconLight": "📱",
+    "iconDark": "📱",
+    "status": "Enable"
+  },
+  {
+    "id": "3005",
+    "nameEn": "Carrefour - KSA",
+    "nameAr": "كارفور - السعودية",
+    "brandId": "2004",
+    "brandName": "Carrefour",
+    "store": "KSA",
+    "priority": 1,
+    "iconLight": "🛒",
+    "iconDark": "🛒",
+    "status": "Enable"
+  },
+  {
+    "id": "3006",
+    "nameEn": "Carrefour - UAE",
+    "nameAr": "كارفور - الإمارات",
+    "brandId": "2004",
+    "brandName": "Carrefour",
+    "store": "UAE",
+    "priority": 2,
+    "iconLight": "🛒",
+    "iconDark": "🛒",
+    "status": "Enable"
+  },
+  {
+    "id": "3007",
+    "nameEn": "Uber Rides - Qatar",
+    "nameAr": "أوبر رحلات - قطر",
+    "brandId": "2007",
+    "brandName": "Uber Drivers Vouchers - Qatar",
+    "store": "Qatar",
+    "priority": 1,
+    "iconLight": "🚗",
+    "iconDark": "🚗",
+    "status": "Enable"
+  },
+  {
+    "id": "3008",
+    "nameEn": "Uber Eats - Qatar",
+    "nameAr": "أوبر إيتس - قطر",
+    "brandId": "2007",
+    "brandName": "Uber Drivers Vouchers - Qatar",
+    "store": "Qatar",
+    "priority": 2,
+    "iconLight": "🍔",
+    "iconDark": "🍔",
+    "status": "Enable"
+  }
+]
