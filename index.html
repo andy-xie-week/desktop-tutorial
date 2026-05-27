@@ -107,6 +107,7 @@
         .pg-btn:hover { border-color: #1890ff; color: #1890ff; }
         .pg-btn.active { background: #1890ff; border-color: #1890ff; color: #fff; }
         .pg-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .pg-ellipsis { display: inline-flex; align-items: center; padding: 0 4px; color: #999; font-size: 12px; }
         
         /* Modal */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.45); }
@@ -270,9 +271,9 @@
                         <div class="pg-left">
                             <span id="categoryPageInfo">Showing 1-10 of 6 items</span>
                         </div>
-                        <div class="pg-right">
+                        <div class="pg-right" id="categoryPagination">
                             <button class="pg-btn" id="categoryPrev" onclick="changeCategoryPage(-1)">Previous</button>
-                            <button class="pg-btn active" id="categoryPage1" onclick="goCategoryPage(1)">1</button>
+                            <span id="categoryPageButtons"></span>
                             <button class="pg-btn" id="categoryNext" onclick="changeCategoryPage(1)">Next</button>
                         </div>
                     </div>
@@ -352,9 +353,9 @@
                         <div class="pg-left">
                             <span id="brandPageInfo">Showing 1-10 of 5 items</span>
                         </div>
-                        <div class="pg-right">
+                        <div class="pg-right" id="brandPagination">
                             <button class="pg-btn" id="brandPrev" onclick="changeBrandPage(-1)">Previous</button>
-                            <button class="pg-btn active" id="brandPage1" onclick="goBrandPage(1)">1</button>
+                            <span id="brandPageButtons"></span>
                             <button class="pg-btn" id="brandNext" onclick="changeBrandPage(1)">Next</button>
                         </div>
                     </div>
@@ -451,9 +452,9 @@
                         <div class="pg-left">
                             <span id="subBrandPageInfo">Showing 1-10 of 5 items</span>
                         </div>
-                        <div class="pg-right">
+                        <div class="pg-right" id="subBrandPagination">
                             <button class="pg-btn" id="subBrandPrev" onclick="changeSubBrandPage(-1)">Previous</button>
-                            <button class="pg-btn active" id="subBrandPage1" onclick="goSubBrandPage(1)">1</button>
+                            <span id="subBrandPageButtons"></span>
                             <button class="pg-btn" id="subBrandNext" onclick="changeSubBrandPage(1)">Next</button>
                         </div>
                     </div>
@@ -542,9 +543,9 @@
                         <div class="pg-left">
                             <span id="voucherPageInfo">Showing 1-10 of 8 items</span>
                         </div>
-                        <div class="pg-right">
+                        <div class="pg-right" id="voucherPagination">
                             <button class="pg-btn" id="voucherPrev" onclick="changeVoucherPage(-1)">Previous</button>
-                            <button class="pg-btn active" id="voucherPage1" onclick="goVoucherPage(1)">1</button>
+                            <span id="voucherPageButtons"></span>
                             <button class="pg-btn" id="voucherNext" onclick="changeVoucherPage(1)">Next</button>
                         </div>
                     </div>
@@ -631,9 +632,9 @@
                         <div class="pg-left">
                             <span id="priceHistoryPageInfo">Showing 1-10 of 10 items</span>
                         </div>
-                        <div class="pg-right">
+                        <div class="pg-right" id="priceHistoryPagination">
                             <button class="pg-btn" id="priceHistoryPrev" onclick="changePriceHistoryPage(-1)">Previous</button>
-                            <button class="pg-btn active" id="priceHistoryPage1" onclick="goPriceHistoryPage(1)">1</button>
+                            <span id="priceHistoryPageButtons"></span>
                             <button class="pg-btn" id="priceHistoryNext" onclick="changePriceHistoryPage(1)">Next</button>
                         </div>
                     </div>
@@ -1933,17 +1934,48 @@
             const info = document.getElementById(`${type}PageInfo`);
             const prev = document.getElementById(`${type}Prev`);
             const next = document.getElementById(`${type}Next`);
-            
+            const buttonsContainer = document.getElementById(`${type}PageButtons`);
+
             if (total === 0) {
                 info.textContent = 'No items';
                 prev.disabled = true;
                 next.disabled = true;
+                buttonsContainer.innerHTML = '';
             } else {
                 const start = (current - 1) * pageSize + 1;
                 const end = Math.min(current * pageSize, total);
                 info.textContent = `Showing ${start}-${end} of ${total} items`;
                 prev.disabled = current === 1;
                 next.disabled = current === totalPages;
+
+                const goFnMap = {
+                    category: 'goCategoryPage',
+                    brand: 'goBrandPage',
+                    subBrand: 'goSubBrandPage',
+                    voucher: 'goVoucherPage',
+                    priceHistory: 'goPriceHistoryPage'
+                };
+                const goFn = goFnMap[type];
+
+                let buttons = '';
+                let startPage = Math.max(1, current - 2);
+                let endPage = Math.min(totalPages, current + 2);
+
+                if (startPage > 1) {
+                    buttons += `<button class="pg-btn ${current === 1 ? 'active' : ''}" onclick="${goFn}(1)">1</button>`;
+                    if (startPage > 2) buttons += `<span class="pg-ellipsis">...</span>`;
+                }
+
+                for (let i = startPage; i <= endPage; i++) {
+                    buttons += `<button class="pg-btn ${i === current ? 'active' : ''}" onclick="${goFn}(${i})">${i}</button>`;
+                }
+
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) buttons += `<span class="pg-ellipsis">...</span>`;
+                    buttons += `<button class="pg-btn ${current === totalPages ? 'active' : ''}" onclick="${goFn}(${totalPages})">${totalPages}</button>`;
+                }
+
+                buttonsContainer.innerHTML = buttons;
             }
         }
 
