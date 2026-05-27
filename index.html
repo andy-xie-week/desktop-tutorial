@@ -594,7 +594,6 @@
                     </div>
                     <div class="action-bar">
                         <div class="action-left">
-                            <button class="btn btn-primary" onclick="resendAlerts()">Resend Alerts</button>
                         </div>
                         <div class="action-right">
                             <button class="btn btn-search" onclick="searchPriceHistory()">Search</button>
@@ -608,7 +607,6 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox" id="selectAll" onchange="toggleSelectAll()"></th>
                                     <th>Detected At</th>
                                     <th>Merchant ID</th>
                                     <th>Merchant Name</th>
@@ -1821,7 +1819,7 @@
             const pageData = filteredData.priceHistory.slice(start, end);
 
             if (!pageData.length) {
-                tbody.innerHTML = '<tr><td colspan="15" class="no-data">No data found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="14" class="no-data">No data found</td></tr>';
                 updatePagination('priceHistory', 0);
                 return;
             }
@@ -1832,7 +1830,6 @@
                 const alertBadge = item.alertSent === 'Yes' ? '<span class="tag tag-green">Yes</span>' : '<span class="tag tag-gray">No</span>';
                 return `
                 <tr>
-                    <td><input type="checkbox" class="price-history-checkbox" value="${item.id}"></td>
                     <td>${item.detectedAt}</td>
                     <td>${item.merchantId}</td>
                     <td>${item.merchantName}</td>
