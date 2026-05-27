@@ -557,10 +557,6 @@
                 <div class="search-panel">
                     <div class="search-grid">
                         <div class="form-group">
-                            <label>Merchant ID</label>
-                            <input type="text" id="searchMerchantId" placeholder="Enter Merchant ID">
-                        </div>
-                        <div class="form-group">
                             <label>Product ID</label>
                             <input type="text" id="searchProductId" placeholder="Enter Product ID">
                         </div>
@@ -608,7 +604,6 @@
                             <thead>
                                 <tr>
                                     <th>Detected At</th>
-                                    <th>Merchant ID</th>
                                     <th>Merchant Name</th>
                                     <th>Product ID</th>
                                     <th>Product Name</th>
@@ -1819,7 +1814,7 @@
             const pageData = filteredData.priceHistory.slice(start, end);
 
             if (!pageData.length) {
-                tbody.innerHTML = '<tr><td colspan="14" class="no-data">No data found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="13" class="no-data">No data found</td></tr>';
                 updatePagination('priceHistory', 0);
                 return;
             }
@@ -1831,7 +1826,6 @@
                 return `
                 <tr>
                     <td>${item.detectedAt}</td>
-                    <td>${item.merchantId}</td>
                     <td>${item.merchantName}</td>
                     <td>${item.productId}</td>
                     <td>${item.productName}</td>
@@ -1851,7 +1845,6 @@
         }
 
         function searchPriceHistory() {
-            const merchantId = document.getElementById('searchMerchantId').value.toLowerCase();
             const productId = document.getElementById('searchProductId').value.toLowerCase();
             const vendorChannel = document.getElementById('searchVendorChannel').value;
             const dateFrom = document.getElementById('searchDateFrom').value;
@@ -1859,8 +1852,7 @@
             const mdrTrend = document.getElementById('searchMdrTrend').value;
 
             filteredData.priceHistory = priceHistoryData.filter(item => {
-                return (!merchantId || item.merchantId.toLowerCase().includes(merchantId)) &&
-                       (!productId || item.productId.toLowerCase().includes(productId)) &&
+                return (!productId || item.productId.toLowerCase().includes(productId)) &&
                        (!vendorChannel || item.vendorChannel === vendorChannel) &&
                        (!dateFrom || item.detectedAt >= dateFrom) &&
                        (!dateTo || item.detectedAt <= dateTo + ' 23:59') &&
