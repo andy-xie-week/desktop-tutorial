@@ -602,6 +602,7 @@
                                     <th>Merchant Name</th>
                                     <th>Product ID</th>
                                     <th>Product Name</th>
+                                    <th>Operations</th>
                                 </tr>
                             </thead>
                             <tbody id="priceHistoryTableBody"></tbody>
@@ -901,6 +902,21 @@
             <div class="modal-footer">
                 <button class="btn" onclick="closeVoucherModal()">Cancel</button>
                 <button class="btn btn-primary" onclick="saveVoucher()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Price History Detail Modal -->
+    <div class="modal" id="priceHistoryDetailModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <div class="modal-title">Product Detail</div>
+                <button class="modal-close" onclick="closePriceHistoryDetailModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="priceHistoryDetailBody">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closePriceHistoryDetailModal()">Close</button>
             </div>
         </div>
     </div>
@@ -1815,7 +1831,7 @@
             const pageData = filteredData.priceHistory.slice(start, end);
 
             if (!pageData.length) {
-                tbody.innerHTML = '<tr><td colspan="4" class="no-data">No data found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" class="no-data">No data found</td></tr>';
                 updatePagination('priceHistory', 0);
                 return;
             }
@@ -1827,6 +1843,11 @@
                     <td>${item.merchantName}</td>
                     <td>${item.productId}</td>
                     <td>${item.productName}</td>
+                    <td>
+                        <div class="icon-btns">
+                            <button class="icon-btn view" onclick="viewPriceHistoryDetail('${item.productId}')" title="View">👁</button>
+                        </div>
+                    </td>
                 </tr>
             `}).join('');
 
@@ -1864,6 +1885,32 @@
             filteredData.priceHistory = [...priceHistoryData];
             currentPage.priceHistory = 1;
             renderPriceHistory();
+        }
+
+        function viewPriceHistoryDetail(productId) {
+            const item = priceHistoryData.find(i => i.productId === productId);
+            if (!item) return;
+            const body = document.getElementById('priceHistoryDetailBody');
+            body.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group"><label>Product ID</label><p style="margin:4px 0;font-weight:500;">${item.productId}</p></div>
+                    <div class="form-group"><label>Product Name</label><p style="margin:4px 0;font-weight:500;">${item.productName}</p></div>
+                    <div class="form-group"><label>Merchant Name</label><p style="margin:4px 0;font-weight:500;">${item.merchantName}</p></div>
+                    <div class="form-group"><label>Detected At</label><p style="margin:4px 0;font-weight:500;">${item.detectedAt}</p></div>
+                    <div class="form-group"><label>Prev Cost (VAT)</label><p style="margin:4px 0;font-weight:500;">$${item.prevCost.toFixed(2)}</p></div>
+                    <div class="form-group"><label>Curr Cost (VAT)</label><p style="margin:4px 0;font-weight:500;">$${item.currCost.toFixed(2)}</p></div>
+                    <div class="form-group"><label>Prev RRP (VAT)</label><p style="margin:4px 0;font-weight:500;">$${item.prevRrp.toFixed(2)}</p></div>
+                    <div class="form-group"><label>Curr RRP (VAT)</label><p style="margin:4px 0;font-weight:500;">$${item.currRrp.toFixed(2)}</p></div>
+                    <div class="form-group"><label>Prev MDR</label><p style="margin:4px 0;font-weight:500;">${item.prevMdr.toFixed(2)}%</p></div>
+                    <div class="form-group"><label>Curr MDR</label><p style="margin:4px 0;font-weight:500;">${item.currMdr.toFixed(2)}%</p></div>
+                    <div class="form-group"><label>MDR Change</label><p style="margin:4px 0;font-weight:500;color:${item.mdrChange >= 0 ? '#27ae60' : '#e74c3c'}">${item.mdrChange >= 0 ? '+' : ''}${item.mdrChange.toFixed(2)}%</p></div>
+                </div>
+            `;
+            document.getElementById('priceHistoryDetailModal').style.display = 'flex';
+        }
+
+        function closePriceHistoryDetailModal() {
+            document.getElementById('priceHistoryDetailModal').style.display = 'none';
         }
 
         function toggleSelectAll() {
