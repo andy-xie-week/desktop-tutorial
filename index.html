@@ -977,7 +977,11 @@
             <div class="modal-body">
                 <div class="form-group" style="margin-bottom: 16px;">
                     <label>Voucher ID <span class="required">*</span></label>
-                    <input type="text" id="addVoucherFormId" placeholder="Enter Voucher ID">
+                    <input type="text" id="addVoucherFormId" placeholder="Enter Voucher ID" onchange="loadVoucherChangeHistory()">
+                </div>
+                <div id="voucherChangeHistoryPanel" style="display: none; margin-bottom: 16px; padding: 12px; background: #f5f5f5; border-radius: 4px;">
+                    <div style="font-weight: 600; margin-bottom: 8px;">Recent Price Changes</div>
+                    <div id="voucherChangeHistoryContent" style="max-height: 200px; overflow-y: auto;"></div>
                 </div>
                 <div class="form-row">
                     <div class="form-group" style="margin-bottom: 16px;">
@@ -1968,6 +1972,52 @@
             const timeRow = document.getElementById('addVoucherEffectTimeRow');
             timeRow.style.display = effectType === 'Time-controlled' ? 'grid' : 'none';
         }
+
+        function loadVoucherChangeHistory() {
+            const voucherId = document.getElementById('addVoucherFormId').value.trim();
+            const panel = document.getElementById('voucherChangeHistoryPanel');
+            const content = document.getElementById('voucherChangeHistoryContent');
+
+            if (!voucherId) {
+                panel.style.display = 'none';
+                return;
+            }
+
+            const records = changeHistoryData.filter(r => r.productId === voucherId);
+
+            if (records.length === 0) {
+                panel.style.display = 'none';
+                return;
+            }
+
+            panel.style.display = 'block';
+            const latestRecord = records[0];
+
+            let html = '<div style="font-size: 12px;">';
+            records.slice(0, 3).forEach((record, idx) => {
+                html += `
+                    <div style="padding: 8px; margin-bottom: 8px; background: white; border-radius: 3px; border-left: 3px solid #1890ff;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span style="font-weight: 500;">${record.productName}</span>
+                            <span style="color: #999;">${record.detectedAt}</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px;">
+                            <div>Cost: $${record.prevCost.toFixed(2)} → $${record.currCost.toFixed(2)}</div>
+                            <div>RRP: $${record.prevRrp.toFixed(2)} → $${record.currRrp.toFixed(2)}</div>
+                            <div>MDR: ${record.prevMdr.toFixed(2)}% → ${record.currMdr.toFixed(2)}%</div>
+                            <div style="color: ${record.mdrChange > 0 ? '#ff4d4f' : '#52c41a'};">Change: ${record.mdrChange > 0 ? '+' : ''}${record.mdrChange.toFixed(2)}%</div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            content.innerHTML = html;
+
+            // Auto-fill form with latest record data
+            document.getElementById('addVoucherFormMerchantId').value = latestRecord.merchantId;
+            document.getElementById('addVoucherFormId').value = latestRecord.productId;
+        }
+
 
         function populateAddVoucherSubBrands() {
             const brandId = document.getElementById('addVoucherFormBrand').value;
