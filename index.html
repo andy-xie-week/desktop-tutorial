@@ -522,11 +522,11 @@
                             <thead>
                                 <tr>
                                     <th>Priority</th>
+                                    <th>Brand</th>
+                                    <th>Sub-brand</th>
                                     <th>Voucher ID</th>
                                     <th>Voucher Name (EN)</th>
                                     <th>Voucher Name (AR)</th>
-                                    <th>Brand</th>
-                                    <th>Sub-brand</th>
                                     <th>Price (Before VAT)</th>
                                     <th>VAT Amount</th>
                                     <th>Price (After VAT)</th>
@@ -1650,11 +1650,11 @@
                             <button class="priority-btn" ${priorityDisabled || actualIdx === filteredData.voucher.length - 1 ? 'disabled' : ''} onclick="moveVoucherDown('${item.id}')">↓</button>
                         </div>
                     </td>
+                    <td>${item.brandName}</td>
+                    <td>${item.subBrandName}</td>
                     <td>${item.id}</td>
                     <td>${item.nameEn}</td>
                     <td>${item.nameAr}</td>
-                    <td>${item.brandName}</td>
-                    <td>${item.subBrandName}</td>
                     <td>$${item.priceBefore.toFixed(2)}</td>
                     <td>$${item.vat.toFixed(2)}</td>
                     <td>$${item.priceAfter.toFixed(2)}</td>
