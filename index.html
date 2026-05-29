@@ -1261,12 +1261,14 @@
 
             tbody.innerHTML = pageData.map((item, idx) => {
                 const actualIdx = start + idx;
+                const categoryFilter = document.getElementById('searchBrandCategory').value;
+                const priorityDisabled = !categoryFilter;
                 return `
                 <tr>
                     <td>
                         <div class="priority-controls">
-                            <button class="priority-btn" ${actualIdx === 0 ? 'disabled' : ''} onclick="moveBrandUp('${item.id}')">↑</button>
-                            <button class="priority-btn" ${actualIdx === filteredData.brand.length - 1 ? 'disabled' : ''} onclick="moveBrandDown('${item.id}')">↓</button>
+                            <button class="priority-btn" ${priorityDisabled || actualIdx === 0 ? 'disabled' : ''} onclick="moveBrandUp('${item.id}')">↑</button>
+                            <button class="priority-btn" ${priorityDisabled || actualIdx === filteredData.brand.length - 1 ? 'disabled' : ''} onclick="moveBrandDown('${item.id}')">↓</button>
                         </div>
                     </td>
                     <td>${item.id}</td>
@@ -1441,13 +1443,14 @@
 
             tbody.innerHTML = pageData.map((item, idx) => {
                 const actualIdx = start + idx;
+                const brandFilter = document.getElementById('searchSubBrandParent').value;
+                const priorityDisabled = !brandFilter;
                 return `
                 <tr>
                     <td>
                         <div class="priority-controls">
-                            <span>${item.priority}</span>
-                            <button class="priority-btn" ${actualIdx === 0 ? 'disabled' : ''} onclick="moveSubBrandUp('${item.id}')">↑</button>
-                            <button class="priority-btn" ${actualIdx === filteredData.subBrand.length - 1 ? 'disabled' : ''} onclick="moveSubBrandDown('${item.id}')">↓</button>
+                            <button class="priority-btn" ${priorityDisabled || actualIdx === 0 ? 'disabled' : ''} onclick="moveSubBrandUp('${item.id}')">↑</button>
+                            <button class="priority-btn" ${priorityDisabled || actualIdx === filteredData.subBrand.length - 1 ? 'disabled' : ''} onclick="moveSubBrandDown('${item.id}')">↓</button>
                         </div>
                     </td>
                     <td>${item.id}</td>
