@@ -2108,7 +2108,6 @@
 
             // First try to find in voucherData
             let voucher = voucherData.find(v => v.id === voucherId);
-            let merchantId = '';
 
             // If not found, try to find in changeHistoryData
             if (!voucher) {
@@ -2117,8 +2116,6 @@
                     detailsPanel.style.display = 'none';
                     return;
                 }
-
-                merchantId = changeRecord.merchantId;
 
                 // Create a voucher object from change history data
                 voucher = {
@@ -2150,13 +2147,6 @@
             document.getElementById('voucherDetailsRrpBefore').value = `$${voucher.priceAfter.toFixed(2)}`;
             document.getElementById('voucherDetailsRrpVat').value = `$${(voucher.priceAfter * 0.05).toFixed(2)}`;
             document.getElementById('voucherDetailsRrpAfter').value = `$${(voucher.priceAfter * 1.05).toFixed(2)}`;
-
-            // Auto-fill Merchant ID if found from Change History
-            if (merchantId) {
-                document.getElementById('addVoucherFormMerchantId').value = merchantId;
-                // Trigger MDR info loading
-                loadMerchantMdrInfo();
-            }
         }
         }
 
@@ -2169,22 +2159,13 @@
                 return;
             }
 
-            // Find merchant data from Change History
-            const merchantRecords = changeHistoryData.filter(r => r.merchantId === merchantId);
-
-            if (merchantRecords.length === 0) {
-                mdrPanel.style.display = 'none';
-                return;
-            }
-
             mdrPanel.style.display = 'block';
-            const latestRecord = merchantRecords[0];
 
-            // Fill in merchant MDR information
-            document.getElementById('merchantMdrName').value = latestRecord.merchantName || '';
-            document.getElementById('merchantMdrRate').value = latestRecord.currMdr.toFixed(2);
-            document.getElementById('merchantMdrCost').value = `$${latestRecord.currCost.toFixed(2)}`;
-            document.getElementById('merchantMdrRrp').value = `$${latestRecord.currRrp.toFixed(2)}`;
+            // Fill in merchant MDR information with default values
+            document.getElementById('merchantMdrName').value = '';
+            document.getElementById('merchantMdrRate').value = '15';
+            document.getElementById('merchantMdrCost').value = '';
+            document.getElementById('merchantMdrRrp').value = '';
         }
 
 
