@@ -1682,10 +1682,12 @@
             const status = document.getElementById('searchVoucherStatus').value;
             const stock = document.getElementById('searchVoucherStock').value;
 
+            const brandName = brand ? (brandData.find(b => b.id === brand) || {}).nameEn : '';
+
             filteredData.voucher = voucherData.filter(item => {
                 return (!id || item.id.toLowerCase().includes(id)) &&
                        (!nameEn || item.nameEn.toLowerCase().includes(nameEn)) &&
-                       (!brand || item.brandId === brand) &&
+                       (!brand || item.brandName === brandName) &&
                        (!subBrand || item.subBrandId === subBrand) &&
                        (!status || item.status === status) &&
                        (!stock || (stock === 'In Stock' ? item.outOfStock === 'No' : item.outOfStock === 'Yes'));
