@@ -2087,11 +2087,26 @@
                 return;
             }
 
-            const voucher = voucherData.find(v => v.id === voucherId);
+            // First try to find in voucherData
+            let voucher = voucherData.find(v => v.id === voucherId);
 
+            // If not found, try to find in changeHistoryData
             if (!voucher) {
-                detailsPanel.style.display = 'none';
-                return;
+                const changeRecord = changeHistoryData.find(r => r.productId === voucherId);
+                if (!changeRecord) {
+                    detailsPanel.style.display = 'none';
+                    return;
+                }
+
+                // Create a voucher object from change history data
+                voucher = {
+                    nameEn: changeRecord.productName || '',
+                    nameAr: '',
+                    priceBefore: changeRecord.currCost || 0,
+                    vat: (changeRecord.currCost * 0.05) || 0,
+                    priceAfter: (changeRecord.currCost * 1.05) || 0,
+                    outOfStock: 'No'
+                };
             }
 
             detailsPanel.style.display = 'block';
