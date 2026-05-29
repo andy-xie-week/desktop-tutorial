@@ -336,10 +336,10 @@
                             <thead>
                                 <tr>
                                     <th>Priority</th>
+                                    <th>Category</th>
                                     <th>Brand ID</th>
                                     <th>Brand Name (EN)</th>
                                     <th>Brand Name (AR)</th>
-                                    <th>Category</th>
                                     <th>Logo (Light)</th>
                                     <th>Logo (Dark)</th>
                                     <th>Status</th>
@@ -1281,10 +1281,10 @@
                             <button class="priority-btn" ${priorityDisabled || actualIdx === filteredData.brand.length - 1 ? 'disabled' : ''} onclick="moveBrandDown('${item.id}')">↓</button>
                         </div>
                     </td>
+                    <td>${item.category}</td>
                     <td>${item.id}</td>
                     <td>${item.nameEn}</td>
                     <td>${item.nameAr}</td>
-                    <td>${item.category}</td>
                     <td>${item.logoLight}</td>
                     <td>${item.logoDark}</td>
                     <td>
