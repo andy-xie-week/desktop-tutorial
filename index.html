@@ -1828,11 +1828,11 @@
                     <div class="form-group"><label>Out of Stock</label><p style="margin:4px 0;font-weight:500;">${voucher.outOfStock}</p></div>
                 </div>
             `;
-            document.getElementById('viewVoucherModal').style.display = 'flex';
+            document.getElementById('viewVoucherModal').classList.add('active');
         }
 
         function closeViewVoucherModal() {
-            document.getElementById('viewVoucherModal').style.display = 'none';
+            document.getElementById('viewVoucherModal').classList.remove('active');
         }
 
         function deleteVoucher(id) {
@@ -2033,11 +2033,11 @@
                     </tbody>
                 </table>
             `;
-            document.getElementById('priceHistoryDetailModal').style.display = 'flex';
+            document.getElementById('priceHistoryDetailModal').classList.add('active');
         }
 
         function closePriceHistoryDetailModal() {
-            document.getElementById('priceHistoryDetailModal').style.display = 'none';
+            document.getElementById('priceHistoryDetailModal').classList.remove('active');
         }
 
         function toggleSelectAll() {
