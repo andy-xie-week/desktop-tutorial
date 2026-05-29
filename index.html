@@ -591,8 +591,8 @@
                         <div class="action-left">
                         </div>
                         <div class="action-right">
-                            <button class="btn btn-search" onclick="searchPriceHistory()">Search</button>
-                            <button class="btn btn-reset" onclick="resetPriceHistory()">Reset</button>
+                            <button class="btn btn-search" onclick="searchChangeHistory()">Search</button>
+                            <button class="btn btn-reset" onclick="resetChangeHistory()">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -609,17 +609,17 @@
                                     <th>Operations</th>
                                 </tr>
                             </thead>
-                            <tbody id="priceHistoryTableBody"></tbody>
+                            <tbody id="changeHistoryTableBody"></tbody>
                         </table>
                     </div>
                     <div class="pagination">
                         <div class="pg-left">
-                            <span id="priceHistoryPageInfo">Showing 1-10 of 10 items</span>
+                            <span id="changeHistoryPageInfo">Showing 1-10 of 10 items</span>
                         </div>
-                        <div class="pg-right" id="priceHistoryPagination">
-                            <button class="pg-btn" id="priceHistoryPrev" onclick="changePriceHistoryPage(-1)">Previous</button>
-                            <span id="priceHistoryPageButtons"></span>
-                            <button class="pg-btn" id="priceHistoryNext" onclick="changePriceHistoryPage(1)">Next</button>
+                        <div class="pg-right" id="changeHistoryPagination">
+                            <button class="pg-btn" id="changeHistoryPrev" onclick="changeChangeHistoryPage(-1)">Previous</button>
+                            <span id="changeHistoryPageButtons"></span>
+                            <button class="pg-btn" id="changeHistoryNext" onclick="changeChangeHistoryPage(1)">Next</button>
                         </div>
                     </div>
                 </div>
@@ -1019,10 +1019,10 @@
                 <div class="form-row">
                     <div class="form-group" style="margin-bottom: 16px;">
                         <label>Voucher Status <span class="required">*</span></label>
-                        <select id="addVoucherFormStatus">
-                            <option value="Enable">Enable</option>
-                            <option value="Disable">Disable</option>
-                        </select>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="addVoucherFormStatusToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
                     </div>
                     <div class="form-group" style="margin-bottom: 16px;">
                         <label>Brand (EN) <span class="required">*</span></label>
@@ -1086,16 +1086,16 @@
     </div>
 
     <!-- Price History Detail Modal -->
-    <div class="modal" id="priceHistoryDetailModal">
+    <div class="modal" id="changeHistoryDetailModal">
         <div class="modal-content" style="max-width: 600px;">
             <div class="modal-header">
                 <div class="modal-title">Product Detail</div>
-                <button class="modal-close" onclick="closePriceHistoryDetailModal()">&times;</button>
+                <button class="modal-close" onclick="closeChangeHistoryDetailModal()">&times;</button>
             </div>
-            <div class="modal-body" id="priceHistoryDetailBody">
+            <div class="modal-body" id="changeHistoryDetailBody">
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closePriceHistoryDetailModal()">Close</button>
+                <button class="btn btn-secondary" onclick="closeChangeHistoryDetailModal()">Close</button>
             </div>
         </div>
     </div>
@@ -1108,12 +1108,12 @@
         // brandData loaded from JSON
         // subBrandData loaded from JSON
         // voucherData loaded from JSON
-        // priceHistoryData loaded from JSON
+        // changeHistoryData loaded from JSON
 
         // Load data from JSON files
         async function loadData() {
             try {
-                const [categories, brands, subBrands, vouchers, priceHistory] = await Promise.all([
+                const [categories, brands, subBrands, vouchers, changeHistory] = await Promise.all([
                     fetch('data/categories.json').then(r => r.json()),
                     fetch('data/brands.json').then(r => r.json()),
                     fetch('data/sub-brands.json').then(r => r.json()),
@@ -1125,7 +1125,7 @@
                 brandData = brands;
                 subBrandData = subBrands;
                 voucherData = vouchers;
-                priceHistoryData = priceHistory;
+                changeHistoryData = changeHistory;
 
                 // Auto-populate subBrandName for vouchers based on brandName match
                 voucherData.forEach(v => {
@@ -1143,7 +1143,7 @@
                     brands: brandData.length,
                     subBrands: subBrandData.length,
                     vouchers: voucherData.length,
-                    priceHistory: priceHistoryData.length
+                    changeHistory: changeHistoryData.length
                 });
                 
                 return true;
@@ -1159,12 +1159,12 @@
 
         // voucherData loaded from JSON
 
-        // priceHistoryData loaded from JSON
+        // changeHistoryData loaded from JSON
 
         // Pagination state
-        let currentPage = { category: 1, brand: 1, subBrand: 1, voucher: 1, priceHistory: 1 };
+        let currentPage = { category: 1, brand: 1, subBrand: 1, voucher: 1, changeHistory: 1 };
         let pageSize = 10;
-        let filteredData = { category: [], brand: [], subBrand: [], voucher: [], priceHistory: [] };
+        let filteredData = { category: [], brand: [], subBrand: [], voucher: [], changeHistory: [] };
 
         // ==================== Initialization ====================
         document.addEventListener('DOMContentLoaded', async function() {
@@ -1196,7 +1196,7 @@
             filteredData.brand = [...brandData];
             filteredData.subBrand = [...subBrandData];
             filteredData.voucher = [...voucherData];
-            filteredData.priceHistory = [...priceHistoryData];
+            filteredData.changeHistory = [...changeHistoryData];
 
             console.log('Filtered data initialized:', filteredData.category.length, 'categories');
 
@@ -1206,7 +1206,7 @@
                 renderBrands();
                 renderSubBrands();
                 renderVouchers();
-                renderPriceHistory();
+                renderChangeHistory();
                 console.log('✓ All tables rendered successfully');
             } catch (e) {
                 console.error('✗ Render error:', e);
@@ -1946,7 +1946,7 @@
             document.getElementById('addVoucherFormEffectType').value = 'Lifelong';
             document.getElementById('addVoucherFormEffectStartTime').value = '';
             document.getElementById('addVoucherFormEffectEndTime').value = '';
-            document.getElementById('addVoucherFormStatus').value = 'Enable';
+            document.getElementById('addVoucherFormStatusToggle').checked = true;
             document.getElementById('addVoucherFormBrand').value = '';
             document.getElementById('addVoucherFormSubBrand').innerHTML = '<option value="">Select Sub-brand</option>';
             document.getElementById('addVoucherFormIconLight').value = '';
@@ -2003,7 +2003,7 @@
             const effectType = document.getElementById('addVoucherFormEffectType').value;
             const effectStartTime = document.getElementById('addVoucherFormEffectStartTime').value;
             const effectEndTime = document.getElementById('addVoucherFormEffectEndTime').value;
-            const status = document.getElementById('addVoucherFormStatus').value;
+            const status = document.getElementById('addVoucherFormStatusToggle').checked ? 'Enable' : 'Disable';
             const brandId = document.getElementById('addVoucherFormBrand').value;
             const subBrandId = document.getElementById('addVoucherFormSubBrand').value;
             const iconLight = document.getElementById('addVoucherFormIconLight').value;
@@ -2166,15 +2166,15 @@
         }
 
         // ==================== Price History Functions ====================
-        function renderPriceHistory() {
-            const tbody = document.getElementById('priceHistoryTableBody');
-            const start = (currentPage.priceHistory - 1) * pageSize;
+        function renderChangeHistory() {
+            const tbody = document.getElementById('changeHistoryTableBody');
+            const start = (currentPage.changeHistory - 1) * pageSize;
             const end = start + pageSize;
-            const pageData = filteredData.priceHistory.slice(start, end);
+            const pageData = filteredData.changeHistory.slice(start, end);
 
             if (!pageData.length) {
                 tbody.innerHTML = '<tr><td colspan="5" class="no-data">No data found</td></tr>';
-                updatePagination('priceHistory', 0);
+                updatePagination('changeHistory', 0);
                 return;
             }
 
@@ -2187,16 +2187,16 @@
                     <td>${item.productName}</td>
                     <td>
                         <div class="icon-btns">
-                            <button class="icon-btn view" onclick="viewPriceHistoryDetail('${item.id}')" title="View">👁</button>
+                            <button class="icon-btn view" onclick="viewChangeHistoryDetail('${item.id}')" title="View">👁</button>
                         </div>
                     </td>
                 </tr>
             `}).join('');
 
-            updatePagination('priceHistory', filteredData.priceHistory.length);
+            updatePagination('changeHistory', filteredData.changeHistory.length);
         }
 
-        function searchPriceHistory() {
+        function searchChangeHistory() {
             const brandId = document.getElementById('searchHistoryBrandId').value.toLowerCase();
             const brandName = document.getElementById('searchHistoryBrandName').value.toLowerCase();
             const voucherName = document.getElementById('searchHistoryVoucherName').value.toLowerCase();
@@ -2204,7 +2204,7 @@
             const dateFrom = document.getElementById('searchDateFrom').value;
             const dateTo = document.getElementById('searchDateTo').value;
 
-            filteredData.priceHistory = priceHistoryData.filter(item => {
+            filteredData.changeHistory = changeHistoryData.filter(item => {
                 return (!brandId || item.productId.toLowerCase().includes(brandId)) &&
                        (!brandName || item.merchantName.toLowerCase().includes(brandName)) &&
                        (!voucherName || item.productName.toLowerCase().includes(voucherName)) &&
@@ -2212,11 +2212,11 @@
                        (!dateFrom || item.detectedAt >= dateFrom) &&
                        (!dateTo || item.detectedAt <= dateTo + ' 23:59');
             });
-            currentPage.priceHistory = 1;
-            renderPriceHistory();
+            currentPage.changeHistory = 1;
+            renderChangeHistory();
         }
 
-        function resetPriceHistory() {
+        function resetChangeHistory() {
             document.getElementById('searchHistoryBrandId').value = '';
             document.getElementById('searchHistoryBrandName').value = '';
             document.getElementById('searchHistoryVoucherName').value = '';
@@ -2224,16 +2224,16 @@
             document.getElementById('searchProductId').value = '';
             document.getElementById('searchDateFrom').value = '';
             document.getElementById('searchDateTo').value = '';
-            filteredData.priceHistory = [...priceHistoryData];
-            currentPage.priceHistory = 1;
-            renderPriceHistory();
+            filteredData.changeHistory = [...changeHistoryData];
+            currentPage.changeHistory = 1;
+            renderChangeHistory();
         }
 
-        function viewPriceHistoryDetail(id) {
-            const item = priceHistoryData.find(i => i.id === id);
+        function viewChangeHistoryDetail(id) {
+            const item = changeHistoryData.find(i => i.id === id);
             if (!item) return;
             const voucher = voucherData.find(v => v.id === item.productId);
-            const body = document.getElementById('priceHistoryDetailBody');
+            const body = document.getElementById('changeHistoryDetailBody');
 
             const changed = (prev, curr) => String(prev) !== String(curr) ? 'color:#e74c3c;font-weight:700;' : '';
             const costVatPrev = item.prevCost * 0.05;
@@ -2335,11 +2335,11 @@
                     </tbody>
                 </table>
             `;
-            document.getElementById('priceHistoryDetailModal').classList.add('active');
+            document.getElementById('changeHistoryDetailModal').classList.add('active');
         }
 
-        function closePriceHistoryDetailModal() {
-            document.getElementById('priceHistoryDetailModal').classList.remove('active');
+        function closeChangeHistoryDetailModal() {
+            document.getElementById('changeHistoryDetailModal').classList.remove('active');
         }
 
         function toggleSelectAll() {
@@ -2410,7 +2410,7 @@
                     brand: 'goBrandPage',
                     subBrand: 'goSubBrandPage',
                     voucher: 'goVoucherPage',
-                    priceHistory: 'goPriceHistoryPage'
+                    changeHistory: 'goChangeHistoryPage'
                 };
                 const goFn = goFnMap[type];
 
@@ -2494,10 +2494,10 @@
 
         function confirmAddVoucher() {
             const voucherId = document.getElementById('addVoucherInputId').value.trim();
-            const priceHistory = priceHistoryData.filter(p => p.productId === voucherId);
-            if (priceHistory.length === 0) return;
+            const changeHistory = changeHistoryData.filter(p => p.productId === voucherId);
+            if (changeHistory.length === 0) return;
 
-            const latestRecord = priceHistory[priceHistory.length - 1];
+            const latestRecord = changeHistory[changeHistory.length - 1];
             const newVoucher = {
                 id: voucherId,
                 nameEn: latestRecord.productName,
@@ -2525,13 +2525,13 @@
         }
 
         function showMdrInfo(merchantId) {
-            const priceHistory = priceHistoryData.filter(p => p.merchantId === merchantId);
-            if (priceHistory.length === 0) {
+            const changeHistory = changeHistoryData.filter(p => p.merchantId === merchantId);
+            if (changeHistory.length === 0) {
                 alert('No MDR information found');
                 return;
             }
 
-            const latestRecord = priceHistory[priceHistory.length - 1];
+            const latestRecord = changeHistory[changeHistory.length - 1];
             const mdrPrev = ((latestRecord.prevRrp - latestRecord.prevCost) / latestRecord.prevRrp * 100).toFixed(2);
             const mdrCurr = ((latestRecord.currRrp - latestRecord.currCost) / latestRecord.currRrp * 100).toFixed(2);
 
@@ -2551,18 +2551,18 @@
             document.getElementById('mdrInfoModal').classList.add('active');
         }
 
-        function changePriceHistoryPage(delta) {
-            const totalPages = Math.ceil(filteredData.priceHistory.length / pageSize);
-            const newPage = currentPage.priceHistory + delta;
+        function changeChangeHistoryPage(delta) {
+            const totalPages = Math.ceil(filteredData.changeHistory.length / pageSize);
+            const newPage = currentPage.changeHistory + delta;
             if (newPage >= 1 && newPage <= totalPages) {
-                currentPage.priceHistory = newPage;
-                renderPriceHistory();
+                currentPage.changeHistory = newPage;
+                renderChangeHistory();
             }
         }
 
-        function goPriceHistoryPage(page) {
-            currentPage.priceHistory = page;
-            renderPriceHistory();
+        function goChangeHistoryPage(page) {
+            currentPage.changeHistory = page;
+            renderChangeHistory();
         }
     </script>
 </body>
