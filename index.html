@@ -615,7 +615,6 @@
                                     <th>Prev MDR</th>
                                     <th>Curr MDR</th>
                                     <th>MDR Change</th>
-                                    <th>Alert Sent</th>
                                 </tr>
                             </thead>
                             <tbody id="priceHistoryTableBody"></tbody>
@@ -1816,7 +1815,7 @@
             const pageData = filteredData.priceHistory.slice(start, end);
 
             if (!pageData.length) {
-                tbody.innerHTML = '<tr><td colspan="13" class="no-data">No data found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="12" class="no-data">No data found</td></tr>';
                 updatePagination('priceHistory', 0);
                 return;
             }
@@ -1824,7 +1823,6 @@
             tbody.innerHTML = pageData.map(item => {
                 const mdrChangeClass = item.mdrChange >= 0 ? 'mdr-up' : 'mdr-down';
                 const mdrChangeSign = item.mdrChange >= 0 ? '+' : '';
-                const alertBadge = item.alertSent === 'Yes' ? '<span class="tag tag-green">Yes</span>' : '<span class="tag tag-gray">No</span>';
                 return `
                 <tr>
                     <td>${item.detectedAt}</td>
@@ -1839,7 +1837,6 @@
                     <td>${item.prevMdr.toFixed(2)}%</td>
                     <td>${item.currMdr.toFixed(2)}%</td>
                     <td class="${mdrChangeClass}">${mdrChangeSign}${item.mdrChange.toFixed(2)}%</td>
-                    <td>${alertBadge}</td>
                 </tr>
             `}).join('');
 
