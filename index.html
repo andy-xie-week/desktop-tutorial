@@ -570,14 +570,6 @@
                             <label>Date To</label>
                             <input type="text" id="searchDateTo" class="datepicker" placeholder="YYYY-MM-DD" readonly>
                         </div>
-                        <div class="form-group">
-                            <label>MDR Trend</label>
-                            <select id="searchMdrTrend">
-                                <option value="">All</option>
-                                <option value="Up">Up ↑</option>
-                                <option value="Down">Down ↓</option>
-                            </select>
-                        </div>
                     </div>
                     <div class="action-bar">
                         <div class="action-left">
@@ -598,13 +590,6 @@
                                     <th>Merchant Name</th>
                                     <th>Product ID</th>
                                     <th>Product Name</th>
-                                    <th>Prev Cost (VAT)</th>
-                                    <th>Curr Cost (VAT)</th>
-                                    <th>Prev RRP (VAT)</th>
-                                    <th>Curr RRP (VAT)</th>
-                                    <th>Prev MDR</th>
-                                    <th>Curr MDR</th>
-                                    <th>MDR Change</th>
                                 </tr>
                             </thead>
                             <tbody id="priceHistoryTableBody"></tbody>
@@ -1818,27 +1803,18 @@
             const pageData = filteredData.priceHistory.slice(start, end);
 
             if (!pageData.length) {
-                tbody.innerHTML = '<tr><td colspan="11" class="no-data">No data found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="4" class="no-data">No data found</td></tr>';
                 updatePagination('priceHistory', 0);
                 return;
             }
 
             tbody.innerHTML = pageData.map(item => {
-                const mdrChangeClass = item.mdrChange >= 0 ? 'mdr-up' : 'mdr-down';
-                const mdrChangeSign = item.mdrChange >= 0 ? '+' : '';
                 return `
                 <tr>
                     <td>${item.detectedAt}</td>
                     <td>${item.merchantName}</td>
                     <td>${item.productId}</td>
                     <td>${item.productName}</td>
-                    <td>$${item.prevCost.toFixed(2)}</td>
-                    <td>$${item.currCost.toFixed(2)}</td>
-                    <td>$${item.prevRrp.toFixed(2)}</td>
-                    <td>$${item.currRrp.toFixed(2)}</td>
-                    <td>${item.prevMdr.toFixed(2)}%</td>
-                    <td>${item.currMdr.toFixed(2)}%</td>
-                    <td class="${mdrChangeClass}">${mdrChangeSign}${item.mdrChange.toFixed(2)}%</td>
                 </tr>
             `}).join('');
 
@@ -1849,13 +1825,11 @@
             const productId = document.getElementById('searchProductId').value.toLowerCase();
             const dateFrom = document.getElementById('searchDateFrom').value;
             const dateTo = document.getElementById('searchDateTo').value;
-            const mdrTrend = document.getElementById('searchMdrTrend').value;
 
             filteredData.priceHistory = priceHistoryData.filter(item => {
                 return (!productId || item.productId.toLowerCase().includes(productId)) &&
                        (!dateFrom || item.detectedAt >= dateFrom) &&
-                       (!dateTo || item.detectedAt <= dateTo + ' 23:59') &&
-                       (!mdrTrend || (mdrTrend === 'Up' ? item.mdrChange >= 0 : item.mdrChange < 0));
+                       (!dateTo || item.detectedAt <= dateTo + ' 23:59');
             });
             currentPage.priceHistory = 1;
             renderPriceHistory();
@@ -1866,7 +1840,6 @@
             document.getElementById('searchProductId').value = '';
             document.getElementById('searchDateFrom').value = '';
             document.getElementById('searchDateTo').value = '';
-            document.getElementById('searchMdrTrend').value = '';
             filteredData.priceHistory = [...priceHistoryData];
             currentPage.priceHistory = 1;
             renderPriceHistory();
