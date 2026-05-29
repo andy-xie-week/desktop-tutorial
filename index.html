@@ -1091,7 +1091,6 @@
                 <tr>
                     <td>
                         <div class="priority-controls">
-                            <span>${item.priority}</span>
                             <button class="priority-btn" ${actualIdx === 0 ? 'disabled' : ''} onclick="moveCategoryUp('${item.id}')">↑</button>
                             <button class="priority-btn" ${actualIdx === filteredData.category.length - 1 ? 'disabled' : ''} onclick="moveCategoryDown('${item.id}')">↓</button>
                         </div>
