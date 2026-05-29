@@ -911,6 +911,21 @@
         </div>
     </div>
 
+    <!-- View Voucher Modal -->
+    <div class="modal" id="viewVoucherModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <div class="modal-title">Voucher Details</div>
+                <button class="modal-close" onclick="closeViewVoucherModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="viewVoucherBody">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeViewVoucherModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Price History Detail Modal -->
     <div class="modal" id="priceHistoryDetailModal">
         <div class="modal-content" style="max-width: 600px;">
@@ -1796,7 +1811,29 @@
         }
 
         function viewVoucher(id) {
-            alert('View voucher: ' + id);
+            const voucher = voucherData.find(v => v.id === id);
+            if (!voucher) return;
+            const body = document.getElementById('viewVoucherBody');
+            body.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group"><label>Voucher ID</label><p style="margin:4px 0;font-weight:500;">${voucher.id}</p></div>
+                    <div class="form-group"><label>Brand</label><p style="margin:4px 0;font-weight:500;">${voucher.brandName}</p></div>
+                    <div class="form-group"><label>Sub-brand</label><p style="margin:4px 0;font-weight:500;">${voucher.subBrandName || '-'}</p></div>
+                    <div class="form-group"><label>Priority</label><p style="margin:4px 0;font-weight:500;">${voucher.priority}</p></div>
+                    <div class="form-group" style="grid-column: 1 / -1;"><label>Voucher Name (EN)</label><p style="margin:4px 0;font-weight:500;">${voucher.nameEn}</p></div>
+                    <div class="form-group" style="grid-column: 1 / -1;"><label>Voucher Name (AR)</label><p style="margin:4px 0;font-weight:500;">${voucher.nameAr}</p></div>
+                    <div class="form-group"><label>Price Before VAT</label><p style="margin:4px 0;font-weight:500;">$${voucher.priceBefore.toFixed(2)}</p></div>
+                    <div class="form-group"><label>VAT Amount</label><p style="margin:4px 0;font-weight:500;">$${voucher.vat.toFixed(2)}</p></div>
+                    <div class="form-group"><label>Price After VAT</label><p style="margin:4px 0;font-weight:500;">$${voucher.priceAfter.toFixed(2)}</p></div>
+                    <div class="form-group"><label>Status</label><p style="margin:4px 0;font-weight:500;">${voucher.status}</p></div>
+                    <div class="form-group"><label>Out of Stock</label><p style="margin:4px 0;font-weight:500;">${voucher.outOfStock}</p></div>
+                </div>
+            `;
+            document.getElementById('viewVoucherModal').style.display = 'flex';
+        }
+
+        function closeViewVoucherModal() {
+            document.getElementById('viewVoucherModal').style.display = 'none';
         }
 
         function deleteVoucher(id) {
