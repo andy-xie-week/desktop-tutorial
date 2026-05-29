@@ -953,10 +953,10 @@
                     </div>
                     <div class="form-group" style="margin-bottom: 16px;">
                         <label>Voucher Status <span class="required">*</span></label>
-                        <select id="editVoucherStatus">
-                            <option value="Enable">Enable</option>
-                            <option value="Disable">Disable</option>
-                        </select>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="editVoucherStatusToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -1805,7 +1805,6 @@
 
             tbody.innerHTML = pageData.map((item, idx) => {
                 const actualIdx = start + idx;
-                const statusClass = item.status === 'Enable' ? 'tag-green' : item.status === 'Disable' ? 'tag-red' : 'tag-blue';
                 const brandFilter = document.getElementById('searchVoucherBrand').value;
                 const priorityDisabled = !brandFilter;
                 return `
@@ -1825,7 +1824,12 @@
                     <td>$${item.vat.toFixed(2)}</td>
                     <td>$${item.priceAfter.toFixed(2)}</td>
                     <td>${item.outOfStock}</td>
-                    <td><span class="tag ${statusClass}">${item.status}</span></td>
+                    <td>
+                        <label class="toggle-switch">
+                            <input type="checkbox" ${item.status === 'Enable' ? 'checked' : ''} onchange="toggleVoucherStatus('${item.id}')">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </td>
                     <td>
                         <div class="icon-btns">
                             <button class="icon-btn view" onclick="viewVoucher('${item.id}')" title="View">👁</button>
@@ -1903,7 +1907,7 @@
                     document.getElementById('editVoucherEffectStartTime').value = item.startTime;
                     document.getElementById('editVoucherEffectEndTime').value = item.endTime;
                     document.getElementById('editVoucherAvailable').value = item.outOfStock === 'No' ? 'Yes' : 'No';
-                    document.getElementById('editVoucherStatus').value = item.status;
+                    document.getElementById('editVoucherStatusToggle').checked = item.status === 'Enable';
                     toggleEffectTimeFields();
                 }
             } else {
@@ -2161,6 +2165,14 @@
                 [voucherData[idx + 1].priority, voucherData[idx].priority] = [voucherData[idx].priority, voucherData[idx + 1].priority];
                 voucherData.sort((a, b) => a.priority - b.priority);
                 filteredData.voucher = [...voucherData];
+                renderVouchers();
+            }
+        }
+
+        function toggleVoucherStatus(id) {
+            const item = voucherData.find(v => v.id === id);
+            if (item) {
+                item.status = item.status === 'Enable' ? 'Disable' : 'Enable';
                 renderVouchers();
             }
         }
