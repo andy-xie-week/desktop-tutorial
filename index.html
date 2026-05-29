@@ -208,8 +208,7 @@
     <!-- Main Content -->
     <div class="main-content">
         <!-- Debug Banner -->
-        <div class="debug-banner" id="debugBanner">Loading data... v3.0</div>
-        
+
         <!-- Page Header -->
         <div class="page-header" style="margin-top: 35px;">
             <div class="page-header-title" id="page-title">Category Management</div>
@@ -1098,11 +1097,6 @@
                 return true;
             } catch (e) {
                 console.error('✗ Failed to load data:', e);
-                const debugBanner = document.getElementById('debugBanner');
-                if (debugBanner) {
-                    debugBanner.textContent = '✗ Error loading data: ' + e.message;
-                    debugBanner.style.background = '#ff4d4f';
-                }
                 return false;
             }
         }
@@ -1122,21 +1116,14 @@
 
         // ==================== Initialization ====================
         document.addEventListener('DOMContentLoaded', async function() {
-            const debugBanner = document.getElementById('debugBanner');
             console.log('=== Marketplace Portal v3.0 (JSON Version) ===');
             console.log('DOM loaded, loading data from JSON files...');
-            
+
             // Load data from JSON files first
             const dataLoaded = await loadData();
-            
+
             if (!dataLoaded) {
                 return;
-            }
-            
-            // Update debug banner
-            if (debugBanner) {
-                debugBanner.textContent = `✓ Loaded: ${categoryData.length} Categories | ${brandData.length} Brands | ${voucherData.length} Vouchers | v4.0`;
-                debugBanner.style.background = '#52c41a';
             }
 
             // Initialize datepickers (with error handling)
@@ -1171,10 +1158,6 @@
                 console.log('✓ All tables rendered successfully');
             } catch (e) {
                 console.error('✗ Render error:', e);
-                if (debugBanner) {
-                    debugBanner.textContent = '✗ Error: ' + e.message;
-                    debugBanner.style.background = '#ff4d4f';
-                }
             }
 
             // Populate dropdowns
