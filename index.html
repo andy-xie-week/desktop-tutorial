@@ -1991,7 +1991,6 @@
             }
 
             panel.style.display = 'block';
-            const latestRecord = records[0];
 
             let html = '<div style="font-size: 12px;">';
             records.slice(0, 3).forEach((record, idx) => {
@@ -2012,10 +2011,6 @@
             });
             html += '</div>';
             content.innerHTML = html;
-
-            // Auto-fill form with latest record data
-            document.getElementById('addVoucherFormMerchantId').value = latestRecord.merchantId;
-            document.getElementById('addVoucherFormId').value = latestRecord.productId;
         }
 
 
