@@ -557,11 +557,23 @@
                 <div class="search-panel">
                     <div class="search-grid">
                         <div class="form-group">
-                            <label>Product ID</label>
-                            <input type="text" id="searchProductId" placeholder="Enter Product ID">
+                            <label>Brand ID</label>
+                            <input type="text" id="searchHistoryBrandId" placeholder="Enter Brand ID">
+                        </div>
+                        <div class="form-group">
+                            <label>Brand Name</label>
+                            <input type="text" id="searchHistoryBrandName" placeholder="Enter Brand Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Voucher Name</label>
+                            <input type="text" id="searchHistoryVoucherName" placeholder="Enter Voucher Name">
                         </div>
                     </div>
                     <div class="search-grid">
+                        <div class="form-group">
+                            <label>Product ID</label>
+                            <input type="text" id="searchProductId" placeholder="Enter Product ID">
+                        </div>
                         <div class="form-group">
                             <label>Date From</label>
                             <input type="text" id="searchDateFrom" class="datepicker" placeholder="YYYY-MM-DD" readonly>
@@ -1822,12 +1834,18 @@
         }
 
         function searchPriceHistory() {
+            const brandId = document.getElementById('searchHistoryBrandId').value.toLowerCase();
+            const brandName = document.getElementById('searchHistoryBrandName').value.toLowerCase();
+            const voucherName = document.getElementById('searchHistoryVoucherName').value.toLowerCase();
             const productId = document.getElementById('searchProductId').value.toLowerCase();
             const dateFrom = document.getElementById('searchDateFrom').value;
             const dateTo = document.getElementById('searchDateTo').value;
 
             filteredData.priceHistory = priceHistoryData.filter(item => {
-                return (!productId || item.productId.toLowerCase().includes(productId)) &&
+                return (!brandId || item.productId.toLowerCase().includes(brandId)) &&
+                       (!brandName || item.merchantName.toLowerCase().includes(brandName)) &&
+                       (!voucherName || item.productName.toLowerCase().includes(voucherName)) &&
+                       (!productId || item.productId.toLowerCase().includes(productId)) &&
                        (!dateFrom || item.detectedAt >= dateFrom) &&
                        (!dateTo || item.detectedAt <= dateTo + ' 23:59');
             });
@@ -1836,6 +1854,9 @@
         }
 
         function resetPriceHistory() {
+            document.getElementById('searchHistoryBrandId').value = '';
+            document.getElementById('searchHistoryBrandName').value = '';
+            document.getElementById('searchHistoryVoucherName').value = '';
             document.getElementById('searchMerchantId').value = '';
             document.getElementById('searchProductId').value = '';
             document.getElementById('searchDateFrom').value = '';
