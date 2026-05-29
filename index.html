@@ -944,6 +944,17 @@
                 subBrandData = subBrands;
                 voucherData = vouchers;
                 priceHistoryData = priceHistory;
+
+                // Auto-populate subBrandName for vouchers based on brandName match
+                voucherData.forEach(v => {
+                    if (!v.subBrandName) {
+                        const matchedSubBrand = subBrandData.find(sb => sb.brandName === v.brandName);
+                        if (matchedSubBrand) {
+                            v.subBrandId = matchedSubBrand.id;
+                            v.subBrandName = matchedSubBrand.nameEn;
+                        }
+                    }
+                });
                 
                 console.log('✓ Data loaded:', {
                     categories: categoryData.length,
