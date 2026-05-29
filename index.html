@@ -560,15 +560,6 @@
                             <label>Product ID</label>
                             <input type="text" id="searchProductId" placeholder="Enter Product ID">
                         </div>
-                        <div class="form-group">
-                            <label>Vendor Channel</label>
-                            <select id="searchVendorChannel">
-                                <option value="">All</option>
-                                <option value="OneCard">OneCard</option>
-                                <option value="Direct">Direct</option>
-                                <option value="Partner">Partner</option>
-                            </select>
-                        </div>
                     </div>
                     <div class="search-grid">
                         <div class="form-group">
@@ -607,7 +598,6 @@
                                     <th>Merchant Name</th>
                                     <th>Product ID</th>
                                     <th>Product Name</th>
-                                    <th>Vendor Channel</th>
                                     <th>Prev Cost (VAT)</th>
                                     <th>Curr Cost (VAT)</th>
                                     <th>Prev RRP (VAT)</th>
@@ -1828,7 +1818,7 @@
             const pageData = filteredData.priceHistory.slice(start, end);
 
             if (!pageData.length) {
-                tbody.innerHTML = '<tr><td colspan="12" class="no-data">No data found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="11" class="no-data">No data found</td></tr>';
                 updatePagination('priceHistory', 0);
                 return;
             }
@@ -1842,7 +1832,6 @@
                     <td>${item.merchantName}</td>
                     <td>${item.productId}</td>
                     <td>${item.productName}</td>
-                    <td>${item.vendorChannel}</td>
                     <td>$${item.prevCost.toFixed(2)}</td>
                     <td>$${item.currCost.toFixed(2)}</td>
                     <td>$${item.prevRrp.toFixed(2)}</td>
@@ -1858,14 +1847,12 @@
 
         function searchPriceHistory() {
             const productId = document.getElementById('searchProductId').value.toLowerCase();
-            const vendorChannel = document.getElementById('searchVendorChannel').value;
             const dateFrom = document.getElementById('searchDateFrom').value;
             const dateTo = document.getElementById('searchDateTo').value;
             const mdrTrend = document.getElementById('searchMdrTrend').value;
 
             filteredData.priceHistory = priceHistoryData.filter(item => {
                 return (!productId || item.productId.toLowerCase().includes(productId)) &&
-                       (!vendorChannel || item.vendorChannel === vendorChannel) &&
                        (!dateFrom || item.detectedAt >= dateFrom) &&
                        (!dateTo || item.detectedAt <= dateTo + ' 23:59') &&
                        (!mdrTrend || (mdrTrend === 'Up' ? item.mdrChange >= 0 : item.mdrChange < 0));
@@ -1877,7 +1864,6 @@
         function resetPriceHistory() {
             document.getElementById('searchMerchantId').value = '';
             document.getElementById('searchProductId').value = '';
-            document.getElementById('searchVendorChannel').value = '';
             document.getElementById('searchDateFrom').value = '';
             document.getElementById('searchDateTo').value = '';
             document.getElementById('searchMdrTrend').value = '';
