@@ -1630,13 +1630,14 @@
             tbody.innerHTML = pageData.map((item, idx) => {
                 const actualIdx = start + idx;
                 const statusClass = item.status === 'Enable' ? 'tag-green' : item.status === 'Disable' ? 'tag-red' : 'tag-blue';
+                const brandFilter = document.getElementById('searchVoucherBrand').value;
+                const priorityDisabled = !brandFilter;
                 return `
                 <tr>
                     <td>
                         <div class="priority-controls">
-                            <span>${item.priority}</span>
-                            <button class="priority-btn" ${actualIdx === 0 ? 'disabled' : ''} onclick="moveVoucherUp('${item.id}')">↑</button>
-                            <button class="priority-btn" ${actualIdx === filteredData.voucher.length - 1 ? 'disabled' : ''} onclick="moveVoucherDown('${item.id}')">↓</button>
+                            <button class="priority-btn" ${priorityDisabled || actualIdx === 0 ? 'disabled' : ''} onclick="moveVoucherUp('${item.id}')">↑</button>
+                            <button class="priority-btn" ${priorityDisabled || actualIdx === filteredData.voucher.length - 1 ? 'disabled' : ''} onclick="moveVoucherDown('${item.id}')">↓</button>
                         </div>
                     </td>
                     <td>${item.id}</td>
