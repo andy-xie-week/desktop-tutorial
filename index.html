@@ -1851,7 +1851,7 @@
                     <td>${item.productName}</td>
                     <td>
                         <div class="icon-btns">
-                            <button class="icon-btn view" onclick="viewPriceHistoryDetail('${item.productId}')" title="View">👁</button>
+                            <button class="icon-btn view" onclick="viewPriceHistoryDetail('${item.id}')" title="View">👁</button>
                         </div>
                     </td>
                 </tr>
@@ -1893,19 +1893,23 @@
             renderPriceHistory();
         }
 
-        function viewPriceHistoryDetail(productId) {
-            const item = priceHistoryData.find(i => i.productId === productId);
+        function viewPriceHistoryDetail(id) {
+            const item = priceHistoryData.find(i => i.id === id);
             if (!item) return;
-            const voucher = voucherData.find(v => v.id === productId);
+            const voucher = voucherData.find(v => v.id === item.productId);
             const body = document.getElementById('priceHistoryDetailBody');
 
-            const changed = (prev, curr) => prev !== curr ? 'color:#e74c3c;font-weight:700;' : '';
-            const costVatPrev = (item.prevRrp - item.prevCost);
-            const costVatCurr = (item.currRrp - item.currCost);
+            const changed = (prev, curr) => String(prev) !== String(curr) ? 'color:#e74c3c;font-weight:700;' : '';
+            const costVatPrev = item.prevCost * 0.05;
+            const costVatCurr = item.currCost * 0.05;
+            const costAfterVatPrev = item.prevCost + costVatPrev;
+            const costAfterVatCurr = item.currCost + costVatCurr;
             const rrpVatPrev = item.prevRrp * 0.05;
             const rrpVatCurr = item.currRrp * 0.05;
             const rrpAfterVatPrev = item.prevRrp + rrpVatPrev;
             const rrpAfterVatCurr = item.currRrp + rrpVatCurr;
+            const howToUseEn = voucher && voucher.howToUseEn ? voucher.howToUseEn : 'Redeem via official website or app';
+            const howToUseAr = voucher && voucher.howToUseAr ? voucher.howToUseAr : 'استبدل عبر الموقع الرسمي أو التطبيق';
 
             body.innerHTML = `
                 <table class="detail-compare-table">
@@ -1918,7 +1922,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Voucher ID</td>
+                            <td>Voucher ID (Product ID)</td>
                             <td>${item.productId}</td>
                             <td>${item.productId}</td>
                         </tr>
@@ -1943,6 +1947,16 @@
                             <td>${voucher ? (voucher.outOfStock === 'No' ? 'Yes' : 'No') : '-'}</td>
                         </tr>
                         <tr>
+                            <td>How To Use (EN)</td>
+                            <td>${howToUseEn}</td>
+                            <td>${howToUseEn}</td>
+                        </tr>
+                        <tr>
+                            <td>How To Use (AR)</td>
+                            <td>${howToUseAr}</td>
+                            <td>${howToUseAr}</td>
+                        </tr>
+                        <tr>
                             <td>Cost Price Before VAT</td>
                             <td style="${changed(item.prevCost, item.currCost)}">$${item.prevCost.toFixed(2)}</td>
                             <td style="${changed(item.prevCost, item.currCost)}">$${item.currCost.toFixed(2)}</td>
@@ -1954,8 +1968,8 @@
                         </tr>
                         <tr>
                             <td>Cost Price After VAT</td>
-                            <td style="${changed(item.prevRrp, item.currRrp)}">$${item.prevRrp.toFixed(2)}</td>
-                            <td style="${changed(item.prevRrp, item.currRrp)}">$${item.currRrp.toFixed(2)}</td>
+                            <td style="${changed(costAfterVatPrev.toFixed(2), costAfterVatCurr.toFixed(2))}">$${costAfterVatPrev.toFixed(2)}</td>
+                            <td style="${changed(costAfterVatPrev.toFixed(2), costAfterVatCurr.toFixed(2))}">$${costAfterVatCurr.toFixed(2)}</td>
                         </tr>
                         <tr>
                             <td>Recommended Retail Price Before VAT</td>
