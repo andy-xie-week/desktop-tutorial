@@ -836,6 +836,19 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Voucher Type <span class="required">*</span></label>
+                        <select id="editVoucherType">
+                            <option value="1">1-Marketplace Voucher</option>
+                            <option value="2">2-Mobile Recharge</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Currency <span class="required">*</span></label>
+                        <input type="text" id="editVoucherCurrency" value="SAR" placeholder="Currency">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
                         <label>Voucher Name (EN) <span class="required">*</span></label>
                         <input type="text" id="editVoucherNameEn" placeholder="Enter English name">
                     </div>
@@ -860,47 +873,91 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group" style="margin-bottom: 16px;">
-                        <label>Price (Before VAT) <span class="required">*</span></label>
+                        <label>Icon (Light)</label>
+                        <input type="text" id="editVoucherIconLight" placeholder="Icon URL">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Icon (Dark)</label>
+                        <input type="text" id="editVoucherIconDark" placeholder="Icon URL">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>How To Use (EN)</label>
+                        <input type="text" id="editVoucherHowToUseEn" placeholder="How to use in English">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>How To Use (AR)</label>
+                        <input type="text" id="editVoucherHowToUseAr" placeholder="How to use in Arabic">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Cost Price Before VAT <span class="required">*</span></label>
                         <input type="number" id="editVoucherPriceBefore" min="0" step="0.01" onchange="calculateVAT()">
                     </div>
                     <div class="form-group" style="margin-bottom: 16px;">
-                        <label>Price (After VAT) <span class="required">*</span></label>
+                        <label>Cost Price After VAT <span class="required">*</span></label>
                         <input type="number" id="editVoucherPriceAfter" min="0" step="0.01" onchange="calculateVAT()">
                     </div>
                 </div>
                 <div class="form-group" style="margin-bottom: 16px;">
-                    <label>VAT Amount (Auto-calculated)</label>
+                    <label>Cost Price VAT Amount (Auto-calculated)</label>
                     <input type="text" id="editVoucherVatAmount" disabled style="background: #f5f5f5; color: #999;">
-                </div>
-                <div class="form-group" style="margin-bottom: 16px;">
-                    <label>Priority <span class="required">*</span></label>
-                    <input type="number" id="editVoucherPriority" min="1" value="1">
                 </div>
                 <div class="form-row">
                     <div class="form-group" style="margin-bottom: 16px;">
-                        <label>Out of Stock</label>
-                        <select id="editVoucherOutOfStock">
-                            <option value="No">No</option>
+                        <label>Recommended Retail Price Before VAT</label>
+                        <input type="number" id="editVoucherRrpBefore" min="0" step="0.01" placeholder="RRP Before VAT">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Recommended Retail Price After VAT</label>
+                        <input type="number" id="editVoucherRrpAfter" min="0" step="0.01" placeholder="RRP After VAT">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Merchant ID</label>
+                        <input type="text" id="editVoucherMerchantId" placeholder="Merchant ID" disabled style="background: #f5f5f5; color: #999;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>MDR (%)</label>
+                        <input type="number" id="editVoucherMdr" min="0" step="0.01" value="2.5" placeholder="MDR">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Effect Type <span class="required">*</span></label>
+                        <select id="editVoucherEffectType" onchange="toggleEffectTimeFields()">
+                            <option value="Lifelong">Lifelong</option>
+                            <option value="Time-controlled">Time-controlled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row" id="voucherEffectTimeFields" style="display: none;">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Effect Start Time <span class="required">*</span></label>
+                        <input type="text" id="editVoucherEffectStartTime" class="datepicker" placeholder="YYYY-MM-DD HH:mm:ss" readonly>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Effect End Time <span class="required">*</span></label>
+                        <input type="text" id="editVoucherEffectEndTime" class="datepicker" placeholder="YYYY-MM-DD HH:mm:ss" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Available</label>
+                        <select id="editVoucherAvailable">
                             <option value="Yes">Yes</option>
+                            <option value="No">No</option>
                         </select>
                     </div>
                     <div class="form-group" style="margin-bottom: 16px;">
                         <label>Voucher Status <span class="required">*</span></label>
-                        <select id="editVoucherStatus" onchange="toggleVoucherTimeFields()">
+                        <select id="editVoucherStatus">
                             <option value="Enable">Enable</option>
                             <option value="Disable">Disable</option>
-                            <option value="Scheduled">Scheduled</option>
                         </select>
-                    </div>
-                </div>
-                <div class="form-row" id="voucherTimeFields" style="display: none;">
-                    <div class="form-group" style="margin-bottom: 16px;">
-                        <label>Start Time <span class="required">*</span></label>
-                        <input type="text" id="editVoucherStartTime" class="datepicker" placeholder="YYYY-MM-DD HH:mm" readonly>
-                    </div>
-                    <div class="form-group" style="margin-bottom: 16px;">
-                        <label>End Time <span class="required">*</span></label>
-                        <input type="text" id="editVoucherEndTime" class="datepicker" placeholder="YYYY-MM-DD HH:mm" readonly>
                     </div>
                 </div>
             </div>
@@ -1733,42 +1790,62 @@
             const modal = document.getElementById('voucherModal');
             const title = document.getElementById('voucherModalTitle');
             populateBrandDropdowns();
-            
+
             if (mode === 'edit' && id) {
                 const item = voucherData.find(v => v.id === id);
                 if (item) {
                     title.textContent = 'Edit Voucher';
                     document.getElementById('editVoucherId').value = item.id;
+                    document.getElementById('editVoucherType').value = '1';
+                    document.getElementById('editVoucherCurrency').value = 'SAR';
                     document.getElementById('editVoucherNameEn').value = item.nameEn;
                     document.getElementById('editVoucherNameAr').value = item.nameAr;
                     document.getElementById('editVoucherBrand').value = item.brandId;
                     populateVoucherSubBrands(item.subBrandId);
+                    document.getElementById('editVoucherIconLight').value = '';
+                    document.getElementById('editVoucherIconDark').value = '';
+                    document.getElementById('editVoucherHowToUseEn').value = 'Redeem via official website or app';
+                    document.getElementById('editVoucherHowToUseAr').value = 'استبدل عبر الموقع الرسمي أو التطبيق';
                     document.getElementById('editVoucherPriceBefore').value = item.priceBefore;
                     document.getElementById('editVoucherPriceAfter').value = item.priceAfter;
                     document.getElementById('editVoucherVatAmount').value = item.vat.toFixed(2);
-                    document.getElementById('editVoucherPriority').value = item.priority;
-                    document.getElementById('editVoucherOutOfStock').value = item.outOfStock;
+                    document.getElementById('editVoucherRrpBefore').value = item.priceAfter;
+                    document.getElementById('editVoucherRrpAfter').value = item.priceAfter;
+                    document.getElementById('editVoucherMerchantId').value = item.brandId;
+                    document.getElementById('editVoucherMdr').value = '2.5';
+                    document.getElementById('editVoucherEffectType').value = item.startTime && item.endTime ? 'Time-controlled' : 'Lifelong';
+                    document.getElementById('editVoucherEffectStartTime').value = item.startTime;
+                    document.getElementById('editVoucherEffectEndTime').value = item.endTime;
+                    document.getElementById('editVoucherAvailable').value = item.outOfStock === 'No' ? 'Yes' : 'No';
                     document.getElementById('editVoucherStatus').value = item.status;
-                    document.getElementById('editVoucherStartTime').value = item.startTime;
-                    document.getElementById('editVoucherEndTime').value = item.endTime;
-                    toggleVoucherTimeFields();
+                    toggleEffectTimeFields();
                 }
             } else {
                 title.textContent = 'Add Voucher';
                 document.getElementById('editVoucherId').value = 'Auto-generated';
+                document.getElementById('editVoucherType').value = '1';
+                document.getElementById('editVoucherCurrency').value = 'SAR';
                 document.getElementById('editVoucherNameEn').value = '';
                 document.getElementById('editVoucherNameAr').value = '';
                 document.getElementById('editVoucherBrand').value = '';
                 document.getElementById('editVoucherSubBrand').innerHTML = '<option value="">Select Sub-brand</option>';
+                document.getElementById('editVoucherIconLight').value = '';
+                document.getElementById('editVoucherIconDark').value = '';
+                document.getElementById('editVoucherHowToUseEn').value = '';
+                document.getElementById('editVoucherHowToUseAr').value = '';
                 document.getElementById('editVoucherPriceBefore').value = '';
                 document.getElementById('editVoucherPriceAfter').value = '';
                 document.getElementById('editVoucherVatAmount').value = '';
-                document.getElementById('editVoucherPriority').value = '1';
-                document.getElementById('editVoucherOutOfStock').value = 'No';
+                document.getElementById('editVoucherRrpBefore').value = '';
+                document.getElementById('editVoucherRrpAfter').value = '';
+                document.getElementById('editVoucherMerchantId').value = '';
+                document.getElementById('editVoucherMdr').value = '2.5';
+                document.getElementById('editVoucherEffectType').value = 'Lifelong';
+                document.getElementById('editVoucherEffectStartTime').value = '';
+                document.getElementById('editVoucherEffectEndTime').value = '';
+                document.getElementById('editVoucherAvailable').value = 'Yes';
                 document.getElementById('editVoucherStatus').value = 'Enable';
-                document.getElementById('editVoucherStartTime').value = '';
-                document.getElementById('editVoucherEndTime').value = '';
-                toggleVoucherTimeFields();
+                toggleEffectTimeFields();
             }
             
             modal.classList.add('active');
@@ -1804,6 +1881,12 @@
             timeFields.style.display = status === 'Scheduled' ? 'grid' : 'none';
         }
 
+        function toggleEffectTimeFields() {
+            const effectType = document.getElementById('editVoucherEffectType').value;
+            const effectTimeFields = document.getElementById('voucherEffectTimeFields');
+            effectTimeFields.style.display = effectType === 'Time-controlled' ? 'grid' : 'none';
+        }
+
         function saveVoucher() {
             alert('Voucher saved successfully! (Demo - no backend)');
             closeVoucherModal();
@@ -1813,19 +1896,36 @@
             const voucher = voucherData.find(v => v.id === id);
             if (!voucher) return;
             const body = document.getElementById('viewVoucherBody');
+            const costVat = voucher.priceBefore * 0.05;
+            const rrpVat = voucher.priceAfter * 0.05;
+            const effectType = voucher.startTime && voucher.endTime ? 'Time-controlled' : 'Lifelong';
+            const effectTime = effectType === 'Time-controlled' ? `${voucher.startTime} - ${voucher.endTime}` : 'N/A';
+
             body.innerHTML = `
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                     <div class="form-group"><label>Voucher ID</label><p style="margin:4px 0;font-weight:500;">${voucher.id}</p></div>
-                    <div class="form-group"><label>Brand</label><p style="margin:4px 0;font-weight:500;">${voucher.brandName}</p></div>
-                    <div class="form-group"><label>Sub-brand</label><p style="margin:4px 0;font-weight:500;">${voucher.subBrandName || '-'}</p></div>
-                    <div class="form-group"><label>Priority</label><p style="margin:4px 0;font-weight:500;">${voucher.priority}</p></div>
+                    <div class="form-group"><label>Voucher Type</label><p style="margin:4px 0;font-weight:500;">1-Marketplace Voucher</p></div>
+                    <div class="form-group"><label>Brand (EN)</label><p style="margin:4px 0;font-weight:500;">${voucher.brandName}</p></div>
+                    <div class="form-group"><label>Sub-brand (EN)</label><p style="margin:4px 0;font-weight:500;">${voucher.subBrandName || '-'}</p></div>
+                    <div class="form-group"><label>Icon (Light)</label><p style="margin:4px 0;font-weight:500;">-</p></div>
+                    <div class="form-group"><label>Icon (Dark)</label><p style="margin:4px 0;font-weight:500;">-</p></div>
                     <div class="form-group" style="grid-column: 1 / -1;"><label>Voucher Name (EN)</label><p style="margin:4px 0;font-weight:500;">${voucher.nameEn}</p></div>
                     <div class="form-group" style="grid-column: 1 / -1;"><label>Voucher Name (AR)</label><p style="margin:4px 0;font-weight:500;">${voucher.nameAr}</p></div>
-                    <div class="form-group"><label>Price Before VAT</label><p style="margin:4px 0;font-weight:500;">$${voucher.priceBefore.toFixed(2)}</p></div>
-                    <div class="form-group"><label>VAT Amount</label><p style="margin:4px 0;font-weight:500;">$${voucher.vat.toFixed(2)}</p></div>
-                    <div class="form-group"><label>Price After VAT</label><p style="margin:4px 0;font-weight:500;">$${voucher.priceAfter.toFixed(2)}</p></div>
-                    <div class="form-group"><label>Status</label><p style="margin:4px 0;font-weight:500;">${voucher.status}</p></div>
-                    <div class="form-group"><label>Out of Stock</label><p style="margin:4px 0;font-weight:500;">${voucher.outOfStock}</p></div>
+                    <div class="form-group"><label>Currency</label><p style="margin:4px 0;font-weight:500;">SAR</p></div>
+                    <div class="form-group"><label>Available</label><p style="margin:4px 0;font-weight:500;">${voucher.outOfStock === 'No' ? 'Yes' : 'No'}</p></div>
+                    <div class="form-group" style="grid-column: 1 / -1;"><label>How To Use (EN)</label><p style="margin:4px 0;font-weight:500;">Redeem via official website or app</p></div>
+                    <div class="form-group" style="grid-column: 1 / -1;"><label>How To Use (AR)</label><p style="margin:4px 0;font-weight:500;">استبدل عبر الموقع الرسمي أو التطبيق</p></div>
+                    <div class="form-group"><label>Cost Price Before VAT</label><p style="margin:4px 0;font-weight:500;">$${voucher.priceBefore.toFixed(2)}</p></div>
+                    <div class="form-group"><label>Cost Price VAT Amount</label><p style="margin:4px 0;font-weight:500;">$${costVat.toFixed(2)}</p></div>
+                    <div class="form-group"><label>Cost Price After VAT</label><p style="margin:4px 0;font-weight:500;">$${(voucher.priceBefore + costVat).toFixed(2)}</p></div>
+                    <div class="form-group"><label>Recommended Retail Price Before VAT</label><p style="margin:4px 0;font-weight:500;">$${voucher.priceAfter.toFixed(2)}</p></div>
+                    <div class="form-group"><label>Recommended Retail Price VAT Amount</label><p style="margin:4px 0;font-weight:500;">$${rrpVat.toFixed(2)}</p></div>
+                    <div class="form-group"><label>Recommended Retail Price After VAT</label><p style="margin:4px 0;font-weight:500;">$${(voucher.priceAfter + rrpVat).toFixed(2)}</p></div>
+                    <div class="form-group"><label>Merchant ID</label><p style="margin:4px 0;font-weight:500;">${voucher.brandId}</p></div>
+                    <div class="form-group"><label>MDR</label><p style="margin:4px 0;font-weight:500;">2.5%</p></div>
+                    <div class="form-group"><label>Effect Type</label><p style="margin:4px 0;font-weight:500;">${effectType}</p></div>
+                    <div class="form-group"><label>Effect Time</label><p style="margin:4px 0;font-weight:500;">${effectTime}</p></div>
+                    <div class="form-group"><label>Voucher Status</label><p style="margin:4px 0;font-weight:500;">${voucher.status}</p></div>
                 </div>
             `;
             document.getElementById('viewVoucherModal').classList.add('active');
