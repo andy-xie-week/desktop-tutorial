@@ -2553,15 +2553,19 @@
 
         // ==================== Helper Functions ====================
         function populateBrandDropdowns() {
-            const selects = ['searchSubBrandParent', 'editSubBrandParent', 'searchVoucherBrand', 'editVoucherBrand'];
+            const selects = ['searchSubBrandParent', 'editSubBrandParent', 'searchVoucherBrand', 'editVoucherBrand', 'addVoucherFormBrand'];
             selects.forEach(selectId => {
                 const select = document.getElementById(selectId);
                 if (select && selectId.includes('edit')) {
                     const enabledBrands = brandData.filter(b => b.status === 'Enable');
-                    select.innerHTML = '<option value="">Select Brand</option>' + 
+                    select.innerHTML = '<option value="">Select Brand</option>' +
+                        enabledBrands.map(b => `<option value="${b.id}">${b.nameEn}</option>`).join('');
+                } else if (select && selectId === 'addVoucherFormBrand') {
+                    const enabledBrands = brandData.filter(b => b.status === 'Enable');
+                    select.innerHTML = '<option value="">Select Brand</option>' +
                         enabledBrands.map(b => `<option value="${b.id}">${b.nameEn}</option>`).join('');
                 } else if (select) {
-                    select.innerHTML = '<option value="">All</option>' + 
+                    select.innerHTML = '<option value="">All</option>' +
                         brandData.map(b => `<option value="${b.id}">${b.nameEn}</option>`).join('');
                 }
             });
