@@ -513,7 +513,7 @@
                     </div>
                     <div class="action-bar">
                         <div class="action-left">
-                            <button class="btn btn-primary" onclick="openVoucherModal('add')">+ Add</button>
+                            <button class="btn btn-primary" onclick="openAddVoucherModal()">+ Add</button>
                         </div>
                         <div class="action-right">
                             <button class="btn btn-search" onclick="searchVouchers()">Search</button>
@@ -964,6 +964,57 @@
             <div class="modal-footer">
                 <button class="btn" onclick="closeVoucherModal()">Cancel</button>
                 <button class="btn btn-primary" onclick="saveVoucher()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Voucher - Input Voucher ID Modal -->
+    <div class="modal" id="addVoucherInputModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <div class="modal-title">Add Voucher - Enter Voucher ID</div>
+                <button class="modal-close" onclick="closeAddVoucherInputModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Voucher ID (Product ID) <span class="required">*</span></label>
+                    <input type="text" id="addVoucherInputId" placeholder="Enter Voucher ID" onkeypress="if(event.key==='Enter') searchVoucherPriceHistory()">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeAddVoucherInputModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="searchVoucherPriceHistory()">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Voucher - Price History Comparison Modal -->
+    <div class="modal" id="addVoucherComparisonModal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <div class="modal-title">Voucher Price History Comparison</div>
+                <button class="modal-close" onclick="closeAddVoucherComparisonModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="addVoucherComparisonBody">
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeAddVoucherComparisonModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="confirmAddVoucher()">Confirm & Add</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MDR Info Modal -->
+    <div class="modal" id="mdrInfoModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <div class="modal-title">MDR Information</div>
+                <button class="modal-close" onclick="closeMdrInfoModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="mdrInfoBody">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeMdrInfoModal()">Close</button>
             </div>
         </div>
     </div>
@@ -1847,8 +1898,167 @@
                 document.getElementById('editVoucherStatus').value = 'Enable';
                 toggleEffectTimeFields();
             }
-            
+
             modal.classList.add('active');
+        }
+
+        function openAddVoucherModal() {
+            document.getElementById('addVoucherInputId').value = '';
+            document.getElementById('addVoucherInputModal').classList.add('active');
+        }
+
+        function closeAddVoucherInputModal() {
+            document.getElementById('addVoucherInputModal').classList.remove('active');
+        }
+
+        function closeAddVoucherComparisonModal() {
+            document.getElementById('addVoucherComparisonModal').classList.remove('active');
+        }
+
+        function closeMdrInfoModal() {
+            document.getElementById('mdrInfoModal').classList.remove('active');
+        }
+
+        function searchVoucherPriceHistory() {
+            const voucherId = document.getElementById('addVoucherInputId').value.trim();
+            if (!voucherId) {
+                alert('Please enter a Voucher ID');
+                return;
+            }
+
+            const priceHistory = priceHistoryData.filter(p => p.productId === voucherId);
+            if (priceHistory.length === 0) {
+                alert('No price history found for Voucher ID: ' + voucherId);
+                return;
+            }
+
+            const latestRecord = priceHistory[priceHistory.length - 1];
+            const costVatPrev = latestRecord.prevCost * 0.05;
+            const costVatCurr = latestRecord.currCost * 0.05;
+            const rrpVatPrev = latestRecord.prevRrp * 0.05;
+            const rrpVatCurr = latestRecord.currRrp * 0.05;
+            const mdrPrev = ((latestRecord.prevRrp - latestRecord.prevCost) / latestRecord.prevRrp * 100).toFixed(2);
+            const mdrCurr = ((latestRecord.currRrp - latestRecord.currCost) / latestRecord.currRrp * 100).toFixed(2);
+
+            const changed = (prev, curr) => String(prev) !== String(curr) ? 'color:#e74c3c;font-weight:700;' : '';
+
+            const body = document.getElementById('addVoucherComparisonBody');
+            body.innerHTML = `
+                <table class="detail-compare-table">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Previous</th>
+                            <th>Current</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Voucher ID (Product ID)</td>
+                            <td>${latestRecord.productId}</td>
+                            <td>${latestRecord.productId}</td>
+                        </tr>
+                        <tr>
+                            <td>Voucher Name (EN)</td>
+                            <td>${latestRecord.productName}</td>
+                            <td>${latestRecord.productName}</td>
+                        </tr>
+                        <tr>
+                            <td>Voucher Name (AR)</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Currency</td>
+                            <td>SAR</td>
+                            <td>SAR</td>
+                        </tr>
+                        <tr>
+                            <td>Available</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>How To Use (EN)</td>
+                            <td>Redeem via official website or app</td>
+                            <td>Redeem via official website or app</td>
+                        </tr>
+                        <tr>
+                            <td>How To Use (AR)</td>
+                            <td>استبدل عبر الموقع الرسمي أو التطبيق</td>
+                            <td>استبدل عبر الموقع الرسمي أو التطبيق</td>
+                        </tr>
+                        <tr>
+                            <td>Cost Price Before VAT</td>
+                            <td style="${changed(latestRecord.prevCost, latestRecord.currCost)}">$${latestRecord.prevCost.toFixed(2)}</td>
+                            <td style="${changed(latestRecord.prevCost, latestRecord.currCost)}">$${latestRecord.currCost.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>Cost Price VAT Amount</td>
+                            <td style="${changed(costVatPrev.toFixed(2), costVatCurr.toFixed(2))}">$${costVatPrev.toFixed(2)}</td>
+                            <td style="${changed(costVatPrev.toFixed(2), costVatCurr.toFixed(2))}">$${costVatCurr.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>Cost Price After VAT</td>
+                            <td style="${changed((latestRecord.prevCost + costVatPrev).toFixed(2), (latestRecord.currCost + costVatCurr).toFixed(2))}">$${(latestRecord.prevCost + costVatPrev).toFixed(2)}</td>
+                            <td style="${changed((latestRecord.prevCost + costVatPrev).toFixed(2), (latestRecord.currCost + costVatCurr).toFixed(2))}">$${(latestRecord.currCost + costVatCurr).toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>Recommended Retail Price Before VAT</td>
+                            <td style="${changed(latestRecord.prevRrp, latestRecord.currRrp)}">$${latestRecord.prevRrp.toFixed(2)}</td>
+                            <td style="${changed(latestRecord.prevRrp, latestRecord.currRrp)}">$${latestRecord.currRrp.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>Recommended Retail Price VAT Amount</td>
+                            <td style="${changed(rrpVatPrev.toFixed(2), rrpVatCurr.toFixed(2))}">$${rrpVatPrev.toFixed(2)}</td>
+                            <td style="${changed(rrpVatPrev.toFixed(2), rrpVatCurr.toFixed(2))}">$${rrpVatCurr.toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>Recommended Retail Price After VAT</td>
+                            <td style="${changed((latestRecord.prevRrp + rrpVatPrev).toFixed(2), (latestRecord.currRrp + rrpVatCurr).toFixed(2))}">$${(latestRecord.prevRrp + rrpVatPrev).toFixed(2)}</td>
+                            <td style="${changed((latestRecord.prevRrp + rrpVatPrev).toFixed(2), (latestRecord.currRrp + rrpVatCurr).toFixed(2))}">$${(latestRecord.currRrp + rrpVatCurr).toFixed(2)}</td>
+                        </tr>
+                        <tr>
+                            <td>Merchant ID</td>
+                            <td><a href="javascript:showMdrInfo('${latestRecord.merchantId}', '${mdrPrev}')" style="color:#0066cc;cursor:pointer;text-decoration:underline;">${latestRecord.merchantId}</a></td>
+                            <td><a href="javascript:showMdrInfo('${latestRecord.merchantId}', '${mdrCurr}')" style="color:#0066cc;cursor:pointer;text-decoration:underline;">${latestRecord.merchantId}</a></td>
+                        </tr>
+                        <tr>
+                            <td>MDR</td>
+                            <td style="${changed(mdrPrev, mdrCurr)}">${mdrPrev}%</td>
+                            <td style="${changed(mdrPrev, mdrCurr)}">${mdrCurr}%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+            closeAddVoucherInputModal();
+            document.getElementById('addVoucherComparisonModal').classList.add('active');
+        }
+
+        function showMdrInfo(merchantId, mdr) {
+            const body = document.getElementById('mdrInfoBody');
+            body.innerHTML = `
+                <div style="padding: 16px;">
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>Merchant ID</label>
+                        <p style="margin:4px 0;font-weight:500;">${merchantId}</p>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label>MDR (Merchant Discount Rate)</label>
+                        <p style="margin:4px 0;font-weight:500;font-size:18px;color:#e74c3c;">${mdr}%</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <p style="margin:4px 0;font-weight:500;">The Merchant Discount Rate (MDR) is the percentage fee charged to the merchant for each transaction.</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById('mdrInfoModal').classList.add('active');
+        }
+
+        function confirmAddVoucher() {
+            alert('Voucher added successfully! (Demo - no backend)');
+            closeAddVoucherComparisonModal();
         }
 
         function closeVoucherModal() {
@@ -2288,6 +2498,65 @@
         function goVoucherPage(page) {
             currentPage.voucher = page;
             renderVouchers();
+        }
+
+        function confirmAddVoucher() {
+            const voucherId = document.getElementById('addVoucherInputId').value.trim();
+            const priceHistory = priceHistoryData.filter(p => p.productId === voucherId);
+            if (priceHistory.length === 0) return;
+
+            const latestRecord = priceHistory[priceHistory.length - 1];
+            const newVoucher = {
+                id: voucherId,
+                nameEn: latestRecord.productName,
+                nameAr: '-',
+                brandId: '0',
+                brandName: 'New Brand',
+                subBrandId: '',
+                subBrandName: '',
+                priceBefore: latestRecord.currCost,
+                priceAfter: latestRecord.currRrp,
+                vat: latestRecord.currCost * 0.05,
+                priority: voucherData.length + 1,
+                outOfStock: 'No',
+                status: 'Enable',
+                startTime: '',
+                endTime: ''
+            };
+
+            voucherData.push(newVoucher);
+            filteredData.voucher = [...voucherData];
+            renderVouchers();
+            closeAddVoucherComparisonModal();
+            closeAddVoucherInputModal();
+            alert('Voucher added successfully!');
+        }
+
+        function showMdrInfo(merchantId) {
+            const priceHistory = priceHistoryData.filter(p => p.merchantId === merchantId);
+            if (priceHistory.length === 0) {
+                alert('No MDR information found');
+                return;
+            }
+
+            const latestRecord = priceHistory[priceHistory.length - 1];
+            const mdrPrev = ((latestRecord.prevRrp - latestRecord.prevCost) / latestRecord.prevRrp * 100).toFixed(2);
+            const mdrCurr = ((latestRecord.currRrp - latestRecord.currCost) / latestRecord.currRrp * 100).toFixed(2);
+
+            const body = document.getElementById('mdrInfoBody');
+            body.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group"><label>Merchant ID</label><p style="margin:4px 0;font-weight:500;">${merchantId}</p></div>
+                    <div class="form-group"><label>Product ID</label><p style="margin:4px 0;font-weight:500;">${latestRecord.productId}</p></div>
+                    <div class="form-group"><label>Previous MDR</label><p style="margin:4px 0;font-weight:500;">${mdrPrev}%</p></div>
+                    <div class="form-group"><label>Current MDR</label><p style="margin:4px 0;font-weight:500;">${mdrCurr}%</p></div>
+                    <div class="form-group" style="grid-column: 1 / -1;"><label>Previous Cost</label><p style="margin:4px 0;font-weight:500;">$${latestRecord.prevCost.toFixed(2)}</p></div>
+                    <div class="form-group" style="grid-column: 1 / -1;"><label>Current Cost</label><p style="margin:4px 0;font-weight:500;">$${latestRecord.currCost.toFixed(2)}</p></div>
+                    <div class="form-group" style="grid-column: 1 / -1;"><label>Previous RRP</label><p style="margin:4px 0;font-weight:500;">$${latestRecord.prevRrp.toFixed(2)}</p></div>
+                    <div class="form-group" style="grid-column: 1 / -1;"><label>Current RRP</label><p style="margin:4px 0;font-weight:500;">$${latestRecord.currRrp.toFixed(2)}</p></div>
+                </div>
+            `;
+            document.getElementById('mdrInfoModal').classList.add('active');
         }
 
         function changePriceHistoryPage(delta) {
